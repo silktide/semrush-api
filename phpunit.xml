@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit bootstrap="test/bootstrap.php" >
+    <testsuites>
+        <testsuite name="test">
+            <directory suffix=".php">test</directory>
+            <exclude>test/bootstrap.php</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>

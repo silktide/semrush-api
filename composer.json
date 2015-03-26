@@ -1,0 +1,23 @@
+{
+    "name": "andywaite/semrush-api",
+    "description": "SEMrush API client",
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Andrew Waite",
+            "email": "andrewwaite@silktide.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "AndyWaite\\SemRushApi\\": "src",
+        "AndyWaite\\SemRushApi\\Test\\": "test"
+      }
+    }
+}
