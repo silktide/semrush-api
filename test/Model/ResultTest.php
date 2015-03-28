@@ -44,16 +44,4 @@ class ResultTest extends PHPUnit_Framework_TestCase {
         $this->instance->setRows($rows);
     }
 
-    /**
-     * Test that setting invalid rows results in exception
-     */
-    public function testSetInvalidRows()
-    {
-        $rows = [
-            "rubbish"
-        ];
-        $this->instance->setRows($rows);
-    }
-
-
 }
