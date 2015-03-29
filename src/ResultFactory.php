@@ -25,6 +25,19 @@ class ResultFactory {
     }
 
     /**
+     * Splits string data into array of row strings and breaks off header row
+     *
+     * @param string $data
+     * @return string[]
+     */
+    protected function splitStringIntoArray($data)
+    {
+        $rows = explode("\n", $data);
+        unset($rows[0]);
+        return $rows;
+    }
+
+    /**
      * Convert raw API response into rows
      *
      * @param string[] $columns
@@ -34,8 +47,7 @@ class ResultFactory {
     protected function dataToRows($columns, $data)
     {
         $rowFactory = new RowFactory();
-        $rows = explode("\n", $data);
-        unset($rows[0]);
+        $rows = $this->splitStringIntoArray($data);
         $return = [];
         foreach ($rows as $row) {
             $return[] = $rowFactory->create($columns, $row);
