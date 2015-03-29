@@ -17,8 +17,9 @@ class GuzzleConnector implements ConnectorInterface {
     public function get($url)
     {
         $client = new Client();
-        $response = $client->get($url);
-        return $response->getResponseBody();
+        $request = $client->createRequest('GET', $url);
+        $response = $client->send($request);
+        return $response->getBody();
     }
 
 } 
