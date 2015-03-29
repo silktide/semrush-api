@@ -44,4 +44,46 @@ class ResultTest extends PHPUnit_Framework_TestCase {
         $this->instance->setRows($rows);
     }
 
+    /**
+     * Test that we can iterate over the result object
+     */
+    public function testIterator()
+    {
+        $rows = [
+            $this->getMock('AndyWaite\SemRushApi\Model\Row'),
+            $this->getMock('AndyWaite\SemRushApi\Model\Row'),
+            $this->getMock('AndyWaite\SemRushApi\Model\Row')
+        ];
+
+        $this->instance->setRows($rows);
+        $rowOutput = [];
+        foreach ($this->instance as $row) {
+            $rowOutput[] = $row;
+        }
+        $this->assertEquals(count($rows), count($rowOutput));
+    }
+
+    /**
+     *  Test array access to result object
+     */
+    public function testArrayAccess()
+    {
+        $rows = [
+            $this->getMock('AndyWaite\SemRushApi\Model\Row'),
+            $this->getMock('AndyWaite\SemRushApi\Model\Row'),
+            $this->getMock('AndyWaite\SemRushApi\Model\Row')
+        ];
+
+        foreach ($rows as $index => $row) {
+            $this->instance[$index] = $row;
+        }
+
+        $this->assertTrue(isset($this->instance[0]));
+        $this->assertFalse(isset($this->instance[9]));
+        $this->assertEquals($rows[1], $this->instance[1]);
+        unset($this->instance[1]);
+        $this->assertEquals(2, count($this->instance));
+        
+    }
+
 }
