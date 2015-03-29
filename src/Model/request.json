@@ -1,0 +1,37 @@
+{
+  "domain_ranks": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "domain": "domain"
+    },
+    "optional_fields": {
+      "database": "database",
+      "display_date": "date",
+      "export_columns": "columns"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ],
+    "valid_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ]
+  }
+}

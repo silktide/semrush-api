@@ -7,6 +7,6 @@ namespace AndyWaite\SemRushApi\Exception;
 
 use InvalidArgumentException;
 
-class InvalidKeyException extends InvalidArgumentException {
+class InvalidOptionException extends InvalidArgumentException {
 
 } 
