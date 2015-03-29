@@ -64,6 +64,15 @@ class RequestTest extends PHPUnit_Framework_TestCase {
         new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain, 'display_date' => 22]);
     }
 
+    /**
+     * TODO: Make this validate proper domains
+     */
+    public function testRequestWithInvalidDomain()
+    {
+        $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
+        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => 22]);
+    }
+
     public function testRequestWithInvalidDatabase()
     {
         $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
