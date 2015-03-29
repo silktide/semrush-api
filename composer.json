@@ -2,7 +2,8 @@
     "name": "andywaite/semrush-api",
     "description": "SEMrush API client",
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.5.0",
+        "guzzle/guzzle": "~3.9"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
@@ -12,7 +13,7 @@
     "authors": [
         {
             "name": "Andrew Waite",
-            "email": "andrewwaite@silktide.com"
+            "email": "projects@andywaite.me"
         }
     ],
     "autoload": {
