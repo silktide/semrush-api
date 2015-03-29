@@ -56,11 +56,9 @@ class ResultTest extends PHPUnit_Framework_TestCase {
         ];
 
         $this->instance->setRows($rows);
-        $rowOutput = [];
-        foreach ($this->instance as $row) {
-            $rowOutput[] = $row;
+        foreach ($this->instance as $id => $row) {
+            $this->assertEquals($rows[$id], $row);
         }
-        $this->assertEquals(count($rows), count($rowOutput));
     }
 
     /**

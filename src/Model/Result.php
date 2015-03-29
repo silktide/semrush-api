@@ -59,7 +59,7 @@ class Result implements ArrayAccess, Iterator, Countable {
      * @param Row $row
      * @throws InvalidRowException
      */
-    protected function validateRow(Row $row)
+    protected function validateRow($row)
     {
         if (!($row instanceof Row)) {
             throw new InvalidRowException("The row provided was not a valid row object.");
