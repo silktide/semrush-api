@@ -45,6 +45,16 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Check that setting rubbish throws an exception
+     */
+    public function testSetInvalidRowObjects()
+    {
+        $rows = ["rubbish"];
+        $this->setExpectedException('AndyWaite\SemRushApi\Model\Exception\InvalidRowException');
+        $this->instance->setRows($rows);
+    }
+
+    /**
      * Test that we can iterate over the result object
      */
     public function testIterator()
