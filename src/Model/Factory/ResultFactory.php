@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi;
+namespace AndyWaite\SemRushApi\Model\Factory;
 
 use AndyWaite\SemRushApi\Model\Result;
 use AndyWaite\SemRushApi\Model\Row;

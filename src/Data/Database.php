@@ -3,9 +3,9 @@
 
 namespace AndyWaite\SemRushApi\Data;
 
-use ReflectionClass;
-
 abstract class Database {
+
+    use ConstantTrait;
 
     const DATABASE_GOOGLE_US = "us";
     const DATABASE_GOOGLE_UK = "uk";
@@ -35,29 +35,12 @@ abstract class Database {
     const DATABASE_GOOGLE_TR = "tr";
 
     /**
-     * Return all the databases
-     *
-     * @return string[]
-     */
-    private static function getConstants()
-    {
-        $oClass = new ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
-    }
-
-    /**
      * Get all the possible databases
      *
      * @return string[]
      */
     public static function getDatabases()
     {
-        $data = self::getConstants();
-        foreach ($data as $key => $item) {
-            if (substr($key, 0, 9) !== 'DATABASE_') {
-                unset($data[$key]);
-            }
-        }
-        return $data;
+        return self::getConstants();
     }
 } 

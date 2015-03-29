@@ -1,0 +1,38 @@
+<?php
+
+
+namespace AndyWaite\SemRushApi\Test\Data;
+
+use AndyWaite\SemRushApi\Data\Type;
+use PHPUnit_Framework_TestCase;
+
+class FunctionTest extends PHPUnit_Framework_TestCase {
+
+    /**
+     * Test getting the types
+     */
+    public function testGetTypes()
+    {
+        $types = Type::getTypes();
+        $this->assertEquals(2, count($types));
+    }
+
+    /**
+     * Test getting the default columns for a type
+     */
+    public function testGetDefaultFields()
+    {
+        $columns = Type::getDefaultColumns(Type::TYPE_DOMAIN_RANKS);
+        $this->assertEquals(9, count($columns));
+    }
+
+    /**
+     * Expect an exception if we request an invalid function
+     */
+    public function testGetDefaultFieldsForInvalidFunction()
+    {
+        $this->setExpectedException('AndyWaite\SemRushApi\Data\Exception\UnsupportedTypeException');
+        Type::getDefaultColumns("invalid-type");
+    }
+
+} 

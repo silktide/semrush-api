@@ -2,7 +2,7 @@
 
 namespace AndyWaite\SemRushApi\Model;
 
-use AndyWaite\SemRushApi\Data\Field;
+use AndyWaite\SemRushApi\Data\Column;
 use AndyWaite\SemRushApi\Model\Exception\InvalidDataException;
 use AndyWaite\SemRushApi\Model\Exception\InvalidFieldException;
 
@@ -57,10 +57,9 @@ class Row {
      */
     protected function validate($data)
     {
-        $field = new Field();
         foreach ($data as $code => $item) {
-            if (!$field->isValidField($code)) {
-                throw new InvalidFieldException("The data provided was not a valid field code.");
+            if (!Column::isValidColumn($code)) {
+                throw new InvalidFieldException("The data provided [{$code}] was not a valid field code.");
             }
         }
     }

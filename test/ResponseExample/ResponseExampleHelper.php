@@ -4,7 +4,7 @@
 namespace AndyWaite\SemRushApi\Test\ResponseExample;
 
 
-class ResponseExampleHelper {
+abstract class ResponseExampleHelper {
 
     /**
      * Get an example response
@@ -12,7 +12,7 @@ class ResponseExampleHelper {
      * @param $name
      * @return string
      */
-    public function getResponseExample($name)
+    static public function getResponseExample($name)
     {
         chdir(__DIR__);
         $filename = $name.".txt";

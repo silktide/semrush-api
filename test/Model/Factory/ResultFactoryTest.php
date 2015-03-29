@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test;
+namespace AndyWaite\SemRushApi\Test\Model\Factory;
 
 use AndyWaite\SemRushApi\Model\Result;
 use AndyWaite\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\ResultFactory;
+use AndyWaite\SemRushApi\Model\Factory\ResultFactory;
 
 class ResultFactoryTest extends PHPUnit_Framework_TestCase {
 
@@ -14,21 +14,6 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
      * @var ResultFactory
      */
     protected $instance;
-
-    /**
-     * @var ResponseExampleHelper
-     */
-    protected $responseExampleHelper;
-
-    /**
-     * Instantiate our response example helper
-     *
-     * This is done in constructor as one is fine for all tests
-     */
-    public function __construct()
-    {
-        $this->responseExampleHelper = new ResponseExampleHelper();
-    }
 
     /**
      * Create an instance
@@ -46,10 +31,10 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
     public function testCreate()
     {
         $columns = ["Db","Dn","Rk","Or","Ot","Oc","Ad","At","Ac"];
-        $exampleResponse = $this->responseExampleHelper->getResponseExample('domain_ranks');
+        $exampleResponse = ResponseExampleHelper::getResponseExample('domain_ranks_default');
         $result = $this->instance->create($columns, $exampleResponse);
         $this->assertTrue($result instanceof Result);
-        $this->assertEquals(1, count($result));
+        $this->assertEquals(2, count($result));
     }
 
 } 

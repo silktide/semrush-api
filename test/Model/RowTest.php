@@ -28,7 +28,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
     public function testSetAndGetData()
     {
         $values = [
-            'Ab' => 'top',
+            'At' => 'top',
             'Ac' => '560',
             'Ad' => 'biscuits, cookies, hobnobs'
         ];
@@ -55,7 +55,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
     public function testSetInvalidField()
     {
         $values = [
-            'Ab' => 'top',
+            'At' => 'top',
             'Ac' => '560',
             'something' => 'biscuits, cookies, hobnobs'
         ];
@@ -71,7 +71,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
     public function testGetValue()
     {
         $values = [
-            'Ab' => 'top',
+            'At' => 'top',
             'Ac' => '560',
             'Ad' => 'biscuits, cookies, hobnobs'
         ];

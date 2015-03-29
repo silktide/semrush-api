@@ -3,8 +3,8 @@
 
 namespace AndyWaite\SemRushApi\Model\Exception;
 
-use Exception;
+use InvalidArgumentException;
 
-class InvalidDataException extends Exception {
+class InvalidDataException extends InvalidArgumentException {
 
 } 

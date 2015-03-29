@@ -1,11 +1,11 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Test;
+namespace AndyWaite\SemRushApi\Test\Model\Factory;
 
 use AndyWaite\SemRushApi\Model\Row;
 use AndyWaite\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\RowFactory;
+use AndyWaite\SemRushApi\Model\Factory\RowFactory;
 
 class RowFactoryTest extends PHPUnit_Framework_TestCase {
 
@@ -13,21 +13,6 @@ class RowFactoryTest extends PHPUnit_Framework_TestCase {
      * @var RowFactory
      */
     protected $instance;
-
-    /**
-     * @var ResponseExampleHelper
-     */
-    protected $responseExampleHelper;
-
-    /**
-     * Instantiate our response example helper
-     *
-     * This is done in constructor as one is fine for all tests
-     */
-    public function __construct()
-    {
-        $this->responseExampleHelper = new ResponseExampleHelper();
-    }
 
     /**
      * Create an instance
