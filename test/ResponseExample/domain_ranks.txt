@@ -1,0 +1,2 @@
+Database;Domain;Rank;Organic Keywords;Organic Traffic;Organic Cost;Adwords Keywords;Adwords Traffic;Adwords Cost
+us;seobook.com;29062;3214;33696;193957;0;0;0

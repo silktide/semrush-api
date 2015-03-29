@@ -60,7 +60,7 @@ class Row {
         $field = new Field();
         foreach ($data as $code => $item) {
             if (!$field->isValidField($code)) {
-                throw new InvalidFieldException("Tbe data provided was not a valid field code.");
+                throw new InvalidFieldException("The data provided was not a valid field code.");
             }
         }
     }
