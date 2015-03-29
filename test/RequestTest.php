@@ -65,7 +65,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * TODO: Make this validate proper dates
+     * TODO: Make this validate proper domains
      */
     public function testRequestWithInvalidDomain()
     {
