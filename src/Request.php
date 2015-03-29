@@ -72,10 +72,10 @@ class Request {
 
         //check for missing options
         $requiredOptions = array_keys($this->definition->getRequiredFields());
-        $missingRequiredOptions = array_diff($requiredOptions, $optionsPassed);
-        if (count($missingRequiredOptions) > 0)
+        $missingOptions = array_diff($requiredOptions, $optionsPassed);
+        if (count($missingOptions) > 0)
         {
-            throw new InvalidOptionException("Missing option(s) [".implode(", ", $missingRequiredOptions)."] which are required for request [{$this->type}]");
+            throw new InvalidOptionException("Missing option(s) [".implode(", ", $missingOptions)."] which are required for request [{$this->type}]");
         }
 
         //validate each field
@@ -96,35 +96,22 @@ class Request {
         $fieldType = $fieldDefinitions[$option];
         switch ($fieldType) {
             case "type":
-                if (!in_array($value, Type::getTypes())) {
-                    throw new InvalidOptionException("[{$option}] invalid type [{$value}]");
-                }
                 break;
 
             case "string":
-                if (!is_string($value)) {
-                    throw new InvalidOptionException("[{$option}] was not a string [{$value}]");
-                }
+                $this->validateString($option, $value);
                 break;
 
-            //TODO: Implement domain validation
             case "domain":
-                if (!is_string($value)) {
-                    throw new InvalidOptionException("[{$option}] was not a valid domain [{$value}]");
-                }
+                $this->validateDomain($option, $value);
                 break;
 
             case "database":
-                if (!in_array($value, Database::getDatabases())) {
-                    throw new InvalidOptionException("[{$option}] was not a valid database [{$value}]");
-                }
+                $this->validateDatabase($option, $value);
                 break;
 
-            //TODO: Implement date validation
             case "date":
-                if (!is_string($value)) {
-                    throw new InvalidOptionException("[{$option}] was not a valid date [{$value}]");
-                }
+                $this->validateDate($option, $value);
                 break;
 
             case "columns":
@@ -134,6 +121,64 @@ class Request {
             default:
                 throw new InvalidOptionException("[{$option}] was an unknown field type [{$fieldType}]");
                 break;
+        }
+    }
+
+    /**
+     * Validate database
+     *
+     * @param string $key
+     * @param string $database
+     * @throws InvalidOptionException
+     */
+    protected function validateDatabase($key, $database)
+    {
+        if (!in_array($database, Database::getDatabases())) {
+            throw new InvalidOptionException("[{$key}] was not a database [{$database}]");
+        }
+    }
+
+    /**
+     * Validate string
+     *
+     * @param string $key
+     * @param string $string
+     * @throws InvalidOptionException
+     */
+    protected function validateString($key, $string)
+    {
+        if (!is_string($string)) {
+            throw new InvalidOptionException("[{$key}] was not a string [{$string}]");
+        }
+    }
+
+    /**
+    * Validate domain
+    *
+    * @param string $key
+    * @param string $domain
+    * @throws InvalidOptionException
+    * TODO: Implement proper domain validation
+    */
+    protected function validateDomain($key, $domain)
+    {
+        if (!is_string($domain)) {
+            throw new InvalidOptionException("[{$key}] was not a valid domain [{$domain}]");
+        }
+    }
+
+    /**
+     * Validate date
+     *
+     * @param string $key
+     * @param string $date
+     * @throws InvalidOptionException
+     * TODO: Implement proper date validation
+     */
+    protected function validateDate($key, $date)
+    {
+        if (!is_string($date)) {
+            throw new InvalidOptionException("[{$key}] was not a valid date [{$date}]");
         }
     }
 
