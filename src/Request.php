@@ -117,10 +117,6 @@ class Request {
             case "columns":
                 $this->validateColumns($option, $value);
                 break;
-
-            default:
-                throw new InvalidOptionException("[{$option}] was an unknown field type [{$fieldType}]");
-                break;
         }
     }
 

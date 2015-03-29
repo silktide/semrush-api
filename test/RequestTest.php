@@ -5,6 +5,8 @@
 
 namespace AndyWaite\SemRushApi\Test;
 
+use AndyWaite\SemRushApi\Data\Column;
+use AndyWaite\SemRushApi\Data\Database;
 use AndyWaite\SemRushApi\Data\Type;
 use AndyWaite\SemRushApi\Request;
 use PHPUnit_Framework_TestCase;
@@ -16,7 +18,16 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 
     public function testRequest()
     {
-        $request = new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain]);
+        $request = new Request(Type::TYPE_DOMAIN_RANKS, [
+            'key' => $this->key,
+            'domain' => $this->domain,
+            'display_date' => '20150115',
+            'database' => Database::DATABASE_GOOGLE_UK,
+            'export_columns' => [
+                Column::COLUMN_ADWORDS_BUDGET,
+                Column::COLUMN_ADWORDS_KEYWORDS
+            ]
+        ]);
         $request->getUrl();
     }
 
@@ -59,7 +70,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
         new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain, 'database' => 'rubbish']);
     }
 
-    public function testRequestWithInvalidString()
+    public function testRequestWithInvalidKey()
     {
         $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
         new Request(Type::TYPE_DOMAIN_RANKS, ['key' => 12, 'domain' => $this->domain]);
