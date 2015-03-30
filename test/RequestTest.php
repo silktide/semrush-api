@@ -16,17 +16,28 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 
     public function testRequest()
     {
+        $date = '20150115';
+        $columns = [
+            Column::COLUMN_ADWORDS_BUDGET,
+            Column::COLUMN_ADWORDS_KEYWORDS
+        ];
+
         $request = new Request(Type::TYPE_DOMAIN_RANKS, [
             'key' => $this->key,
             'domain' => $this->domain,
-            'display_date' => '20150115',
+            'display_date' => $date,
             'database' => Database::DATABASE_GOOGLE_UK,
-            'export_columns' => [
-                Column::COLUMN_ADWORDS_BUDGET,
-                Column::COLUMN_ADWORDS_KEYWORDS
-            ]
+            'export_columns' => $columns
         ]);
-        $request->getUrl();
+        
+        $url = $request->getUrl();
+        $this->assertContains("domain=".$this->domain, $url);
+        $this->assertContains("type=".Type::TYPE_DOMAIN_RANKS, $url);
+        $this->assertContains("display_date=".$date, $url);
+        $this->assertContains("export_escape=1", $url);
+        $this->assertContains("export_columns=".urlencode(implode(",",$columns)), $url);
+        $this->assertContains("key=".$this->key, $url);
+        $this->assertStringStartsWith("http://api.semrush.com/?", $url);
     }
 
     public function testRequestWithMissingOption()
@@ -53,22 +64,16 @@ class RequestTest extends PHPUnit_Framework_TestCase {
         new Request(Type::TYPE_DOMAIN_RANKS, ['something' => 'bad']);
     }
 
-    /**
-     * TODO: Make this validate proper dates
-     */
     public function testRequestWithInvalidDate()
     {
         $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
-        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain, 'display_date' => 22]);
+        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain, 'display_date' => "20301215"]);
     }
 
-    /**
-     * TODO: Make this validate proper domains
-     */
     public function testRequestWithInvalidDomain()
     {
         $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
-        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => 22]);
+        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => "not a domain"]);
     }
 
     public function testRequestWithInvalidDatabase()

@@ -126,6 +126,25 @@ class Request
             case "columns":
                 $this->validateColumns($option, $value);
                 break;
+
+            case "boolean":
+                $this->validateBoolean($option, $value);
+                break;
+        }
+    }
+
+    /**
+     * Validate boolean option (1 or 0)
+     *
+     * @param string $key
+     * @param mixed $value
+     * @throws InvalidOptionException
+     */
+    protected function validateBoolean($key, $value)
+    {
+        $value = strval($value);
+        if (!($value == "1" || $value == "0")) {
+            throw new InvalidOptionException("[{$key}] was not 1 or 0 [{$value}]");
         }
     }
 
@@ -163,11 +182,10 @@ class Request
     * @param string $key
     * @param string $domain
     * @throws InvalidOptionException
-    * TODO: Implement proper domain validation
     */
     protected function validateDomain($key, $domain)
     {
-        if (!is_string($domain)) {
+        if (!preg_match('/^[a-z0-9-]+$/i', $domain)) {
             throw new InvalidOptionException("[{$key}] was not a valid domain [{$domain}]");
         }
     }
@@ -178,11 +196,10 @@ class Request
      * @param string $key
      * @param string $date
      * @throws InvalidOptionException
-     * TODO: Implement proper date validation
      */
     protected function validateDate($key, $date)
     {
-        if (!is_string($date)) {
+        if (!preg_match('/^20[0-2][0-9][0-1][0-9]15$/', $date)) {
             throw new InvalidOptionException("[{$key}] was not a valid date [{$date}]");
         }
     }
@@ -211,6 +228,8 @@ class Request
 
     /**
      * Load request definition
+     *
+     * @return Definition
      */
     protected function loadRequestDefinition()
     {
@@ -219,13 +238,30 @@ class Request
 
 
     /**
+     * Convert options to strings.  At the moment, it just implodes export
+     * columns to be comma separated
+     *
+     * @return string[]
+     */
+    protected function getOptionsAsStrings()
+    {
+        $options = $this->options;
+        if (isset($options['export_columns'])) {
+            $options['export_columns'] = implode(",", $options['export_columns']);
+        }
+        return $options;
+    }
+
+
+    /**
      * Get the URL of this request
      *
-     * TODO: Write this
+     * @return string
      */
     public function getUrl()
     {
-
+        $params = $this->getOptionsAsStrings();
+        return self::ENDPOINT."?".http_build_query($params);
     }
 
 } 
