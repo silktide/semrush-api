@@ -1,7 +1,5 @@
 <?php
-/**
- * Copyright 2013-2015 Silktide Ltd. All Rights Reserved.
- */
+
 
 namespace AndyWaite\SemRushApi\Test;
 
@@ -47,7 +45,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals([
             "database" => "database",
             "display_date" => "date",
-            "export_columns" => "columns"
+            "export_columns" => "columns",
+            "export_escape" => "boolean"
         ], $this->instance->getOptionalFields());
     }
 
@@ -59,7 +58,8 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
             "domain" => "domain",
             "database" => "database",
             "display_date" => "date",
-            "export_columns" => "columns"
+            "export_columns" => "columns",
+            "export_escape" => "boolean"
         ], $this->instance->getAvailableFields());
     }
 

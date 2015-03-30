@@ -1,7 +1,5 @@
 <?php
-/**
- * Copyright 2013-2015 Silktide Ltd. All Rights Reserved.
- */
+
 
 namespace AndyWaite\SemRushApi;
 
@@ -10,7 +8,8 @@ use AndyWaite\SemRushApi\Data\Type;
 use AndyWaite\SemRushApi\Exception\InvalidOptionException;
 use AndyWaite\SemRushApi\Model\Definition;
 
-class Request {
+class Request
+{
 
     /**
      * @var string
@@ -41,8 +40,19 @@ class Request {
     public function __construct($type, $options = [])
     {
         $this->type = $type;
-        $this->options = array_merge(['type' => $type], $options);
+        $this->options = ['type' => $type] + $options;
+        $this->loadRequestDefinition();
+        $this->mergePresets();
         $this->validate();
+    }
+
+    /**
+     * Merge in presets from the definition
+     */
+    protected function mergePresets()
+    {
+        $presets = $this->definition->getPresetFields();
+        $this->options = $this->options + $presets;
     }
 
     /**
@@ -50,7 +60,6 @@ class Request {
      */
     protected function validate()
     {
-        $this->loadRequestDefinition();
         $this->validateOptions();
     }
 

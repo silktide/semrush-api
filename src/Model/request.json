@@ -8,7 +8,8 @@
     "optional_fields": {
       "database": "database",
       "display_date": "date",
-      "export_columns": "columns"
+      "export_columns": "columns",
+      "export_escape": "boolean"
     },
     "preset_fields": {
       "export_escape": "1"

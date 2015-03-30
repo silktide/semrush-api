@@ -1,7 +1,5 @@
 <?php
-/**
- * Copyright 2013-2015 Silktide Ltd. All Rights Reserved.
- */
+
 
 namespace AndyWaite\SemRushApi\Model;
 
@@ -69,7 +67,7 @@ class Definition {
      */
     public function getAvailableFields()
     {
-        return array_merge($this->definition['optional_fields'], $this->definition['required_fields']);
+        return $this->definition['optional_fields'] + $this->definition['required_fields'];
     }
 
     /**
