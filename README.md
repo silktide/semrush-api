@@ -14,12 +14,14 @@ A PHP API client for the SEMrush API.
 
 ### Setup
 
-Here's how to instantiate an API Client:
+The API library has a number of dependencies which need to be initialised and injected.  If you don't use DI, here's how to set up the API client:
 
         $requestFactory = new \AndyWaite\SemRushApi\Model\Factory\RequestFactory();
         $rowFactory = new \AndyWaite\SemRushApi\Model\Factory\RowFactory();
         $resultFactory = new \AndyWaite\SemRushApi\Model\Factory\ResultFactory($rowFactory);
         $guzzle = new \GuzzleHttp\Client();        
+        
+        
         $client = new \AndyWaite\SemRushApi\Client("[YOUR API KEY]", $requestFactory, $resultFactory, $guzzle);
         
         
