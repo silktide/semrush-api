@@ -33,7 +33,7 @@ class Definition {
     protected function loadDefinition()
     {
         chdir(__DIR__);
-        $data = json_decode(file_get_contents("request.json"), true);
+        $data = json_decode(file_get_contents("requestDefinitions.json"), true);
         if (!isset($data[$this->type])) {
             throw new InvalidTypeException("The type of request provided [{$this->type}] was not valid or is not currently supported.");
         }
