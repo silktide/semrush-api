@@ -73,6 +73,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
     public function testGetDefaultColumns()
     {
         $this->assertEquals([
+            "Db",
             "Dn",
             "Rk",
             "Or",
@@ -87,6 +88,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
     public function testGetValidColumns()
     {
         $this->assertEquals([
+            "Db",
             "Dn",
             "Rk",
             "Or",

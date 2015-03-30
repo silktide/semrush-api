@@ -3,8 +3,6 @@
 
 namespace AndyWaite\SemRushApi\Data;
 
-use AndyWaite\SemRushApi\Data\Exception\UnsupportedTypeException;
-
 abstract class Type {
 
     use ConstantTrait;

@@ -22,7 +22,10 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
      */
     public function setup()
     {
-        $this->instance = new ResultFactory();
+        $rowFactory = $this->getMock('AndyWaite\SemRushApi\Model\Factory\RowFactory');
+        $row = $this->getMockBuilder('AndyWaite\SemRushApi\Model\Row')->disableOriginalConstructor()->getMock();
+        $rowFactory->expects($this->any())->method('create')->willReturn($row);
+        $this->instance = new ResultFactory($rowFactory);
     }
 
     /**

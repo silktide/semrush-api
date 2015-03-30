@@ -21,10 +21,28 @@ class RowFactory {
         return $row;
     }
 
+    /**
+     * @param string[] $columns
+     * @param string $data
+     * @return string[]
+     */
     protected function createAssociativeFromColumnsAndData($columns, $data)
     {
-        $values = $this->semicolonSeparatedToArray($data);
+        $values = $this->stripQuotes($this->semicolonSeparatedToArray($data));
         return array_combine($columns, $values);
+    }
+
+    /**
+     * Strip quotes from items in data array
+     *
+     * @param $data
+     */
+    protected function stripQuotes($data)
+    {
+        foreach ($data as &$item) {
+            $item = trim($item,'"');
+        }
+        return $data;
     }
 
     /**

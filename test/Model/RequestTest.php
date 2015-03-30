@@ -1,18 +1,35 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test;
+namespace AndyWaite\SemRushApi\Test\Model;
 
 use AndyWaite\SemRushApi\Data\Column;
 use AndyWaite\SemRushApi\Data\Database;
 use AndyWaite\SemRushApi\Data\Type;
-use AndyWaite\SemRushApi\Request;
+use AndyWaite\SemRushApi\Model\Request;
 use PHPUnit_Framework_TestCase;
 
 class RequestTest extends PHPUnit_Framework_TestCase {
 
     protected $key = 'testkey';
     protected $domain = 'domain';
+
+
+    public function testGetExpectedResultColumns()
+    {
+        $columns = [
+            Column::COLUMN_ADWORDS_BUDGET,
+            Column::COLUMN_ADWORDS_KEYWORDS
+        ];
+
+        $request = new Request(Type::TYPE_DOMAIN_RANKS, [
+            'key' => $this->key,
+            'domain' => $this->domain,
+            'export_columns' => $columns
+        ]);
+
+        $this->assertEquals($columns, $request->getExpectedResultColumns());
+    }
 
     public function testRequest()
     {

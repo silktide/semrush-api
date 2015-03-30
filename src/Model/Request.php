@@ -1,27 +1,20 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi;
+namespace AndyWaite\SemRushApi\Model;
 
 use AndyWaite\SemRushApi\Data\Database;
 use AndyWaite\SemRushApi\Data\Type;
 use AndyWaite\SemRushApi\Exception\InvalidOptionException;
-use AndyWaite\SemRushApi\Model\Definition;
 
 class Request
 {
+    const ENDPOINT = "http://api.semrush.com/";
 
     /**
      * @var string
      */
     protected $type;
-
-    /**
-     * @var array
-     */
-    protected $typeDefinition = [];
-
-    const ENDPOINT = "http://api.semrush.com/";
 
     /**
      * @var array
@@ -185,7 +178,7 @@ class Request
     */
     protected function validateDomain($key, $domain)
     {
-        if (!preg_match('/^[a-z0-9-]+$/i', $domain)) {
+        if (!preg_match('/^[a-z0-9-.]+$/i', $domain)) {
             throw new InvalidOptionException("[{$key}] was not a valid domain [{$domain}]");
         }
     }
@@ -262,6 +255,19 @@ class Request
     {
         $params = $this->getOptionsAsStrings();
         return self::ENDPOINT."?".http_build_query($params);
+    }
+
+    /**
+     * Get the columns for this request
+     *
+     * @return string[]
+     */
+    public function getExpectedResultColumns()
+    {
+        if (isset($this->options['export_columns'])) {
+            return $this->options['export_columns'];
+        }
+        return $this->definition->getDefaultColumns();
     }
 
 } 

@@ -8,6 +8,20 @@ use AndyWaite\SemRushApi\Model\Row;
 
 class ResultFactory {
 
+
+    /**
+     * @var RowFactory
+     */
+    protected $rowFactory;
+
+    /**
+     * @param RowFactory $rowFactory
+     */
+    public function __construct(RowFactory $rowFactory)
+    {
+        $this->rowFactory = $rowFactory;
+    }
+
     /**
      * Takes raw API data and converts into a result
      *
@@ -44,11 +58,10 @@ class ResultFactory {
      */
     protected function dataToRows($columns, $data)
     {
-        $rowFactory = new RowFactory();
         $rows = $this->splitStringIntoArray($data);
         $return = [];
         foreach ($rows as $row) {
-            $return[] = $rowFactory->create($columns, $row);
+            $return[] = $this->rowFactory->create($columns, $row);
         }
         return $return;
     }
