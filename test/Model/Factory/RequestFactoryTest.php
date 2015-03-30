@@ -1,11 +1,11 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Test\Model\Factory;
+namespace Silktide\SemRushApi\Test\Model\Factory;
 
-use AndyWaite\SemRushApi\Model\Request;
-use AndyWaite\SemRushApi\Model\Factory\RequestFactory;
+use Silktide\SemRushApi\Model\Request;
+use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Data\Type;
 
 class RequestFactoryTest extends PHPUnit_Framework_TestCase {
 

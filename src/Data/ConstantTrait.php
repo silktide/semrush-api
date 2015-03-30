@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Data;
+namespace Silktide\SemRushApi\Data;
 
 use ReflectionClass;
 

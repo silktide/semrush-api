@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test\Data;
+namespace Silktide\SemRushApi\Test\Data;
 
-use AndyWaite\SemRushApi\Data\Database;
+use Silktide\SemRushApi\Data\Database;
 use PHPUnit_Framework_TestCase;
 
 class DatabaseTest extends PHPUnit_Framework_TestCase {

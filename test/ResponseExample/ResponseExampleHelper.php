@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test\ResponseExample;
+namespace Silktide\SemRushApi\Test\ResponseExample;
 
 
 abstract class ResponseExampleHelper {

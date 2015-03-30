@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test\Data;
+namespace Silktide\SemRushApi\Test\Data;
 
-use AndyWaite\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Data\Type;
 use PHPUnit_Framework_TestCase;
 
 class FunctionTest extends PHPUnit_Framework_TestCase {

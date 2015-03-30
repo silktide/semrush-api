@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test\Model\Factory;
+namespace Silktide\SemRushApi\Test\Model\Factory;
 
-use AndyWaite\SemRushApi\Model\Result;
-use AndyWaite\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
+use Silktide\SemRushApi\Model\Result;
+use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\Model\Factory\ResultFactory;
+use Silktide\SemRushApi\Model\Factory\ResultFactory;
 
 class ResultFactoryTest extends PHPUnit_Framework_TestCase {
 
@@ -22,8 +22,8 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
      */
     public function setup()
     {
-        $rowFactory = $this->getMock('AndyWaite\SemRushApi\Model\Factory\RowFactory');
-        $row = $this->getMockBuilder('AndyWaite\SemRushApi\Model\Row')->disableOriginalConstructor()->getMock();
+        $rowFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RowFactory');
+        $row = $this->getMockBuilder('Silktide\SemRushApi\Model\Row')->disableOriginalConstructor()->getMock();
         $rowFactory->expects($this->any())->method('create')->willReturn($row);
         $this->instance = new ResultFactory($rowFactory);
     }

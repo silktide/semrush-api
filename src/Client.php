@@ -1,13 +1,13 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi;
+namespace Silktide\SemRushApi;
 
-use AndyWaite\SemRushApi\Data\Type;
-use AndyWaite\SemRushApi\Model\Factory\RequestFactory;
-use AndyWaite\SemRushApi\Model\Factory\ResultFactory;
-use AndyWaite\SemRushApi\Model\Request;
-use AndyWaite\SemRushApi\Model\Result as ApiResult;
+use Silktide\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Model\Factory\RequestFactory;
+use Silktide\SemRushApi\Model\Factory\ResultFactory;
+use Silktide\SemRushApi\Model\Request;
+use Silktide\SemRushApi\Model\Result as ApiResult;
 use Guzzle\Http\Client as GuzzleClient;
 
 class Client {

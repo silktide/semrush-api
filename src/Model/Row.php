@@ -1,10 +1,10 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Model;
+namespace Silktide\SemRushApi\Model;
 
-use AndyWaite\SemRushApi\Data\Column;
-use AndyWaite\SemRushApi\Model\Exception\InvalidDataException;
-use AndyWaite\SemRushApi\Model\Exception\InvalidFieldException;
+use Silktide\SemRushApi\Data\Column;
+use Silktide\SemRushApi\Model\Exception\InvalidDataException;
+use Silktide\SemRushApi\Model\Exception\InvalidFieldException;
 
 class Row {
 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test;
+namespace Silktide\SemRushApi\Test;
 
-use AndyWaite\SemRushApi\Client;
-use AndyWaite\SemRushApi\Model\Result;
+use Silktide\SemRushApi\Client;
+use Silktide\SemRushApi\Model\Result;
 use PHPUnit_Framework_TestCase;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Guzzle\Http\Message\Response;
@@ -29,12 +29,12 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $guzzle = new GuzzleClient();
         $guzzle->addSubscriber($plugin);
 
-        $requestFactory = $this->getMock('AndyWaite\SemRushApi\Model\Factory\RequestFactory');
-        $request = $this->getMockBuilder('AndyWaite\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $requestFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RequestFactory');
+        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
         $requestFactory->expects($this->any())->method('create')->willReturn($request);
 
-        $resultFactory = $this->getMockBuilder('AndyWaite\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
-        $result = $this->getMockBuilder('AndyWaite\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
+        $resultFactory = $this->getMockBuilder('Silktide\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
+        $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
         $resultFactory->expects($this->any())->method('create')->willReturn($result);
 
         $this->instance = new Client('key', $requestFactory, $resultFactory, $guzzle);

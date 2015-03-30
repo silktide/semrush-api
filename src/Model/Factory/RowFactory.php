@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Model\Factory;
+namespace Silktide\SemRushApi\Model\Factory;
 
-use AndyWaite\SemRushApi\Model\Row;
+use Silktide\SemRushApi\Model\Row;
 
 class RowFactory {
 

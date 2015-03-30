@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Model\Factory;
+namespace Silktide\SemRushApi\Model\Factory;
 
-use AndyWaite\SemRushApi\Model\Request;
+use Silktide\SemRushApi\Model\Request;
 
 class RequestFactory {
 

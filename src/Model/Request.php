@@ -1,11 +1,11 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Model;
+namespace Silktide\SemRushApi\Model;
 
-use AndyWaite\SemRushApi\Data\Database;
-use AndyWaite\SemRushApi\Data\Type;
-use AndyWaite\SemRushApi\Exception\InvalidOptionException;
+use Silktide\SemRushApi\Data\Database;
+use Silktide\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Exception\InvalidOptionException;
 
 class Request
 {

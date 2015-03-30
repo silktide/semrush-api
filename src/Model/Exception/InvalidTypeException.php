@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Model\Exception;
+namespace Silktide\SemRushApi\Model\Exception;
 
 use InvalidArgumentException;
 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test;
+namespace Silktide\SemRushApi\Test;
 
-use AndyWaite\SemRushApi\Data\Type;
-use AndyWaite\SemRushApi\Model\Definition;
+use Silktide\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Model\Definition;
 use PHPUnit_Framework_TestCase;
 
 class DefinitionTest extends PHPUnit_Framework_TestCase {
@@ -27,7 +27,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
      */
     public function testInvalidType()
     {
-        $this->setExpectedException('AndyWaite\SemRushApi\Model\Exception\InvalidTypeException');
+        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidTypeException');
         new Definition("invalid");
     }
 

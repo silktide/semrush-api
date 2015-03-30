@@ -1,16 +1,16 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi;
+namespace Silktide\SemRushApi;
 
-use AndyWaite\SemRushApi\Client;
-use AndyWaite\SemRushApi\Data\Column;
-use AndyWaite\SemRushApi\Model\Factory\RequestFactory;
-use AndyWaite\SemRushApi\Model\Factory\ResultFactory;
-use AndyWaite\SemRushApi\Model\Factory\RowFactory;
-use AndyWaite\SemRushApi\Model\Result;
-use AndyWaite\SemRushApi\Model\Row;
-use AndyWaite\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
+use Silktide\SemRushApi\Client;
+use Silktide\SemRushApi\Data\Column;
+use Silktide\SemRushApi\Model\Factory\RequestFactory;
+use Silktide\SemRushApi\Model\Factory\ResultFactory;
+use Silktide\SemRushApi\Model\Factory\RowFactory;
+use Silktide\SemRushApi\Model\Result;
+use Silktide\SemRushApi\Model\Row;
+use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Guzzle\Http\Message\Response;
@@ -45,7 +45,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
     public function testDomainRanksRequest()
     {
         $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_default')));
-        $result = $this->client->getDomainRanks('andywaite.me');
+        $result = $this->client->getDomainRanks('silktide.com');
         $this->assertTrue($result instanceof Result);
         $this->assertEquals(2, count($result));
         foreach ($result as $row) {

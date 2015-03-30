@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Model;
+namespace Silktide\SemRushApi\Model;
 
-use AndyWaite\SemRushApi\Model\Exception\InvalidTypeException;
+use Silktide\SemRushApi\Model\Exception\InvalidTypeException;
 
 class Definition {
 

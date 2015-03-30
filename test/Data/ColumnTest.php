@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Test\Data;
+namespace Silktide\SemRushApi\Test\Data;
 
-use AndyWaite\SemRushApi\Data\Column;
+use Silktide\SemRushApi\Data\Column;
 use PHPUnit_Framework_TestCase;
 
 class ColumnTest extends PHPUnit_Framework_TestCase {

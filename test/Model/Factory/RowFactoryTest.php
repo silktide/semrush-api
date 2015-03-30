@@ -1,11 +1,11 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Test\Model\Factory;
+namespace Silktide\SemRushApi\Test\Model\Factory;
 
-use AndyWaite\SemRushApi\Model\Row;
-use AndyWaite\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
+use Silktide\SemRushApi\Model\Row;
+use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\Model\Factory\RowFactory;
+use Silktide\SemRushApi\Model\Factory\RowFactory;
 
 class RowFactoryTest extends PHPUnit_Framework_TestCase {
 

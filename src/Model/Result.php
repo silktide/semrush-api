@@ -1,8 +1,8 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Model;
+namespace Silktide\SemRushApi\Model;
 
-use AndyWaite\SemRushApi\Model\Exception\InvalidRowException;
+use Silktide\SemRushApi\Model\Exception\InvalidRowException;
 
 use ArrayAccess;
 use Iterator;

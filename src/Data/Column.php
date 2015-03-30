@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AndyWaite\SemRushApi\Data;
+namespace Silktide\SemRushApi\Data;
 
 abstract class Column {
 

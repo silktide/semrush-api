@@ -1,9 +1,9 @@
 <?php
 
-namespace AndyWaite\SemRushApi\Test\Model;
+namespace Silktide\SemRushApi\Test\Model;
 
 use PHPUnit_Framework_TestCase;
-use AndyWaite\SemRushApi\Model\Row;
+use Silktide\SemRushApi\Model\Row;
 
 class RowTest extends PHPUnit_Framework_TestCase {
 
@@ -23,7 +23,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
     /**
      * Check we can set and get data
      *
-     * @throws \AndyWaite\SemRushApi\Model\Exception\InvalidDataException
+     * @throws \Silktide\SemRushApi\Model\Exception\InvalidDataException
      */
     public function testSetAndGetData()
     {
@@ -39,18 +39,18 @@ class RowTest extends PHPUnit_Framework_TestCase {
     /**
      * Make sure an exception is thrown with invalid data
      *
-     * @throws \AndyWaite\SemRushApi\Model\Exception\InvalidDataException
+     * @throws \Silktide\SemRushApi\Model\Exception\InvalidDataException
      */
     public function testSetInvalidData()
     {
-        $this->setExpectedException('AndyWaite\SemRushApi\Model\Exception\InvalidDataException');
+        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidDataException');
         $this->instance->setData("boot");
     }
 
     /**
      * Make sure an exception is thrown with invalid field name
      *
-     * @throws \AndyWaite\SemRushApi\Model\Exception\InvalidFieldException
+     * @throws \Silktide\SemRushApi\Model\Exception\InvalidFieldException
      */
     public function testSetInvalidField()
     {
@@ -59,14 +59,14 @@ class RowTest extends PHPUnit_Framework_TestCase {
             'Ac' => '560',
             'something' => 'biscuits, cookies, hobnobs'
         ];
-        $this->setExpectedException('AndyWaite\SemRushApi\Model\Exception\InvalidFieldException');
+        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidFieldException');
         $this->instance->setData($values);
     }
 
     /**
      * Make sure getting a value returns the correct value
      * 
-     * @throws \AndyWaite\SemRushApi\Model\Exception\InvalidDataException
+     * @throws \Silktide\SemRushApi\Model\Exception\InvalidDataException
      */
     public function testGetValue()
     {
