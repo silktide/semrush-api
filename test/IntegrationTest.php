@@ -18,19 +18,34 @@ use Guzzle\Http\Client as GuzzleClient;
 
 class IntegrationTest extends PHPUnit_Framework_TestCase {
 
-    public function testDomainRanksRequest()
+
+    /**
+     * @var Client
+     */
+    protected $client;
+
+    /**
+     * @var MockPlugin
+     */
+    protected $guzzlePlugin;
+
+    public function setup()
     {
         $requestFactory = new RequestFactory();
         $rowFactory = new RowFactory();
         $resultFactory = new ResultFactory($rowFactory);
 
-        $plugin = new MockPlugin();
-        $plugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_default')));
+        $this->guzzlePlugin = new MockPlugin();
         $guzzle = new GuzzleClient();
-        $guzzle->addSubscriber($plugin);
+        $guzzle->addSubscriber($this->guzzlePlugin);
 
-        $client= new Client("demokey", $requestFactory, $resultFactory, $guzzle);
-        $result = $client->getDomainRanks('andywaite.me');
+        $this->client = new Client("demokey", $requestFactory, $resultFactory, $guzzle);
+    }
+
+    public function testDomainRanksRequest()
+    {
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_default')));
+        $result = $this->client->getDomainRanks('andywaite.me');
         $this->assertTrue($result instanceof Result);
         $this->assertEquals(2, count($result));
         foreach ($result as $row) {
