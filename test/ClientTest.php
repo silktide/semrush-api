@@ -40,11 +40,24 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $this->instance = new Client('key', $requestFactory, $resultFactory, $guzzle);
     }
 
+    public function testGetDomainRank()
+    {
+        $result = $this->instance->getDomainRank('domain.com', []);
+        $this->assertTrue($result instanceof Result);
+    }
+
     public function testGetDomainRanks()
     {
         $result = $this->instance->getDomainRanks('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
+
+    public function testGetDomainRankHistory()
+    {
+        $result = $this->instance->getDomainRankHistory('domain.com', []);
+        $this->assertTrue($result instanceof Result);
+    }
+
 
 
 } 

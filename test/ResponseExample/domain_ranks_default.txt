@@ -1,3 +1,0 @@
-Database;Domain;Rank;Organic Keywords;Organic Traffic;Organic Cost;Adwords Keywords;Adwords Traffic;Adwords Cost
-"us";"test.com";"29062";"3214";"33696";"193957";"0";"0";"0"
-"uk";"test.com";"122";"231";"312";"3333";"3";"32";"50"

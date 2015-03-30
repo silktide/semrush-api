@@ -44,10 +44,10 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 
     public function testDomainRanksRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_default')));
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_silktide')));
         $result = $this->client->getDomainRanks('silktide.com');
         $this->assertTrue($result instanceof Result);
-        $this->assertEquals(2, count($result));
+        $this->assertEquals(26, count($result));
         foreach ($result as $row) {
             $this->assertTrue($row instanceof Row);
         }
@@ -56,6 +56,41 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
          * @var Row $row
          */
         $row = $result[1];
-        $this->assertEquals(32, $row->getValue(Column::COLUMN_ADWORDS_TRAFFIC));
+        $this->assertEquals("silktide.com", $row->getValue(Column::COLUMN_DOMAIN));
+        $this->assertEquals(94028, $row->getValue(Column::COLUMN_SEMRUSH_RATING));
+    }
+
+    public function testDomainRankRequest()
+    {
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_rank_amazon')));
+        $result = $this->client->getDomainRank('amazon.com', ['database' => 'us']);
+        $this->assertTrue($result instanceof Result);
+        $this->assertEquals(1, count($result));
+        foreach ($result as $row) {
+            $this->assertTrue($row instanceof Row);
+        }
+
+        /**
+         * @var Row $row
+         */
+        $row = $result[0];
+        $this->assertEquals(22177894, $row->getValue(Column::COLUMN_ADWORDS_TRAFFIC));
+    }
+
+    public function testDomainRankHistoryRequest()
+    {
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_rank_history_ebay')));
+        $result = $this->client->getDomainRankHistory('ebay.com', ['database' => 'us']);
+        $this->assertTrue($result instanceof Result);
+        $this->assertEquals(10, count($result));
+        foreach ($result as $row) {
+            $this->assertTrue($row instanceof Row);
+        }
+
+        /**
+         * @var Row $row
+         */
+        $row = $result[1];
+        $this->assertEquals(779171, $row->getValue(Column::COLUMN_ADWORDS_TRAFFIC));
     }
 } 

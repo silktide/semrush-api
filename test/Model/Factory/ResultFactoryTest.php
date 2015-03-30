@@ -34,10 +34,10 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
     public function testCreate()
     {
         $columns = ["Db","Dn","Rk","Or","Ot","Oc","Ad","At","Ac"];
-        $exampleResponse = ResponseExampleHelper::getResponseExample('domain_ranks_default');
+        $exampleResponse = ResponseExampleHelper::getResponseExample('domain_ranks_silktide');
         $result = $this->instance->create($columns, $exampleResponse);
         $this->assertTrue($result instanceof Result);
-        $this->assertEquals(2, count($result));
+        $this->assertEquals(26, count($result));
     }
 
 } 

@@ -1,0 +1,2 @@
+Domain;Rank;Organic Keywords;Organic Traffic;Organic Cost;Adwords Keywords;Adwords Traffic;Adwords Cost
+amazon.com;7;12683520;276106383;212685647;4852719;22177894;17474082

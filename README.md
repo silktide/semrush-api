@@ -27,9 +27,31 @@ The API library has a number of dependencies which need to be initialised and in
         
 ## Domain ranks
 
-Getting the SEMrush "domain ranks" for a website:
+Getting the SEMrush "domain_ranks" for a website:
 
         $result = $this->client->getDomainRanks('silktide.com');
+        
+## Domain rank
+
+Getting the SEMrush "domain_rank" for a website:
+
+        $result = $this->client->getDomainRank(
+            'silktide.com', 
+            [
+                'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
+            ]
+        );
+        
+## Domain rank history
+
+Getting the SEMrush "domain_rank_history" for a website:
+
+        $result = $this->client->getDomainRankHistory(
+            'silktide.com', 
+            [
+                'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
+            ]
+        );
         
 ## Using options
 

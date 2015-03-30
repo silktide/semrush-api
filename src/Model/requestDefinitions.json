@@ -36,5 +36,77 @@
       "At",
       "Ac"
     ]
+  },
+  "domain_rank": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "domain": "domain",
+      "database": "database"
+    },
+    "optional_fields": {
+      "display_date": "date",
+      "export_columns": "columns",
+      "export_escape": "boolean"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ],
+    "valid_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ]
+  },
+  "domain_rank_history": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "domain": "domain",
+      "database": "database"
+    },
+    "optional_fields": {
+      "display_date": "date",
+      "export_columns": "columns",
+      "export_escape": "boolean"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ],
+    "valid_columns": [
+      "Dn",
+      "Rk",
+      "Or",
+      "Ot",
+      "Oc",
+      "Ad",
+      "At",
+      "Ac"
+    ]
   }
 }

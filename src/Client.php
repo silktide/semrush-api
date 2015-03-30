@@ -59,6 +59,26 @@ class Client {
     }
 
     /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getDomainRank($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_RANK, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getDomainRankHistory($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_RANK_HISTORY, ['domain' => $domain] + $options);
+    }
+
+    /**
      * Make the request
      *
      * @param $type

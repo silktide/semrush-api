@@ -2,7 +2,6 @@
 
 namespace Silktide\SemRushApi\Test\Model\Factory;
 
-use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use PHPUnit_Framework_TestCase;
 use Silktide\SemRushApi\Data\Type;
