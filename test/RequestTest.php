@@ -73,6 +73,12 @@ class RequestTest extends PHPUnit_Framework_TestCase {
     public function testRequestWithInvalidDomain()
     {
         $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
+        new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => $this->domain, 'export_escape' => 'wrong']);
+    }
+
+    public function testRequestWithInvalidBoolean()
+    {
+        $this->setExpectedException('AndyWaite\SemRushApi\Exception\InvalidOptionException');
         new Request(Type::TYPE_DOMAIN_RANKS, ['key' => $this->key, 'domain' => "not a domain"]);
     }
 
