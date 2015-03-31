@@ -28,10 +28,36 @@ class ResponseParser
         }
 
         $rows = $this->splitStringIntoArray($data);
+        $columns = $request->getExpectedResultColumns();
+        $rows = $this->hackToFixNewlineInCell($columns, $rows);
+
         foreach ($rows as &$row) {
-            $row = $this->parseRow($request->getExpectedResultColumns(), $row);
+            $row = $this->parseRow($columns, $row);
         }
 
+        return $rows;
+    }
+
+    /**
+     * Hack to fix unexpected newlines in response data
+     *
+     * @param string[] $columns
+     * @param string[] $rows
+     * @return string[]
+     */
+    protected function hackToFixNewlineInCell($columns, $rows)
+    {
+        $numberQuotesExpected = count($columns) * 2;
+
+        foreach ($rows as $key => &$row)
+        {
+            $i = $key + 1;
+            while (substr_count($row, '"') < $numberQuotesExpected && isset($rows[$i])) {
+                $row .= PHP_EOL.$rows[$i];
+                unset($rows[$i]);
+                $i++;
+            }
+        }
         return $rows;
     }
 
@@ -91,11 +117,20 @@ class ResponseParser
      *
      * @param array $columns
      * @param string $data
+     * @throws ErroneousResponseException
      * @return string[]
      */
     protected function parseRow($columns, $data)
     {
-        return array_combine($columns, str_getcsv($data, ";"));
+        $rows = str_getcsv($data, ";");
+        $expectedColumnCount = count($columns);
+        $actualColumnCount = count($rows);
+
+        if ($expectedColumnCount != $actualColumnCount) {
+            throw new ErroneousResponseException("Number of columns in row [{$actualColumnCount}] did not equal number of expected columns [{$expectedColumnCount}]");
+        }
+
+        return array_combine($columns, $rows);
     }
 
 } 
