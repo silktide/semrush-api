@@ -11,6 +11,8 @@ A PHP API client for the SEMrush API.
 * domain_ranks
 * domain_rank
 * domain_rank_history
+* domain_adwords
+* domain_adwords_unique
 
 ## Usage
 
@@ -48,6 +50,28 @@ Getting the SEMrush "domain_rank" for a website:
 Getting the SEMrush "domain_rank_history" for a website:
 
         $result = $this->client->getDomainRankHistory(
+            'silktide.com', 
+            [
+                'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
+            ]
+        );
+        
+## Domain adwords
+
+Getting the SEMrush "domain_adwords" for a website:
+
+        $result = $this->client->getDomainAdwords(
+            'silktide.com', 
+            [
+                'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
+            ]
+        );
+        
+## Domain adwords unique
+
+Getting the SEMrush "domain_adwords_unique" for a website:
+
+        $result = $this->client->getDomainAdwordsUnique(
             'silktide.com', 
             [
                 'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
