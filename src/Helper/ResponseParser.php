@@ -7,30 +7,33 @@ namespace Silktide\SemRushApi\Helper;
 
 
 use Silktide\SemRushApi\Helper\Exception\ResponseException;
+use Silktide\SemRushApi\Model\Request;
 
 class ResponseParser {
 
     /**
      * Parse a result into an array
      *
-     * @param $data
+     * @param Request $request
+     * @param string $data
      * @throws ResponseException
      * @return string[]
      */
-    public function parseResult($columns, $data)
+    public function parseResult(Request $request, $data)
     {
-        if ($this->isError($data))
-        {
+        if ($this->isError($data)) {
             throw new ResponseException("The API returned an error [{$data}]");
         }
         $rows = $this->splitStringIntoArray($data);
         foreach ($rows as &$row) {
-            $row = $this->parseRow($columns, $row);
+            $row = $this->parseRow($request->getExpectedResultColumns(), $row);
         }
         return $rows;
     }
 
     /**
+     * Check if this response was an error
+     *
      * @param $data
      * @return bool
      */
@@ -53,6 +56,9 @@ class ResponseParser {
     }
 
     /**
+     * Parse a set of columns and data into an array
+     *
+     * @param array $columns
      * @param string $data
      * @return string[]
      */

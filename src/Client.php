@@ -116,7 +116,7 @@ class Client {
     {
         $request = $this->requestFactory->create($type,  ['key' => $this->apiKey] + $options);
         $rawResponse = $this->makeHttpRequest($request);
-        $formattedResponse = $this->responseParser->parseResult($request->getExpectedResultColumns(), $rawResponse);
+        $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
         return $this->resultFactory->create($formattedResponse);
     }
 

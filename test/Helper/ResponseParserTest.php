@@ -24,7 +24,10 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
     public function testResponseParser()
     {
         $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
-        $result = $this->responseParser->parseResult($columns, ResponseExampleHelper::getResponseExample('domain_adwords_argos'));
+        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
+
+        $result = $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('domain_adwords_argos'));
         $this->assertTrue(is_array($result));
         $this->assertEquals(10, count($result));
         foreach ($result as $row) {
@@ -38,8 +41,11 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
     public function testResponseParserError()
     {
         $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
+        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
+
         $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ResponseException');
-        $this->responseParser->parseResult($columns, ResponseExampleHelper::getResponseExample('error_auth'));
+        $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('error_auth'));
     }
 
 } 
