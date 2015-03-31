@@ -35,4 +35,15 @@ class RowFactoryTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($row instanceof Row);
     }
 
+    /**
+     * Test that we can create a SemRush result
+     */
+    public function testCreateInvalidColumnCount()
+    {
+        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\UnexpectedResponseException');
+        $columns = ["Db","Dn","Rk","Or","Ot","Oc","Ad","At","Ac"];
+        $data = "us;seobook.com;29062;3214;33696;193957;0;0";
+        $row = $this->instance->create($columns, $data);
+    }
+
 } 

@@ -60,8 +60,8 @@ Here's an example of passing options to the domain ranks action in order to retu
 
     $result = $this->client->getDomainRanks('silktide.com', [
         'export_columns' => [
-            \Silktide\SemRushApi\Data\Column::COLUMN_ADWORDS_BUDGET,
-            \Silktide\SemRushApi\Data\Column::COLUMN_ADWORDS_KEYWORDS,
-            \Silktide\SemRushApi\Data\Column::COLUMN_ADWORDS_TRAFFIC
+            \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_BUDGET,
+            \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS,
+            \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC
          ]
     ]);

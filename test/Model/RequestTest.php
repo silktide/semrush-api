@@ -18,8 +18,8 @@ class RequestTest extends PHPUnit_Framework_TestCase {
     public function testGetExpectedResultColumns()
     {
         $columns = [
-            Column::COLUMN_ADWORDS_BUDGET,
-            Column::COLUMN_ADWORDS_KEYWORDS
+            Column::COLUMN_OVERVIEW_ADWORDS_BUDGET,
+            Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS
         ];
 
         $request = new Request(Type::TYPE_DOMAIN_RANKS, [
@@ -35,8 +35,8 @@ class RequestTest extends PHPUnit_Framework_TestCase {
     {
         $date = '20150115';
         $columns = [
-            Column::COLUMN_ADWORDS_BUDGET,
-            Column::COLUMN_ADWORDS_KEYWORDS
+            Column::COLUMN_OVERVIEW_ADWORDS_BUDGET,
+            Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS
         ];
 
         $request = new Request(Type::TYPE_DOMAIN_RANKS, [

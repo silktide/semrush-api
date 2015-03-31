@@ -3,6 +3,7 @@
 
 namespace Silktide\SemRushApi\Model\Factory;
 
+use Silktide\SemRushApi\Model\Exception\UnexpectedResponseException;
 use Silktide\SemRushApi\Model\Row;
 
 class RowFactory {
@@ -29,6 +30,15 @@ class RowFactory {
     protected function createAssociativeFromColumnsAndData($columns, $data)
     {
         $values = $this->stripQuotes($this->semicolonSeparatedToArray($data));
+
+        $columnCount = count($columns);
+        $valueCount = count($values);
+
+        if ($columnCount != $valueCount)
+        {
+            throw new UnexpectedResponseException("The number of columns in the response [{$valueCount}] was not the same as the number of expected columns [{$columnCount}].");
+        }
+
         return array_combine($columns, $values);
     }
 

@@ -87,7 +87,7 @@ class Definition {
      */
     public function getDefaultColumns()
     {
-        return $this->definition['default_columns'];
+        return $this->columnConstantToValue($this->definition['default_columns']);
     }
 
     /**
@@ -97,7 +97,22 @@ class Definition {
      */
     public function getValidColumns()
     {
-        return $this->definition['valid_columns'];
+        return $this->columnConstantToValue($this->definition['valid_columns']);
+    }
+
+    /**
+     * Convert config file constants into their actual
+     * SemRush column values
+     *
+     * @param array $input
+     * @return array
+     */
+    protected function columnConstantToValue($input)
+    {
+        foreach ($input as &$item) {
+            $item = constant('\Silktide\SemRushApi\Data\Column::'.$item);
+        }
+        return $input;
     }
 
 } 
