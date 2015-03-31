@@ -15,7 +15,7 @@ class DomainRankIntegrationTest extends AbstractIntegrationTest {
     public function testDomainRankRequest()
     {
         $this->setupResponse('domain_rank_amazon');
-        $result = $this->client->getDomainRankHistory('amazon.com', ['database' => Database::DATABASE_GOOGLE_US]);
+        $result = $this->client->getDomainRank('amazon.com', ['database' => Database::DATABASE_GOOGLE_US]);
         $this->verifyResult($result, 1);
 
         /**
