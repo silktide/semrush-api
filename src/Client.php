@@ -4,6 +4,7 @@
 namespace Silktide\SemRushApi;
 
 use Silktide\SemRushApi\Data\Type;
+use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Request;
@@ -28,6 +29,10 @@ class Client {
     protected $resultFactory;
 
     /**
+     * @var ResponseParser
+     */
+    protected $responseParser;
+    /**
      * @var GuzzleClient
      */
     protected $guzzle;
@@ -38,13 +43,15 @@ class Client {
      * @param string $apiKey
      * @param RequestFactory $requestFactory
      * @param ResultFactory $resultFactory
+     * @param ResponseParser $responseParser
      * @param GuzzleClient $guzzle
      */
-    public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, GuzzleClient $guzzle)
+    public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, ResponseParser $responseParser, GuzzleClient $guzzle)
     {
         $this->apiKey = $apiKey;
         $this->requestFactory = $requestFactory;
         $this->resultFactory = $resultFactory;
+        $this->responseParser = $responseParser;
         $this->guzzle = $guzzle;
     }
 
@@ -108,7 +115,9 @@ class Client {
     protected function makeRequest($type, $options)
     {
         $request = $this->requestFactory->create($type,  ['key' => $this->apiKey] + $options);
-        return $this->resultFactory->create($request->getExpectedResultColumns(), $this->makeHttpRequest($request));
+        $rawResponse = $this->makeHttpRequest($request);
+        $formattedResponse = $this->responseParser->parseResult($request->getExpectedResultColumns(), $rawResponse);
+        return $this->resultFactory->create($formattedResponse);
     }
 
     /**

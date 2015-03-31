@@ -5,7 +5,7 @@ namespace Silktide\SemRushApi\Model;
 
 use Silktide\SemRushApi\Data\Database;
 use Silktide\SemRushApi\Data\Type;
-use Silktide\SemRushApi\Exception\InvalidOptionException;
+use Silktide\SemRushApi\Model\Exception\InvalidOptionException;
 
 class Request
 {

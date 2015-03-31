@@ -5,6 +5,7 @@ namespace Silktide\SemRushApi\Integration;
 
 use Silktide\SemRushApi\Client;
 use Silktide\SemRushApi\Data\Column;
+use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Factory\RowFactory;
@@ -34,11 +35,12 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
         $requestFactory = new RequestFactory();
         $rowFactory = new RowFactory();
         $resultFactory = new ResultFactory($rowFactory);
+        $responseParser = new ResponseParser();
 
         $this->guzzlePlugin = new MockPlugin();
         $guzzle = new GuzzleClient();
         $guzzle->addSubscriber($this->guzzlePlugin);
 
-        $this->client = new Client("demokey", $requestFactory, $resultFactory, $guzzle);
+        $this->client = new Client("demokey", $requestFactory, $resultFactory, $responseParser, $guzzle);
     }
 } 

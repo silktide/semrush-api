@@ -4,6 +4,7 @@
 namespace Silktide\SemRushApi\Test\Model\Factory;
 
 use Silktide\SemRushApi\Model\Result;
+use Silktide\SemRushApi\Model\Row;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
@@ -34,10 +35,15 @@ class ResultFactoryTest extends PHPUnit_Framework_TestCase {
     public function testCreate()
     {
         $columns = ["Db","Dn","Rk","Or","Ot","Oc","Ad","At","Ac"];
-        $exampleResponse = ResponseExampleHelper::getResponseExample('domain_ranks_silktide');
-        $result = $this->instance->create($columns, $exampleResponse);
+        $values = "us;seobook.com;29062;3214;33696;193957;0;0;0";
+        $data = array_combine($columns, explode(";",$values));
+        $result = $this->instance->create([$data,$data]);
         $this->assertTrue($result instanceof Result);
-        $this->assertEquals(26, count($result));
+        $this->assertEquals(2, count($result));
+        foreach ($result as $row)
+        {
+            $this->assertTrue($row instanceof Row);
+        }
     }
 
 } 
