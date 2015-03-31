@@ -52,6 +52,7 @@ class Client
      * @param RequestFactory $requestFactory
      * @param ResultFactory $resultFactory
      * @param ResponseParser $responseParser
+     * @param UrlBuilder $urlBuilder
      * @param GuzzleClient $guzzle
      */
     public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, ResponseParser $responseParser, UrlBuilder $urlBuilder, GuzzleClient $guzzle)
