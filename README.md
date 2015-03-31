@@ -21,15 +21,9 @@ A PHP API client for the SEMrush API.
 
 ### Setup
 
-The API library was designed to use Dependency Injection (DI). It has a number of dependencies which need to be initialised and injected.  If you don't use DI, here's how to set up the API client:
+This library was designed to use Dependency Injection (DI). If you don't use DI, you could use the factory to set up the API client:
 
-    $requestFactory = new \Silktide\SemRushApi\Model\Factory\RequestFactory();
-    $rowFactory = new \Silktide\SemRushApi\Model\Factory\RowFactory();
-    $resultFactory = new \Silktide\SemRushApi\Model\Factory\ResultFactory($rowFactory);
-    $guzzle = new \GuzzleHttp\Client();
-    $key = "[YOUR API KEY]";
-        
-    $client = new \Silktide\SemRushApi\Client($key, $requestFactory, $resultFactory, $guzzle);
+    $client = new \Silktide\SemRushApi\ClientFactory::create("[YOUR SEMRUSH API KEY]");
         
         
 ## Domain ranks

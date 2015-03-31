@@ -104,4 +104,12 @@ class Client {
         return $guzzleResponse->getBody();
     }
 
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
 } 

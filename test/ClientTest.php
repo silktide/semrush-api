@@ -19,6 +19,11 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     protected $instance;
 
     /**
+     * @var string
+     */
+    protected $key = 'sampleKey';
+
+    /**
      * Instantiate a client
      */
     public function setup()
@@ -37,7 +42,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
         $resultFactory->expects($this->any())->method('create')->willReturn($result);
 
-        $this->instance = new Client('key', $requestFactory, $resultFactory, $guzzle);
+        $this->instance = new Client($this->key, $requestFactory, $resultFactory, $guzzle);
     }
 
     public function testGetDomainRank()
@@ -56,6 +61,11 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     {
         $result = $this->instance->getDomainRankHistory('domain.com', []);
         $this->assertTrue($result instanceof Result);
+    }
+
+    public function testGetApiKey()
+    {
+        $this->assertEquals($this->key, $this->instance->getApiKey());
     }
 
 
