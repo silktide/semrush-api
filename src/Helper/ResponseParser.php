@@ -12,7 +12,9 @@ use Silktide\SemRushApi\Model\Request;
 class ResponseParser {
 
     /**
-     * Parse a result into an array
+     * Parse a result into an array.  Also requires
+     * the request so we can work out which columns
+     * we expected the API to return.
      *
      * @param Request $request
      * @param string $data
