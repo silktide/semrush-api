@@ -1,11 +1,11 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Model;
 
 use Silktide\SemRushApi\Model\Exception\InvalidTypeException;
 
-class Definition {
+class Definition
+{
 
     /**
      * @var string
@@ -110,7 +110,7 @@ class Definition {
     protected function columnConstantToValue($input)
     {
         foreach ($input as &$item) {
-            $item = constant('\Silktide\SemRushApi\Data\Column::'.$item);
+            $item = constant('\Silktide\SemRushApi\Data\Column::' . $item);
         }
         return $input;
     }

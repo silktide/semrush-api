@@ -5,7 +5,8 @@ namespace Silktide\SemRushApi\Data;
 
 use ReflectionClass;
 
-trait ConstantTrait {
+trait ConstantTrait
+{
 
     /**
      * Return all the databases

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Model;
 
 use Silktide\SemRushApi\Data\Database;
@@ -66,17 +65,15 @@ class Request
         //check for invalid options
         $validOptions = array_keys($this->definition->getAvailableFields());
         $unknownOptions = array_diff($optionsPassed, $validOptions);
-        if (count($unknownOptions) > 0)
-        {
-            throw new InvalidOptionException("Invalid option(s) [".implode(", ", $unknownOptions)."] passed for request [{$this->type}]");
+        if (count($unknownOptions) > 0) {
+            throw new InvalidOptionException("Invalid option(s) [" . implode(", ", $unknownOptions) . "] passed for request [{$this->type}]");
         }
 
         //check for missing options
         $requiredOptions = array_keys($this->definition->getRequiredFields());
         $missingOptions = array_diff($requiredOptions, $optionsPassed);
-        if (count($missingOptions) > 0)
-        {
-            throw new InvalidOptionException("Missing option(s) [".implode(", ", $missingOptions)."] which are required for request [{$this->type}]");
+        if (count($missingOptions) > 0) {
+            throw new InvalidOptionException("Missing option(s) [" . implode(", ", $missingOptions) . "] which are required for request [{$this->type}]");
         }
 
         //validate each field
@@ -169,12 +166,12 @@ class Request
     }
 
     /**
-    * Validate domain
-    *
-    * @param string $key
-    * @param string $domain
-    * @throws InvalidOptionException
-    */
+     * Validate domain
+     *
+     * @param string $key
+     * @param string $domain
+     * @throws InvalidOptionException
+     */
     protected function validateDomain($key, $domain)
     {
         if (!preg_match('/^[a-z0-9-.]+$/i', $domain)) {
@@ -212,9 +209,8 @@ class Request
         //check for invalid columns
         $validColumns = $this->definition->getValidColumns();
         $unknownColumns = array_diff($columns, $validColumns);
-        if (count($unknownColumns) > 0)
-        {
-            throw new InvalidOptionException("Invalid [{$key}](s) [".implode(", ", $unknownColumns)."] passed for request [{$this->type}]");
+        if (count($unknownColumns) > 0) {
+            throw new InvalidOptionException("Invalid [{$key}](s) [" . implode(", ", $unknownColumns) . "] passed for request [{$this->type}]");
         }
     }
 
@@ -227,7 +223,6 @@ class Request
     {
         $this->definition = new Definition($this->type);
     }
-
 
     /**
      * Convert options to strings.  At the moment, it just implodes export
@@ -244,7 +239,6 @@ class Request
         return $options;
     }
 
-
     /**
      * Get the URL of this request
      *
@@ -253,7 +247,7 @@ class Request
     public function getUrl()
     {
         $params = $this->getOptionsAsStrings();
-        return self::ENDPOINT."?".http_build_query($params);
+        return self::ENDPOINT . "?" . http_build_query($params);
     }
 
     /**

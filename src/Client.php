@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Silktide\SemRushApi;
 
 use Silktide\SemRushApi\Data\Type;
@@ -11,7 +10,8 @@ use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Result as ApiResult;
 use Guzzle\Http\Client as GuzzleClient;
 
-class Client {
+class Client
+{
 
     /**
      * @var string
@@ -76,10 +76,10 @@ class Client {
     }
 
     /**
-    * @param string $domain
-    * @param array $options
-    * @return ApiResult
-    */
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
     public function getDomainAdwords($domain, $options = [])
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS, ['domain' => $domain] + $options);
@@ -114,7 +114,7 @@ class Client {
      */
     protected function makeRequest($type, $options)
     {
-        $request = $this->requestFactory->create($type,  ['key' => $this->apiKey] + $options);
+        $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
         $rawResponse = $this->makeHttpRequest($request);
         $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
         return $this->resultFactory->create($formattedResponse);

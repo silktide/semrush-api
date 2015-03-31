@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Model\Factory;
 
 use Silktide\SemRushApi\Model\Result;
 
-class ResultFactory {
-
-
+class ResultFactory
+{
     /**
      * @var RowFactory
      */

@@ -1,9 +1,9 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Data;
 
-abstract class Type {
+abstract class Type
+{
 
     use ConstantTrait;
 

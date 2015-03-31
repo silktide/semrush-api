@@ -1,17 +1,16 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Model\Factory;
 
-use Silktide\SemRushApi\Model\Exception\UnexpectedResponseException;
 use Silktide\SemRushApi\Model\Row;
 
-class RowFactory {
+class RowFactory
+{
 
     /**
      * Takes raw API data and converts into a result
      *
-     * @param string $data
+     * @param string[] $data
      * @return Row
      */
     public function create($data)

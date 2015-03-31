@@ -1,7 +1,4 @@
 <?php
-/**
- * Copyright 2013-2015 Silktide Ltd. All Rights Reserved.
- */
 
 namespace Silktide\SemRushApi;
 
@@ -11,7 +8,8 @@ use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Factory\RowFactory;
 
-abstract class ClientFactory {
+abstract class ClientFactory
+{
 
     /**
      * Create an instance of Client with default dependencies

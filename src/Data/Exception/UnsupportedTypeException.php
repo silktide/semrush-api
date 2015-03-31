@@ -5,6 +5,7 @@ namespace Silktide\SemRushApi\Data\Exception;
 
 use InvalidArgumentException;
 
-class UnsupportedTypeException extends InvalidArgumentException {
+class UnsupportedTypeException extends InvalidArgumentException
+{
 
 } 

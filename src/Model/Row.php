@@ -6,8 +6,8 @@ use Silktide\SemRushApi\Data\Column;
 use Silktide\SemRushApi\Model\Exception\InvalidDataException;
 use Silktide\SemRushApi\Model\Exception\InvalidFieldException;
 
-class Row {
-
+class Row
+{
     /**
      * @var string[]
      */

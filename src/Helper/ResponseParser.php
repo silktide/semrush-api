@@ -1,15 +1,12 @@
 <?php
-/**
- * Copyright 2013-2015 Silktide Ltd. All Rights Reserved.
- */
 
 namespace Silktide\SemRushApi\Helper;
-
 
 use Silktide\SemRushApi\Helper\Exception\ResponseException;
 use Silktide\SemRushApi\Model\Request;
 
-class ResponseParser {
+class ResponseParser
+{
 
     /**
      * Parse a result into an array.  Also requires
@@ -78,7 +75,7 @@ class ResponseParser {
     protected function stripQuotes($data)
     {
         foreach ($data as &$item) {
-            $item = trim($item,'"');
+            $item = trim($item, '"');
         }
         return $data;
     }

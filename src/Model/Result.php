@@ -8,7 +8,8 @@ use ArrayAccess;
 use Iterator;
 use Countable;
 
-class Result implements ArrayAccess, Iterator, Countable {
+class Result implements ArrayAccess, Iterator, Countable
+{
 
     /**
      * @var Row[]

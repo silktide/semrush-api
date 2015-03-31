@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Silktide\SemRushApi\Data;
 
-abstract class Column {
-
+abstract class Column
+{
     use ConstantTrait;
 
     const COLUMN_OVERVIEW_ADWORDS_BUDGET = "Ac";
