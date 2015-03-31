@@ -15,26 +15,26 @@
       "export_escape": "1"
     },
     "default_columns": [
-      "Db",
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DATABASE",
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ],
     "valid_columns": [
-      "Db",
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DATABASE",
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ]
   },
   "domain_rank": {
@@ -53,24 +53,24 @@
       "export_escape": "1"
     },
     "default_columns": [
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ],
     "valid_columns": [
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ]
   },
   "domain_rank_history": {
@@ -89,24 +89,24 @@
       "export_escape": "1"
     },
     "default_columns": [
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ],
     "valid_columns": [
-      "Dn",
-      "Rk",
-      "Or",
-      "Ot",
-      "Oc",
-      "Ad",
-      "At",
-      "Ac"
+      "COLUMN_DOMAIN",
+      "COLUMN_SEMRUSH_RATING",
+      "COLUMN_ORGANIC_KEYWORDS",
+      "COLUMN_ORGANIC_TRAFFIC",
+      "COLUMN_ORGANIC_BUDGET",
+      "COLUMN_ADWORDS_KEYWORDS",
+      "COLUMN_ADWORDS_TRAFFIC",
+      "COLUMN_ADWORDS_BUDGET"
     ]
   }
 }
