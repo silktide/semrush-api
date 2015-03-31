@@ -43,8 +43,9 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $resultFactory->expects($this->any())->method('create')->willReturn($result);
 
         $responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
+        $urlBuilder = $this->getMock('Silktide\SemRushApi\Helper\UrlBuilder');
 
-        $this->instance = new Client($this->key, $requestFactory, $resultFactory, $responseParser, $guzzle);
+        $this->instance = new Client($this->key, $requestFactory, $resultFactory, $responseParser, $urlBuilder, $guzzle);
     }
 
     public function testGetDomainRank()

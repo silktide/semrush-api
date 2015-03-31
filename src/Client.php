@@ -4,6 +4,7 @@ namespace Silktide\SemRushApi;
 
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
+use Silktide\SemRushApi\Helper\UrlBuilder;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Request;
@@ -32,10 +33,17 @@ class Client
      * @var ResponseParser
      */
     protected $responseParser;
+
+    /**
+     * @var UrlBuilder
+     */
+    protected $urlBuilder;
+
     /**
      * @var GuzzleClient
      */
     protected $guzzle;
+
 
     /**
      * Construct a client with API key
@@ -46,12 +54,13 @@ class Client
      * @param ResponseParser $responseParser
      * @param GuzzleClient $guzzle
      */
-    public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, ResponseParser $responseParser, GuzzleClient $guzzle)
+    public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, ResponseParser $responseParser, UrlBuilder $urlBuilder, GuzzleClient $guzzle)
     {
         $this->apiKey = $apiKey;
         $this->requestFactory = $requestFactory;
         $this->resultFactory = $resultFactory;
         $this->responseParser = $responseParser;
+        $this->urlBuilder = $urlBuilder;
         $this->guzzle = $guzzle;
     }
 
@@ -128,7 +137,8 @@ class Client
      */
     protected function makeHttpRequest($request)
     {
-        $guzzleRequest = $this->guzzle->createRequest('GET', $request->getUrl());
+        $url = $this->urlBuilder->build($request);
+        $guzzleRequest = $this->guzzle->createRequest('GET', $url);
         $guzzleResponse = $this->guzzle->send($guzzleRequest);
         return $guzzleResponse->getBody();
     }

@@ -225,32 +225,6 @@ class Request
     }
 
     /**
-     * Convert options to strings.  At the moment, it just implodes export
-     * columns to be comma separated
-     *
-     * @return string[]
-     */
-    protected function getOptionsAsStrings()
-    {
-        $options = $this->options;
-        if (isset($options['export_columns'])) {
-            $options['export_columns'] = implode(",", $options['export_columns']);
-        }
-        return $options;
-    }
-
-    /**
-     * Get the URL of this request
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        $params = $this->getOptionsAsStrings();
-        return self::ENDPOINT . "?" . http_build_query($params);
-    }
-
-    /**
      * Get the columns for this request
      *
      * @return string[]
@@ -262,5 +236,26 @@ class Request
         }
         return $this->definition->getDefaultColumns();
     }
+
+    /**
+     * Get all the options of this request
+     *
+     * @return array
+     */
+    public function getUrlParameters()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Get the request endpoint
+     *
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return self::ENDPOINT;
+    }
+
 
 } 

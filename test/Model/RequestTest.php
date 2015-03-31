@@ -39,23 +39,31 @@ class RequestTest extends PHPUnit_Framework_TestCase {
             Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS
         ];
 
-        $request = new Request(Type::TYPE_DOMAIN_RANKS, [
+        $options = [
             'key' => $this->key,
             'domain' => $this->domain,
             'display_date' => $date,
             'database' => Database::DATABASE_GOOGLE_UK,
             'export_columns' => $columns
-        ]);
-        
-        $url = $request->getUrl();
-        $this->assertContains("domain=".$this->domain, $url);
-        $this->assertContains("type=".Type::TYPE_DOMAIN_RANKS, $url);
-        $this->assertContains("display_date=".$date, $url);
-        $this->assertContains("export_escape=1", $url);
-        $this->assertContains("export_columns=".urlencode(implode(",",$columns)), $url);
-        $this->assertContains("key=".$this->key, $url);
-        $this->assertStringStartsWith("http://api.semrush.com/?", $url);
+        ];
+
+        $request = new Request(Type::TYPE_DOMAIN_RANKS, $options);
+
+        $options['type'] = Type::TYPE_DOMAIN_RANKS;
+        $options['export_escape'] = "1";
+
+        $this->assertEquals($options, $request->getUrlParameters());
     }
+
+    public function testGetEndpoint()
+    {
+        $request = new Request(Type::TYPE_DOMAIN_RANKS, [
+            'key' => $this->key,
+            'domain' => $this->domain
+        ]);
+        $this->assertEquals("http://api.semrush.com/", $request->getEndpoint());
+    }
+
 
     public function testRequestWithMissingOption()
     {
