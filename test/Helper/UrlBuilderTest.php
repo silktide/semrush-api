@@ -2,8 +2,6 @@
 
 namespace Silktide\SemRushApi\Test\Helper;
 
-use Silktide\SemRushApi\Data\Column;
-use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\UrlBuilder;
 use PHPUnit_Framework_TestCase;
 

@@ -2,7 +2,8 @@
 
 namespace Silktide\SemRushApi\Helper;
 
-use Silktide\SemRushApi\Helper\Exception\ResponseException;
+use Silktide\SemRushApi\Helper\Exception\EmptyResponseException;
+use Silktide\SemRushApi\Helper\Exception\ErroneousResponseException;
 use Silktide\SemRushApi\Model\Request;
 
 class ResponseParser
@@ -15,25 +16,56 @@ class ResponseParser
      *
      * @param Request $request
      * @param string $data
-     * @throws ResponseException
+     * @throws ErroneousResponseException
      * @return string[]
      */
     public function parseResult(Request $request, $data)
     {
-        if ($this->isError($data)) {
-            throw new ResponseException("The API returned an error [{$data}]");
+        try {
+            $this->handleErrors($data);
+        } catch (EmptyResponseException $e) {
+            return [];
         }
+
         $rows = $this->splitStringIntoArray($data);
         foreach ($rows as &$row) {
             $row = $this->parseRow($request->getExpectedResultColumns(), $row);
         }
+
         return $rows;
+    }
+
+    /**
+     * @param $data
+     * @throws EmptyResponseException
+     * @throws ErroneousResponseException
+     */
+    protected function handleErrors($data)
+    {
+        if ($this->isEmpty($data)) {
+            throw new EmptyResponseException("The API has no data for this request.");
+        }
+
+        if ($this->isError($data)) {
+            throw new ErroneousResponseException("The API returned an error [{$data}]");
+        }
+    }
+
+    /**
+     * Check if this response was empty
+     *
+     * @param string $data
+     * @return bool
+     */
+    protected function isEmpty($data)
+    {
+        return $data == "ERROR 50 :: NOTHING FOUND";
     }
 
     /**
      * Check if this response was an error
      *
-     * @param $data
+     * @param string $data
      * @return bool
      */
     protected function isError($data)

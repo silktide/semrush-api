@@ -41,8 +41,19 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
         $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
         $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
 
-        $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ResponseException');
+        $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
         $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('error_auth'));
+    }
+
+    public function testResponseParserNoData()
+    {
+        $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
+        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
+
+        $result = $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('error_nodata'));
+
+        $this->assertEquals([], $result);
     }
 
 } 

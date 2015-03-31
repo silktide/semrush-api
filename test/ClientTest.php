@@ -4,11 +4,14 @@
 namespace Silktide\SemRushApi\Test;
 
 use Silktide\SemRushApi\Client;
+use Silktide\SemRushApi\Helper\Exception\EmptyResponseException;
 use Silktide\SemRushApi\Model\Result;
 use PHPUnit_Framework_TestCase;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Client as GuzzleClient;
+use Silktide\SemRushApi\Model\Factory\ResultFactory;
+use Silktide\SemRushApi\Helper\ResponseParser;
 
 
 class ClientTest extends PHPUnit_Framework_TestCase {
@@ -22,6 +25,16 @@ class ClientTest extends PHPUnit_Framework_TestCase {
      * @var string
      */
     protected $key = 'sampleKey';
+
+    /**
+     * @var ResultFactory
+     */
+    protected $resultFactory;
+
+    /**
+     * @var ResponseParser
+     */
+    protected $responseParser;
 
     /**
      * Instantiate a client
@@ -38,14 +51,14 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
         $requestFactory->expects($this->any())->method('create')->willReturn($request);
 
-        $resultFactory = $this->getMockBuilder('Silktide\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
+        $this->resultFactory = $this->getMockBuilder('Silktide\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
         $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
-        $resultFactory->expects($this->any())->method('create')->willReturn($result);
+        $this->resultFactory->expects($this->any())->method('create')->willReturn($result);
 
-        $responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
+        $this->responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
         $urlBuilder = $this->getMock('Silktide\SemRushApi\Helper\UrlBuilder');
 
-        $this->instance = new Client($this->key, $requestFactory, $resultFactory, $responseParser, $urlBuilder, $guzzle);
+        $this->instance = new Client($this->key, $requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
     }
 
     public function testGetDomainRank()
@@ -82,7 +95,6 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $result = $this->instance->getDomainAdwordsUnique('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
-
 
 
 } 
