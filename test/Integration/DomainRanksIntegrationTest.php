@@ -13,13 +13,9 @@ class DomainRanksIntegrationTest extends AbstractIntegrationTest {
 
     public function testDomainRanksRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_ranks_silktide')));
+        $this->setupResponse('domain_ranks_silktide');
         $result = $this->client->getDomainRanks('silktide.com');
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals(26, count($result));
-        foreach ($result as $row) {
-            $this->assertTrue($row instanceof Row);
-        }
+        $this->verifyResult($result, 26);
 
         /**
          * @var Row $row

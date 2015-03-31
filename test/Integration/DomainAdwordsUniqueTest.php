@@ -14,13 +14,9 @@ class DomainAdwordsUniqueIntegrationTest extends AbstractIntegrationTest {
 
     public function testDomainAdwordsUniqueRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_adwords_unique_bbc')));
-        $result = $this->client->getDomainAdwordsUnique('silktide.com', ['database' => Database::DATABASE_GOOGLE_US]);
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals(2, count($result));
-        foreach ($result as $row) {
-            $this->assertTrue($row instanceof Row);
-        }
+        $this->setupResponse('domain_adwords_unique_bbc');
+        $result = $this->client->getDomainAdwordsUnique('bbc.co.uk', ['database' => Database::DATABASE_GOOGLE_US]);
+        $this->verifyResult($result, 2);
 
         /**
          * @var Row $row

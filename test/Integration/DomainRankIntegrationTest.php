@@ -14,13 +14,9 @@ class DomainRankIntegrationTest extends AbstractIntegrationTest {
 
     public function testDomainRankRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_rank_amazon')));
-        $result = $this->client->getDomainRank('amazon.com', ['database' => Database::DATABASE_GOOGLE_US]);
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals(1, count($result));
-        foreach ($result as $row) {
-            $this->assertTrue($row instanceof Row);
-        }
+        $this->setupResponse('domain_rank_amazon');
+        $result = $this->client->getDomainRankHistory('amazon.com', ['database' => Database::DATABASE_GOOGLE_US]);
+        $this->verifyResult($result, 1);
 
         /**
          * @var Row $row

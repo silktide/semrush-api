@@ -4,7 +4,6 @@
 namespace Silktide\SemRushApi\Integration;
 
 use Silktide\SemRushApi\Client;
-use Silktide\SemRushApi\Data\Column;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
@@ -31,6 +30,9 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
      */
     protected $guzzlePlugin;
 
+    /**
+     * Setup integration test
+     */
     public function setup()
     {
         $requestFactory = new RequestFactory();
@@ -45,4 +47,30 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
 
         $this->client = new Client("demokey", $requestFactory, $resultFactory, $responseParser, $urlBuilder, $guzzle);
     }
+
+    /**
+     * Setup the response with Guzzle mock plugin
+     *
+     * @param string $responseFile
+     */
+    protected function setupResponse($responseFile)
+    {
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample($responseFile)));
+    }
+
+    /**
+     * Verify our result
+     *
+     * @param Result $result
+     * @param int $expectedSize
+     */
+    protected function verifyResult($result, $expectedSize)
+    {
+        $this->assertTrue($result instanceof Result);
+        $this->assertEquals($expectedSize, count($result));
+        foreach ($result as $row) {
+            $this->assertTrue($row instanceof Row);
+        }
+    }
+
 } 

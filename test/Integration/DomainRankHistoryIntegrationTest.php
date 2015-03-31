@@ -14,13 +14,9 @@ class DomainRankHistoryIntegrationTest extends AbstractIntegrationTest {
 
     public function testDomainRankHistoryRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_rank_history_ebay')));
+        $this->setupResponse('domain_rank_history_ebay');
         $result = $this->client->getDomainRankHistory('ebay.com', ['database' => Database::DATABASE_GOOGLE_US]);
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals(10, count($result));
-        foreach ($result as $row) {
-            $this->assertTrue($row instanceof Row);
-        }
+        $this->verifyResult($result, 10);
 
         /**
          * @var Row $row
