@@ -95,33 +95,7 @@ class ResponseParser
      */
     protected function parseRow($columns, $data)
     {
-        $asArray = $this->semicolonSeparatedToArray($data);
-        return array_combine($columns, $this->stripQuotes($asArray));
+        return array_combine($columns, str_getcsv($data, ";"));
     }
-
-    /**
-     * Strip quotes from items in data array
-     *
-     * @param $data
-     */
-    protected function stripQuotes($data)
-    {
-        foreach ($data as &$item) {
-            $item = trim($item, '"');
-        }
-        return $data;
-    }
-
-    /**
-     * Convert semicolon separated to array
-     *
-     * @param string $data
-     * @return string[]
-     */
-    protected function semicolonSeparatedToArray($data)
-    {
-        return explode(";", $data);
-    }
-
 
 } 
