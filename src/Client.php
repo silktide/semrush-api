@@ -49,7 +49,7 @@ class Client {
     }
 
     /**
-     * @param $domain
+     * @param string $domain
      * @param array $options
      * @return ApiResult
      */
@@ -59,7 +59,7 @@ class Client {
     }
 
     /**
-     * @param $domain
+     * @param string $domain
      * @param array $options
      * @return ApiResult
      */
@@ -69,7 +69,7 @@ class Client {
     }
 
     /**
-     * @param $domain
+     * @param string $domain
      * @param array $options
      * @return ApiResult
      */
@@ -81,8 +81,8 @@ class Client {
     /**
      * Make the request
      *
-     * @param $type
-     * @param $options
+     * @param string $type
+     * @param array $options
      * @return ApiResult
      */
     protected function makeRequest($type, $options)
