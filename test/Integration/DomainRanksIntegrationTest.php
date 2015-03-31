@@ -25,7 +25,7 @@ class DomainRanksIntegrationTest extends AbstractIntegrationTest {
          * @var Row $row
          */
         $row = $result[1];
-        $this->assertEquals("silktide.com", $row->getValue(Column::COLUMN_DOMAIN));
-        $this->assertEquals(94028, $row->getValue(Column::COLUMN_SEMRUSH_RATING));
+        $this->assertEquals("silktide.com", $row->getValue(Column::COLUMN_OVERVIEW_DOMAIN));
+        $this->assertEquals(94028, $row->getValue(Column::COLUMN_OVERVIEW_SEMRUSH_RATING));
     }
 } 

@@ -82,4 +82,21 @@ class RowTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * Make sure getting a value returns the correct value
+     *
+     * @throws \Silktide\SemRushApi\Model\Exception\InvalidDataException
+     */
+    public function testGetUnsetValue()
+    {
+        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidFieldException');
+        $values = [
+            'At' => 'top',
+            'Ac' => '560',
+            'Ad' => 'biscuits, cookies, hobnobs'
+        ];
+        $this->instance->setData($values);
+        $this->instance->getValue('Am');
+    }
+
 }

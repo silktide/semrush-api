@@ -58,6 +58,18 @@ class ClientTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($result instanceof Result);
     }
 
+    public function testGetDomainAdwords()
+    {
+        $result = $this->instance->getDomainAdwords('domain.com', []);
+        $this->assertTrue($result instanceof Result);
+    }
+
+    public function testGetDomainAdwordsUnique()
+    {
+        $result = $this->instance->getDomainAdwordsUnique('domain.com', []);
+        $this->assertTrue($result instanceof Result);
+    }
+
 
 
 } 

@@ -10,12 +10,12 @@ use Silktide\SemRushApi\Model\Row;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use Guzzle\Http\Message\Response;
 
-class DomainRankHistoryIntegrationTest extends AbstractIntegrationTest {
+class DomainAdwordsIntegrationTest extends AbstractIntegrationTest {
 
-    public function testDomainRankHistoryRequest()
+    public function testDomainAdwordsRequest()
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_rank_history_ebay')));
-        $result = $this->client->getDomainRankHistory('ebay.com', ['database' => Database::DATABASE_GOOGLE_US]);
+        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample('domain_adwords_argos')));
+        $result = $this->client->getDomainAdwords('silktide.com', ['database' => Database::DATABASE_GOOGLE_US]);
         $this->assertTrue($result instanceof Result);
         $this->assertEquals(10, count($result));
         foreach ($result as $row) {
@@ -25,7 +25,7 @@ class DomainRankHistoryIntegrationTest extends AbstractIntegrationTest {
         /**
          * @var Row $row
          */
-        $row = $result[1];
-        $this->assertEquals(779171, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC));
+        $row = $result[9];
+        $this->assertEquals("home framing software", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
     }
 } 

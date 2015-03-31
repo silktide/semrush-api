@@ -46,6 +46,9 @@ class Row {
      */
     public function getValue($key)
     {
+        if (!isset($this->data[$key])) {
+            throw new InvalidFieldException("The field [{$key}] was not found in the results.");
+        }
         return $this->data[$key];
     }
 

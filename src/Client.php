@@ -69,6 +69,26 @@ class Client {
     }
 
     /**
+    * @param string $domain
+    * @param array $options
+    * @return ApiResult
+    */
+    public function getDomainAdwords($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getDomainAdwordsUnique($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS_UNIQUE, ['domain' => $domain] + $options);
+    }
+
+    /**
      * @param string $domain
      * @param array $options
      * @return ApiResult
