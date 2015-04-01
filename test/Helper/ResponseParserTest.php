@@ -26,13 +26,23 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
 
         $result = $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('domain_adwords_argos'));
         $this->assertTrue(is_array($result));
-        $this->assertEquals(10000, count($result));
+        $this->assertEquals(1000, count($result));
         foreach ($result as $row) {
             $this->assertTrue(is_array($row));
             $this->assertEquals(9, count($row));
         }
 
         $this->assertStringStartsWith("http://www.argos.co.uk/static/Browse", $result[892]['Vu']);
+    }
+
+    public function testResponseParserIncorrectColumns()
+    {
+        $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
+        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
+
+        $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
+        $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('domain_rank_amazon'));
     }
 
     public function testResponseParserError()

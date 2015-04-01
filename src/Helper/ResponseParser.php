@@ -49,13 +49,19 @@ class ResponseParser
     {
         $numberQuotesExpected = count($columns) * 2;
 
+        /**
+         * Loop through rows.  If there are less quotes than expected, concatenate row with
+         * next row(s) until the response contains the required number of quote marks.
+         *
+         * TODO: Find a better way to do this
+         */
         foreach ($rows as $key => &$row)
         {
-            $i = $key + 1;
-            while (substr_count($row, '"') < $numberQuotesExpected && isset($rows[$i])) {
-                $row .= PHP_EOL.$rows[$i];
-                unset($rows[$i]);
-                $i++;
+            $nextRowId = $key + 1;
+            while (substr_count($row, '"') < $numberQuotesExpected && isset($rows[$nextRowId])) {
+                $row .= PHP_EOL.$rows[$nextRowId];
+                unset($rows[$nextRowId]);
+                $nextRowId++;
             }
         }
         return $rows;
