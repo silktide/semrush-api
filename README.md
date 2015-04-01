@@ -26,15 +26,25 @@ A PHP API client for the SEMrush API.
 This library was designed to use Dependency Injection (DI). If you don't use DI, you could use the factory to set up the API client:
 
     $client = new \Silktide\SemRushApi\ClientFactory::create("[YOUR SEMRUSH API KEY]");
+    
+### Caching
+
+The API library can use a cache to reduce calls to the API.  This library comes with an in-memory cache:
+    
+    $cache = new \Silktide\SemRushApi\Cache\MemoryCache();
+    $client->setCache($cache);
+    
+You can also write your own cache using the provided CacheInterface (`\Silktide\SemRushApi\Cache\CacheInterface`).
+    
+## API calls
         
-        
-## Domain ranks
+### Domain ranks
 
 Getting the SEMrush "domain_ranks" for a website:
 
     $result = $client->getDomainRanks('silktide.com');
         
-## Domain rank
+### Domain rank
 
 Getting the SEMrush "domain_rank" for a website:
 
@@ -45,7 +55,7 @@ Getting the SEMrush "domain_rank" for a website:
             ]
         );
         
-## Domain rank history
+### Domain rank history
 
 Getting the SEMrush "domain_rank_history" for a website:
 
@@ -56,7 +66,7 @@ Getting the SEMrush "domain_rank_history" for a website:
             ]
         );
         
-## Domain adwords
+### Domain adwords
 
 Getting the SEMrush "domain_adwords" for a website:
 
@@ -67,7 +77,7 @@ Getting the SEMrush "domain_adwords" for a website:
             ]
         );
         
-## Domain adwords unique
+### Domain adwords unique
 
 Getting the SEMrush "domain_adwords_unique" for a website:
 

@@ -2,6 +2,7 @@
 
 namespace Silktide\SemRushApi;
 
+use Silktide\SemRushApi\Cache\CacheInterface;
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
@@ -44,6 +45,11 @@ class Client
      */
     protected $guzzle;
 
+    /**
+     * @var CacheInterface
+     */
+    protected $cache;
+
 
     /**
      * Construct a client with API key
@@ -63,6 +69,14 @@ class Client
         $this->responseParser = $responseParser;
         $this->urlBuilder = $urlBuilder;
         $this->guzzle = $guzzle;
+    }
+
+    /**
+     * @param CacheInterface $cache
+     */
+    public function setCache(CacheInterface $cache)
+    {
+        $this->cache = $cache;
     }
 
     /**
@@ -125,9 +139,25 @@ class Client
     protected function makeRequest($type, $options)
     {
         $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
-        $rawResponse = $this->makeHttpRequest($request);
-        $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
-        return $this->resultFactory->create($formattedResponse);
+
+        // Attempt load from cache
+        if (isset($this->cache)) {
+            $result = $this->cache->fetch($request);
+        }
+
+        // Make request if not in cache
+        if (!isset($result)) {
+            $rawResponse = $this->makeHttpRequest($request);
+            $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
+            $result = $this->resultFactory->create($formattedResponse);
+        }
+
+        // Save to cache
+        if (isset($this->cache)) {
+            $this->cache->cache($request, $result);
+        }
+
+        return $result;
     }
 
     /**

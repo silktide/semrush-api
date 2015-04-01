@@ -29,7 +29,7 @@ class ResponseParser
 
         $rows = $this->splitStringIntoArray($data);
         $columns = $request->getExpectedResultColumns();
-        $rows = $this->hackToFixNewlineInCell($columns, $rows);
+        $rows = $this->hackToFixNewlineInCell($rows);
 
         foreach ($rows as &$row) {
             $row = $this->parseRow($columns, $row);
@@ -41,24 +41,19 @@ class ResponseParser
     /**
      * Hack to fix unexpected newlines in response data
      *
-     * @param string[] $columns
      * @param string[] $rows
      * @return string[]
      */
-    protected function hackToFixNewlineInCell($columns, $rows)
+    protected function hackToFixNewlineInCell($rows)
     {
-        $numberQuotesExpected = count($columns) * 2;
-
         /**
-         * Loop through rows.  If there are less quotes than expected, concatenate row with
+         * Loop through rows.  If the number of quotes is odd, concatenate row with
          * next row(s) until the response contains the required number of quote marks.
-         *
-         * TODO: Find a better way to do this
          */
         foreach ($rows as $key => &$row)
         {
             $nextRowId = $key + 1;
-            while (substr_count($row, '"') < $numberQuotesExpected && isset($rows[$nextRowId])) {
+            while (substr_count($row, '"') % 2 != 0 && isset($rows[$nextRowId])) {
                 $row .= PHP_EOL.$rows[$nextRowId];
                 unset($rows[$nextRowId]);
                 $nextRowId++;

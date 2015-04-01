@@ -44,6 +44,7 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
         $plugin = new MockPlugin();
         $plugin->addResponse(new Response(200));
+        $plugin->addResponse(new Response(200));
         $guzzle = new GuzzleClient();
         $guzzle->addSubscriber($plugin);
 
@@ -57,6 +58,8 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
         $this->responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
         $urlBuilder = $this->getMock('Silktide\SemRushApi\Helper\UrlBuilder');
+
+        $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
 
         $this->instance = new Client($this->key, $requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
     }
@@ -94,6 +97,22 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     {
         $result = $this->instance->getDomainAdwordsUnique('domain.com', []);
         $this->assertTrue($result instanceof Result);
+    }
+
+    public function testCache()
+    {
+        $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
+
+        $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
+        $cache->expects($this->exactly(2))->method('cache');
+        $cache->expects($this->exactly(2))->method('fetch')->willReturnOnConsecutiveCalls(null, $result);
+        $this->resultFactory->expects($this->exactly(1))->method('create')->willReturn($result);
+
+        $this->instance->setCache($cache);
+        $resultOne = $this->instance->getDomainAdwordsUnique('domain.com', []);
+        $resultTwo = $this->instance->getDomainAdwordsUnique('domain.com', []);
+
+        $this->assertEquals($resultOne, $resultTwo);
     }
 
 
