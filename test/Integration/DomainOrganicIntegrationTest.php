@@ -19,6 +19,6 @@ class DomainOrganicIntegrationTest extends AbstractIntegrationTest {
          * @var Row $row
          */
         $row = $result[9];
-        $this->assertEquals("pistonheads uk", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
+        $this->assertEquals("http://www.pistonheads.com/classifieds/dealer/699778", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD_VISIBLE_URL));
     }
 } 

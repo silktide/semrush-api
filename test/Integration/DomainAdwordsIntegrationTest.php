@@ -12,7 +12,7 @@ class DomainAdwordsIntegrationTest extends AbstractIntegrationTest {
     public function testDomainAdwordsRequest()
     {
         $this->setupResponse('domain_adwords_argos');
-        $result = $this->client->getDomainAdwords('argos.com', ['database' => Database::DATABASE_GOOGLE_US]);
+        $result = $this->client->getDomainAdwords('argos.com', ['database' => Database::DATABASE_GOOGLE_UK]);
         $this->verifyResult($result, 1000);
 
         /**
