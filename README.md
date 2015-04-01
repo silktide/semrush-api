@@ -11,6 +11,7 @@ A PHP API client for the SEMrush API.
 * domain_ranks
 * domain_rank
 * domain_rank_history
+* domain_organic
 * domain_adwords
 * domain_adwords_unique
 
@@ -66,6 +67,17 @@ Getting the SEMrush "domain_rank_history" for a website:
             ]
         );
         
+### Domain organic
+
+Getting the SEMrush "domain_organic" for a website:
+
+        $result = $client->getDomainOrganic(
+            'silktide.com', 
+            [
+                'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
+            ]
+        );
+        
 ### Domain adwords
 
 Getting the SEMrush "domain_adwords" for a website:
@@ -99,3 +111,13 @@ Here's an example of passing options to the domain ranks action in order to retu
             \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC
          ]
     ]);
+    
+## Using results
+
+All API actions will return a `Result` object.  Result objects contain a number of `Row` objects and are iterable and
+countable.  Here's a (non exhaustive) example of how they can be used. 
+
+    foreach ($result as $row) {
+        $budget = $row->getValue(\Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_BUDGET);
+        echo "\nThe AdWords spend of this site in the last month was an estimated ${$budget}";
+    }
