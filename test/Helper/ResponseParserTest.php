@@ -5,6 +5,7 @@ namespace Silktide\SemRushApi\Test\Helper;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use PHPUnit_Framework_TestCase;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
+use Silktide\SemRushApi\Model\Request;
 
 class ResponseParserTest extends PHPUnit_Framework_TestCase  {
 
@@ -35,34 +36,32 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
         $this->assertStringStartsWith("http://www.argos.co.uk/static/Browse", $result[892]['Vu']);
     }
 
-    public function testResponseParserIncorrectColumns()
+    /**
+     * @return Request
+     */
+    protected function getDefaultRequest()
     {
         $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
         $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
         $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
+        return $request;
+    }
 
+    public function testResponseParserIncorrectColumns()
+    {
         $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
-        $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('domain_rank_amazon'));
+        $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('domain_rank_amazon'));
     }
 
     public function testResponseParserError()
     {
-        $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
-        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
-        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
-
         $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
-        $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('error_auth'));
+        $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_auth'));
     }
 
     public function testResponseParserNoData()
     {
-        $columns = ["Ph","Po","Pp","Pd","Nq","Cp","Vu","Tr","Tc","Co","Nr","Td"];
-        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
-        $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
-
-        $result = $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('error_nodata'));
-
+        $result = $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_nodata'));
         $this->assertEquals([], $result);
     }
 
