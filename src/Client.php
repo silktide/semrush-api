@@ -104,6 +104,16 @@ class Client
      * @param array $options
      * @return ApiResult
      */
+    public function getDomainOrganic($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_ORGANIC, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
     public function getDomainAdwords($domain, $options = [])
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS, ['domain' => $domain] + $options);

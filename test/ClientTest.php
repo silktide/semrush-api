@@ -32,75 +32,100 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     protected $resultFactory;
 
     /**
+     * @var RequestFactory
+     */
+    protected $requestFactory;
+
+    /**
      * @var ResponseParser
      */
     protected $responseParser;
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * Instantiate a client
      */
-    public function setup()
+    public function doSetup($requestNumber)
     {
 
         $plugin = new MockPlugin();
-        $plugin->addResponse(new Response(200));
-        $plugin->addResponse(new Response(200));
+        for ($i = 0; $i < $requestNumber; $i++) {
+            $plugin->addResponse(new Response(200));
+        }
         $guzzle = new GuzzleClient();
         $guzzle->addSubscriber($plugin);
 
-        $requestFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RequestFactory');
-        $request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
-        $requestFactory->expects($this->any())->method('create')->willReturn($request);
+        $this->requestFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RequestFactory');
+        $this->request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
+        $this->requestFactory->expects($this->exactly($requestNumber))->method('create')->willReturn($this->request);
 
         $this->resultFactory = $this->getMockBuilder('Silktide\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
         $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
-        $this->resultFactory->expects($this->any())->method('create')->willReturn($result);
+        $this->resultFactory->expects($this->exactly(1))->method('create')->willReturn($result);
 
         $this->responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
         $urlBuilder = $this->getMock('Silktide\SemRushApi\Helper\UrlBuilder');
 
-        $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
+        $this->instance = new Client($this->key, $this->requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
+    }
 
-        $this->instance = new Client($this->key, $requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
+    public function testGetApiKey()
+    {
+        $this->doSetup(1);
+        $this->instance->getDomainRank('domain.com', []);
+        $this->assertEquals($this->key, $this->instance->getApiKey());
     }
 
     public function testGetDomainRank()
     {
+        $this->doSetup(1);
         $result = $this->instance->getDomainRank('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
 
     public function testGetDomainRanks()
     {
+        $this->doSetup(1);
         $result = $this->instance->getDomainRanks('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
 
     public function testGetDomainRankHistory()
     {
+        $this->doSetup(1);
         $result = $this->instance->getDomainRankHistory('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
 
-    public function testGetApiKey()
+    public function testGetDomainOrganic()
     {
-        $this->assertEquals($this->key, $this->instance->getApiKey());
+        $this->doSetup(1);
+        $result = $this->instance->getDomainOrganic('domain.com', []);
+        $this->assertTrue($result instanceof Result);
     }
 
     public function testGetDomainAdwords()
     {
+        $this->doSetup(1);
         $result = $this->instance->getDomainAdwords('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
 
     public function testGetDomainAdwordsUnique()
     {
+        $this->doSetup(1);
         $result = $this->instance->getDomainAdwordsUnique('domain.com', []);
         $this->assertTrue($result instanceof Result);
     }
 
     public function testCache()
     {
+        $this->doSetup(2);
+
         $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
 
         $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
