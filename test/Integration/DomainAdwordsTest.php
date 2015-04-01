@@ -13,12 +13,12 @@ class DomainAdwordsIntegrationTest extends AbstractIntegrationTest {
     {
         $this->setupResponse('domain_adwords_argos');
         $result = $this->client->getDomainAdwords('argos.com', ['database' => Database::DATABASE_GOOGLE_US]);
-        $this->verifyResult($result, 10);
+        $this->verifyResult($result, 10000);
 
         /**
          * @var Row $row
          */
         $row = $result[9];
-        $this->assertEquals("home framing software", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
+        $this->assertEquals("argos tv", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
     }
 } 

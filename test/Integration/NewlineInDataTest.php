@@ -12,7 +12,13 @@ class NewlineInDataTest extends AbstractIntegrationTest {
     public function testDomainAdwordsRequest()
     {
         $this->setupResponse('newline_in_data');
-        $result = $this->client->getDomainAdwords('argos.com', ['database' => Database::DATABASE_GOOGLE_US]);
+        $result = $this->client->getDomainAdwords('argos.com',
+            [
+                'database' => Database::DATABASE_GOOGLE_US,
+                'export_columns' => ["Ph", "Po", "Pp", "Pd", "Nq", "Cp", "Vu", "Tr", "Tc", "Co", "Nr", "Td"
+                ]
+            ]
+        );
         $this->verifyResult($result, 10);
 
         /**
