@@ -32,13 +32,13 @@ This library was designed to use Dependency Injection (DI). If you don't use DI,
 
 Getting the SEMrush "domain_ranks" for a website:
 
-    $result = $this->client->getDomainRanks('silktide.com');
+    $result = $client->getDomainRanks('silktide.com');
         
 ## Domain rank
 
 Getting the SEMrush "domain_rank" for a website:
 
-        $result = $this->client->getDomainRank(
+        $result = $client->getDomainRank(
             'silktide.com', 
             [
                 'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
@@ -49,7 +49,7 @@ Getting the SEMrush "domain_rank" for a website:
 
 Getting the SEMrush "domain_rank_history" for a website:
 
-        $result = $this->client->getDomainRankHistory(
+        $result = $client->getDomainRankHistory(
             'silktide.com', 
             [
                 'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
@@ -60,7 +60,7 @@ Getting the SEMrush "domain_rank_history" for a website:
 
 Getting the SEMrush "domain_adwords" for a website:
 
-        $result = $this->client->getDomainAdwords(
+        $result = $client->getDomainAdwords(
             'silktide.com', 
             [
                 'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
@@ -71,7 +71,7 @@ Getting the SEMrush "domain_adwords" for a website:
 
 Getting the SEMrush "domain_adwords_unique" for a website:
 
-        $result = $this->client->getDomainAdwordsUnique(
+        $result = $client->getDomainAdwordsUnique(
             'silktide.com', 
             [
                 'database' => \Silktide\SemRushApi\Data\Database::DATABASE_GOOGLE_US
@@ -82,7 +82,7 @@ Getting the SEMrush "domain_adwords_unique" for a website:
 
 Here's an example of passing options to the domain ranks action in order to return a specific set of columns.
 
-    $result = $this->client->getDomainRanks('silktide.com', [
+    $result = $client->getDomainRanks('silktide.com', [
         'export_columns' => [
             \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_BUDGET,
             \Silktide\SemRushApi\Data\Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS,
