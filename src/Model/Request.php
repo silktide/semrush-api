@@ -34,6 +34,7 @@ class Request
         $this->options = ['type' => $type] + $options;
         $this->loadRequestDefinition();
         $this->mergePresets();
+        $this->options['export_columns'] = $this->getExpectedResultColumns();
         $this->validate();
     }
 
