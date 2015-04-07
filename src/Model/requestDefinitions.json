@@ -123,7 +123,8 @@
       "display_date": "date",
       "export_columns": "columns",
       "export_escape": "boolean",
-      "display_sort": "string"
+      "display_sort": "string",
+      "display_limit": "integer"
     },
     "preset_fields": {
       "export_escape": "1"
@@ -173,7 +174,8 @@
       "display_date": "date",
       "export_columns": "columns",
       "export_escape": "boolean",
-      "display_sort": "string"
+      "display_sort": "string",
+      "display_limit": "integer"
     },
     "preset_fields": {
       "export_escape": "1"
@@ -218,7 +220,8 @@
     },
     "optional_fields": {
       "export_columns": "columns",
-      "export_escape": "boolean"
+      "export_escape": "boolean",
+      "display_limit": "integer"
     },
     "preset_fields": {
       "export_escape": "1"
