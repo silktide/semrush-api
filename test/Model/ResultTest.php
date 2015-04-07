@@ -91,7 +91,10 @@ class ResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($rows[1], $this->instance[1]);
         unset($this->instance[1]);
         $this->assertEquals(2, count($this->instance));
-        
+
+        $result = $this->instance->toArray();
+        $this->assertEquals(2, count($result));
+
     }
 
 }

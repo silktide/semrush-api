@@ -16,6 +16,22 @@ class Result implements ArrayAccess, Iterator, Countable
      */
     protected $rows;
 
+    /**
+     * Turn result and rows into multi-dimensional array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array_reduce($this->rows, function($carry, $item) {
+            if (!is_array($carry)) {
+                $carry = [];
+            }
+            $carry[] = $item->getData();
+            return $carry;
+        });
+    }
+
 
     /**
      * Get all the rows from the result
