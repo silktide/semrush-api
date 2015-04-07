@@ -120,6 +120,10 @@ class Request
             case "boolean":
                 $this->validateBoolean($option, $value);
                 break;
+
+            case "integer":
+                $this->validateInteger($option, $value);
+                break;
         }
     }
 
@@ -149,6 +153,20 @@ class Request
     {
         if (!in_array($database, Database::getDatabases())) {
             throw new InvalidOptionException("[{$key}] was not a database [{$database}]");
+        }
+    }
+
+    /**
+     * Validate integer
+     *
+     * @param string $key
+     * @param string $string
+     * @throws InvalidOptionException
+     */
+    protected function validateInteger($key, $string)
+    {
+        if (!is_int($string)) {
+            throw new InvalidOptionException("[{$key}] was not an integer [{$string}]");
         }
     }
 
