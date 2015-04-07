@@ -44,12 +44,13 @@ class RequestTest extends PHPUnit_Framework_TestCase {
             'domain' => $this->domain,
             'display_date' => $date,
             'database' => Database::DATABASE_GOOGLE_UK,
-            'export_columns' => $columns
+            'export_columns' => $columns,
+            'display_limit' => 12
         ];
 
-        $request = new Request(Type::TYPE_DOMAIN_RANKS, $options);
+        $request = new Request(Type::TYPE_DOMAIN_RANK_HISTORY, $options);
 
-        $options['type'] = Type::TYPE_DOMAIN_RANKS;
+        $options['type'] = Type::TYPE_DOMAIN_RANK_HISTORY;
         $options['export_escape'] = "1";
 
         $this->assertEquals($options, $request->getUrlParameters());

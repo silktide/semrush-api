@@ -24,12 +24,9 @@ class Result implements ArrayAccess, Iterator, Countable
     public function toArray()
     {
         return array_reduce($this->rows, function($carry, $item) {
-            if (!is_array($carry)) {
-                $carry = [];
-            }
             $carry[] = $item->getData();
             return $carry;
-        });
+        }, []);
     }
 
 
