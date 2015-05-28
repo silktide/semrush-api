@@ -31,7 +31,13 @@ class ResponseParser
         $columns = $request->getExpectedResultColumns();
         $rows = $this->hackToFixNewlineInCell($rows);
 
-        foreach ($rows as &$row) {
+        foreach ($rows as $id => &$row) {
+            // Some requests (such as backlinks) have an empty line at the end
+            // of the response. This code will remove empty rows.
+            if (empty($row)) {
+                unset($rows[$id]);
+                continue;
+            }
             $row = $this->parseRow($columns, $row);
         }
 

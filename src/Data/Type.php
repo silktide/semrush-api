@@ -13,6 +13,7 @@ abstract class Type
     const TYPE_DOMAIN_ORGANIC = "domain_organic";
     const TYPE_DOMAIN_ADWORDS = "domain_adwords";
     const TYPE_DOMAIN_ADWORDS_UNIQUE = "domain_adwords_unique";
+    const TYPE_BACKLINKS_OVERVIEW = "backlinks_overview";
 
     /**
      * Get all the possible columns

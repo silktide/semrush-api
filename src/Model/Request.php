@@ -7,7 +7,7 @@ use Silktide\SemRushApi\Model\Exception\InvalidOptionException;
 
 class Request
 {
-    const ENDPOINT = "http://api.semrush.com/";
+    const DOMAIN = "http://api.semrush.com";
 
     /**
      * @var string
@@ -28,13 +28,18 @@ class Request
      * @param string $type
      * @param array $options
      */
-    public function __construct($type, $options = [])
+    public function __construct($type, $options = [], $endpoint_path)
     {
         $this->type = $type;
         $this->options = ['type' => $type] + $options;
+        $this->endpoint_path = $endpoint_path;
         $this->loadRequestDefinition();
         $this->mergePresets();
-        $this->options['export_columns'] = $this->getExpectedResultColumns();
+        // If the request is a domain overview request, we must add the
+        // export_columns option.
+        if ($endpoint_path == \Silktide\SemRushApi\Data\ApiEndpoint::ENDPOINT_DOMAIN) {
+            $this->options['export_columns'] = $this->getExpectedResultColumns();
+        }
         $this->validate();
     }
 
@@ -267,13 +272,23 @@ class Request
     }
 
     /**
+     * Get the request endpoint relative path.
+     *
+     * @return string
+     */
+    protected function getEndpointPath()
+    {
+        return $this->endpoint_path;
+    }
+
+    /**
      * Get the request endpoint
      *
      * @return string
      */
     public function getEndpoint()
     {
-        return self::ENDPOINT;
+        return static::DOMAIN . $this->getEndpointPath();
     }
 
 

@@ -250,5 +250,29 @@
       "COLUMN_DOMAIN_KEYWORD_TARGET_URL",
       "COLUMN_DOMAIN_KEYWORD_NUMBER"
     ]
+  },
+  "backlinks_overview": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "target",
+      "target_type": "target_type"
+    },
+    "optional_fields": {},
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_OVERVIEW_TOTAL",
+      "COLUMN_OVERVIEW_DOMAINS_NUM",
+      "COLUMN_OVERVIEW_IPS_NUM",
+      "COLUMN_OVERVIEW_FOLLOWS_NUM",
+      "COLUMN_OVERVIEW_NOFOLLOWS_NUM"
+    ],
+    "valid_columns": [
+      "COLUMN_OVERVIEW_TOTAL",
+      "COLUMN_OVERVIEW_DOMAINS_NUM",
+      "COLUMN_OVERVIEW_IPS_NUM",
+      "COLUMN_OVERVIEW_FOLLOWS_NUM",
+      "COLUMN_OVERVIEW_NOFOLLOWS_NUM"
+    ]
   }
 }

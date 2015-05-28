@@ -12,11 +12,12 @@ class RequestFactory
      *
      * @param string $type
      * @param array $options
+     * @param string $endpoint_path
      * @return Request
      */
-    public function create($type, $options)
+    public function create($type, $options, $endpoint_path)
     {
-        return new Request($type, $options);
+        return new Request($type, $options, $endpoint_path);
     }
 
 } 
