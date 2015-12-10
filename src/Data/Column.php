@@ -34,6 +34,12 @@ abstract class Column
     const COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE = "Pd";
     const COLUMN_DOMAIN_ADWORD_POSITION = "Ab";
 
+    const COLUMN_OVERVIEW_TOTAL = "total";
+    const COLUMN_OVERVIEW_DOMAINS_NUM = "domains_num";
+    const COLUMN_OVERVIEW_IPS_NUM = "ips_num";
+    const COLUMN_OVERVIEW_FOLLOWS_NUM = "follows_num";
+    const COLUMN_OVERVIEW_NOFOLLOWS_NUM = "nofollows_num";
+
     /**
      * Get all the possible columns
      *

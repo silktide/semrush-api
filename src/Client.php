@@ -140,15 +140,25 @@ class Client
     }
 
     /**
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinksOverview($options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, $options, \Silktide\SemRushApi\Data\ApiEndpoint::ENDPOINT_ANALYTICS);
+    }
+
+    /**
      * Make the request
      *
      * @param string $type
      * @param array $options
+     * @param string $endpoint_path
      * @return ApiResult
      */
-    protected function makeRequest($type, $options)
+    protected function makeRequest($type, $options, $endpoint_path = \Silktide\SemRushApi\Data\ApiEndpoint::ENDPOINT_DOMAIN)
     {
-        $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
+        $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options, $endpoint_path);
 
         // Attempt load from cache
         if (isset($this->cache)) {
@@ -174,11 +184,13 @@ class Client
      * Use guzzle to make request to API
      *
      * @param Request $request
+     *
      * @return string
      */
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
+
         $guzzleRequest = $this->guzzle->createRequest('GET', $url);
         $guzzleResponse = $this->guzzle->send($guzzleRequest);
         return $guzzleResponse->getBody();
