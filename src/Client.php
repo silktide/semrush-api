@@ -179,8 +179,7 @@ class Client
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
-        $guzzleRequest = $this->guzzle->createRequest('GET', $url);
-        $guzzleResponse = $this->guzzle->send($guzzleRequest);
+        $guzzleResponse = $this->guzzle->request('GET', $url, []);
         return $guzzleResponse->getBody();
     }
 
