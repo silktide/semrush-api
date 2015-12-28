@@ -121,6 +121,8 @@
     },
     "optional_fields": {
       "display_date": "date",
+      "display_offset": "integer",
+      "display_filter": "string",
       "export_columns": "columns",
       "export_escape": "boolean",
       "display_sort": "string",
