@@ -128,6 +128,16 @@ class Client
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS_UNIQUE, ['domain' => $domain] + $options);
     }
+    
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getDomainPlaSearchKeywords($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, ['domain' => $domain] + $options);
+    }
 
     /**
      * @param string $domain
@@ -179,8 +189,7 @@ class Client
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
-        $guzzleRequest = $this->guzzle->createRequest('GET', $url);
-        $guzzleResponse = $this->guzzle->send($guzzleRequest);
+        $guzzleResponse = $this->guzzle->request('GET', $url, []);
         return $guzzleResponse->getBody();
     }
 

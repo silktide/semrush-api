@@ -121,6 +121,8 @@
     },
     "optional_fields": {
       "display_date": "date",
+      "display_offset": "integer",
+      "display_filter": "string",
       "export_columns": "columns",
       "export_escape": "boolean",
       "display_sort": "string",
@@ -172,6 +174,7 @@
     },
     "optional_fields": {
       "display_date": "date",
+      "display_offset": "integer",
       "export_columns": "columns",
       "export_escape": "boolean",
       "display_sort": "string",
@@ -249,6 +252,53 @@
       "COLUMN_DOMAIN_KEYWORD_VISIBLE_URL",
       "COLUMN_DOMAIN_KEYWORD_TARGET_URL",
       "COLUMN_DOMAIN_KEYWORD_NUMBER"
+    ]
+  },
+  "domain_shopping": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "domain": "domain",
+      "database": "database"
+    },
+    "optional_fields": {
+      "display_offset": "integer",
+      "export_columns": "columns",
+      "export_escape": "boolean",
+      "display_sort": "string",
+      "display_limit": "integer"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "COLUMN_DOMAIN_KEYWORD",
+      "COLUMN_DOMAIN_KEYWORD_ORGANIC_POSITION",
+      "COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE",
+      "COLUMN_DOMAIN_KEYWORD_TRAFFIC_PERCENTAGE",
+      "COLUMN_KEYWORD_ESTIMATED_PRICE",
+      "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+      "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+      "COLUMN_KEYWORD_AVERAGE_QUERIES",
+      "COLUMN_DOMAIN_KEYWORD_VISIBLE_URL"
+    ],
+    "valid_columns": [
+      "COLUMN_DOMAIN_KEYWORD",
+      "COLUMN_DOMAIN_KEYWORD_ORGANIC_POSITION",
+      "COLUMN_DOMAIN_KEYWORD_PREVIOUS_ORGANIC_POSITION",
+      "COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE",
+      "COLUMN_DOMAIN_ADWORD_POSITION",
+      "COLUMN_KEYWORD_AVERAGE_QUERIES",
+      "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+      "COLUMN_DOMAIN_KEYWORD_TRAFFIC_PERCENTAGE",
+      "COLUMN_KEYWORD_ESTIMATED_PRICE",
+      "COLUMN_KEYWORD_COMPETITIVE_AD_DENSITY",
+      "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+      "COLUMN_KEYWORD_INTEREST",
+      "COLUMN_DOMAIN_KEYWORD_AD_TITLE",
+      "COLUMN_DOMAIN_KEYWORD_AD_TEXT",
+      "COLUMN_DOMAIN_KEYWORD_VISIBLE_URL",
+      "COLUMN_DOMAIN_KEYWORD_TARGET_URL"
     ]
   }
 }
