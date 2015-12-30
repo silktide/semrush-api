@@ -1,5 +1,5 @@
 {
-    "name": "silktide/semrush-api",
+    "name": "aliasproject/semrush-api",
     "description": "SEMrush API client",
     "require": {
         "php": ">=5.5.0",
@@ -14,6 +14,10 @@
         {
             "name": "Andrew Waite",
             "email": "andrewwaite@silktide.com"
+        },
+        {
+            "name": "Michael Aguiar",
+            "email": "mike@aliasproject.com"
         }
     ],
     "autoload": {
