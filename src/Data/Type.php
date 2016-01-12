@@ -14,6 +14,7 @@ abstract class Type
     const TYPE_DOMAIN_ADWORDS = "domain_adwords";
     const TYPE_DOMAIN_ADWORDS_UNIQUE = "domain_adwords_unique";
     const TYPE_DOMAIN_PLA_SEARCH_KEYWORDS = "domain_shopping";
+    const TYPE_KEYWORD_DIFFICULTY = "phrase_kdi";
 
     /**
      * Get all the possible columns
@@ -24,4 +25,4 @@ abstract class Type
     {
         return self::getConstants();
     }
-} 
+}

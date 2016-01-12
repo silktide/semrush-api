@@ -128,7 +128,17 @@ class Client
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS_UNIQUE, ['domain' => $domain] + $options);
     }
-    
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getKeywordDifficulty($phrase, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_KEYWORD_DIFFICULTY, ['phrase' => $phrase] + $options);
+    }
+
     /**
      * @param string $domain
      * @param array $options
@@ -201,4 +211,4 @@ class Client
         return $this->apiKey;
     }
 
-} 
+}
