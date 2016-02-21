@@ -3,6 +3,8 @@
 
 namespace Silktide\SemRushApi\Integration;
 
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use Silktide\SemRushApi\Client;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
@@ -13,9 +15,7 @@ use Silktide\SemRushApi\Model\Result;
 use Silktide\SemRushApi\Model\Row;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use PHPUnit_Framework_TestCase;
-use Guzzle\Plugin\Mock\MockPlugin;
-use Guzzle\Http\Message\Response;
-use Guzzle\Http\Client as GuzzleClient;
+use GuzzleHttp\Client as GuzzleClient;
 
 abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
 
@@ -26,10 +26,9 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
     protected $client;
 
     /**
-     * @var MockPlugin
+     * @var MockHandler
      */
-    protected $guzzlePlugin;
-
+    protected $guzzleHandler;
     /**
      * Setup integration test
      */
@@ -41,10 +40,8 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
         $responseParser = new ResponseParser();
         $urlBuilder = new UrlBuilder();
 
-        $this->guzzlePlugin = new MockPlugin();
-        $guzzle = new GuzzleClient();
-        $guzzle->addSubscriber($this->guzzlePlugin);
-
+        $this->guzzleHandler = new MockHandler([]);
+        $guzzle = new GuzzleClient(["handler" => $this->guzzleHandler]);
         $this->client = new Client("demokey", $requestFactory, $resultFactory, $responseParser, $urlBuilder, $guzzle);
     }
 
@@ -55,7 +52,7 @@ abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
      */
     protected function setupResponse($responseFile)
     {
-        $this->guzzlePlugin->addResponse(new Response(200, null, ResponseExampleHelper::getResponseExample($responseFile)));
+        $this->guzzleHandler->append(new Response(200, [], ResponseExampleHelper::getResponseExample($responseFile)));
     }
 
     /**
