@@ -3,13 +3,13 @@
 
 namespace Silktide\SemRushApi\Test;
 
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use Silktide\SemRushApi\Client;
 use Silktide\SemRushApi\Helper\Exception\EmptyResponseException;
 use Silktide\SemRushApi\Model\Result;
 use PHPUnit_Framework_TestCase;
-use Guzzle\Plugin\Mock\MockPlugin;
-use Guzzle\Http\Message\Response;
-use Guzzle\Http\Client as GuzzleClient;
+use GuzzleHttp\Client as GuzzleClient;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Helper\ResponseParser;
 
@@ -51,13 +51,12 @@ class ClientTest extends PHPUnit_Framework_TestCase {
      */
     public function doSetup($requestNumber)
     {
-
-        $plugin = new MockPlugin();
+        $handler = new MockHandler([]);
         for ($i = 0; $i < $requestNumber; $i++) {
-            $plugin->addResponse(new Response(200));
+            $handler->append(new Response(200));
         }
-        $guzzle = new GuzzleClient();
-        $guzzle->addSubscriber($plugin);
+
+        $guzzle = new GuzzleClient(["handler" => $handler]);
 
         $this->requestFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RequestFactory');
         $this->request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();

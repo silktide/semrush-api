@@ -10,7 +10,7 @@ use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Result as ApiResult;
-use Guzzle\Http\Client as GuzzleClient;
+use GuzzleHttp\Client as GuzzleClient;
 
 class Client
 {
@@ -179,8 +179,7 @@ class Client
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
-        $guzzleRequest = $this->guzzle->createRequest('GET', $url);
-        $guzzleResponse = $this->guzzle->send($guzzleRequest);
+        $guzzleResponse = $this->guzzle->request('GET', $url, []);
         return $guzzleResponse->getBody();
     }
 
