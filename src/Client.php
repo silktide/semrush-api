@@ -134,6 +134,26 @@ class Client
      * @param array $options
      * @return ApiResult
      */
+    public function getKeywordDifficulty($phrase, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_KEYWORD_DIFFICULTY, ['phrase' => $phrase] + $options);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getDomainPlaSearchKeywords($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
     public function getDomainRankHistory($domain, $options = [])
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_RANK_HISTORY, ['domain' => $domain] + $options);
@@ -191,4 +211,4 @@ class Client
         return $this->apiKey;
     }
 
-} 
+}
