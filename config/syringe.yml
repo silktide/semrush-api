@@ -1,40 +1,40 @@
+parameters:
+  api_key: ""
+
 services:
-  semrush.client:
+  client:
     class: Silktide\SemRushApi\Client
     arguments:
-      - "%semrush.api_key%"
-      - "@semrush.requestfactory"
-      - "@semrush.resultfactory"
-      - "@semrush.responseparser"
-      - "@semrush.urlbuilder"
+      - "%api_key%"
+      - "@request.factory"
+      - "@result.factory"
+      - "@response.parser"
+      - "@url.builder"
       - "@guzzle.client"
     calls:
       - method: setCache
         arguments:
-          - "@semrush.cacheclient"
+          - "@cache.client"
 
-  semrush.requestfactory:
+  request.factory:
     class: Silktide\SemRushApi\Model\Factory\RequestFactory
 
-  semrush.resultfactory:
+  result.factory:
     class: Silktide\SemRushApi\Model\Factory\ResultFactory
     arguments:
-      - "@semrush.rowfactory"
+      - "@row.factory"
 
-  semrush.responseparser:
+  response.parser:
     class: Silktide\SemRushApi\Helper\ResponseParser
 
-  semrush.urlbuilder:
+  url.builder:
     class: Silktide\SemRushApi\Helper\UrlBuilder
 
-  semrush.rowfactory:
+  row.factory:
     class: Silktide\SemRushApi\Model\Factory\RowFactory
 
-  semrush.cacheclient:
+  cache.client:
     class: Silktide\SemRushApi\Cache\MemoryCache
-
-  semrush.countrydatabase:
-    class: Silktide\Analyser\SearchMarketing\Data\SemRushCountryDatabase
 
   guzzle.client:
     class: GuzzleHttp\Client
