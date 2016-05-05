@@ -2,6 +2,7 @@
 
 namespace Silktide\SemRushApi;
 
+use GuzzleHttp\RequestOptions;
 use Silktide\SemRushApi\Cache\CacheInterface;
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
@@ -50,6 +51,16 @@ class Client
      */
     protected $cache;
 
+    /**
+     * @var int
+     */
+    protected $connectTimeout = 15;
+
+    /**
+     * @var
+     */
+    protected $timeout = 15;
+
 
     /**
      * Construct a client with API key
@@ -70,6 +81,39 @@ class Client
         $this->urlBuilder = $urlBuilder;
         $this->guzzle = $guzzle;
     }
+
+    /**
+     * @return int
+     */
+    public function getConnectTimeout()
+    {
+        return $this->connectTimeout;
+    }
+
+    /**
+     * @param int $connectTimeout
+     */
+    public function setConnectTimeout($connectTimeout)
+    {
+        $this->connectTimeout = $connectTimeout;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param int $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+    }
+
 
     /**
      * @param CacheInterface $cache
@@ -179,7 +223,10 @@ class Client
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
-        $guzzleResponse = $this->guzzle->request('GET', $url, []);
+        $guzzleResponse = $this->guzzle->request('GET', $url, [
+            RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
+            RequestOptions::TIMEOUT => $this->timeout
+        ]);
         return $guzzleResponse->getBody();
     }
 
