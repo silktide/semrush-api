@@ -14,6 +14,9 @@ A PHP API client for the SEMrush API.
 * domain_organic
 * domain_adwords
 * domain_adwords_unique
+* advertiser_publishers
+* advertiser_text_ads
+* advertiser_rank
 
 ## Usage
 
