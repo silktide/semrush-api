@@ -250,5 +250,104 @@
       "COLUMN_DOMAIN_KEYWORD_TARGET_URL",
       "COLUMN_DOMAIN_KEYWORD_NUMBER"
     ]
+  },
+  "advertiser_publishers": {
+    "required_fields": {
+      "type": "type",
+      "action" : "string",
+      "key": "string",
+      "domain": "domain"
+    },
+    "optional_fields": {
+      "export_columns": "columns",
+      "export_escape": "boolean",
+      "display_limit": "integer",
+      "display_sort": "string"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_ADVERTISER_AD_COUNT",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN"
+    ],
+    "valid_columns": [
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_ADVERTISER_AD_COUNT",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN"
+    ]
+  },
+  "advertiser_text_ads": {
+    "required_fields": {
+      "type": "type",
+      "action" : "string",
+      "key": "string",
+      "domain": "domain"
+    },
+    "optional_fields": {
+      "export_columns": "columns",
+      "export_escape": "boolean",
+      "display_limit": "integer",
+      "display_sort": "string"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "COLUMN_ADVERTISER_AD_TITLE",
+      "COLUMN_ADVERTISER_AD_TEXT",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN",
+      "COLUMN_ADVERTISER_AD_URL"
+    ],
+    "valid_columns": [
+      "COLUMN_ADVERTISER_AD_TITLE",
+      "COLUMN_ADVERTISER_AD_TEXT",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN",
+      "COLUMN_ADVERTISER_AD_URL"
+    ]
+  },
+  "advertiser_rank": {
+    "required_fields": {
+      "type": "type",
+      "action" : "string",
+      "key": "string",
+      "domain": "domain"
+    },
+    "optional_fields": {
+      "export_columns": "columns",
+      "export_escape": "boolean"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_ADVERTISER_ADS_OVERALL",
+      "COLUMN_ADVERTISER_TEXT_ADS_OVERALL",
+      "COLUMN_ADVERTISER_MEDIA_ADS_OVERALL",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN",
+      "COLUMN_ADVERTISER_DOMAIN_OVERALL"
+    ],
+    "valid_columns": [
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_ADVERTISER_ADS_OVERALL",
+      "COLUMN_ADVERTISER_TEXT_ADS_OVERALL",
+      "COLUMN_ADVERTISER_MEDIA_ADS_OVERALL",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_TIMES_SEEN",
+      "COLUMN_ADVERTISER_DOMAIN_OVERALL"
+    ]
   }
 }

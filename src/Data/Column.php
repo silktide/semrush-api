@@ -33,6 +33,18 @@ abstract class Column
     const COLUMN_DOMAIN_KEYWORD_NUMBER = "Pc";
     const COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE = "Pd";
     const COLUMN_DOMAIN_ADWORD_POSITION = "Ab";
+    const COLUMN_ADVERTISER_AD_DOMAIN = "domain";
+    const COLUMN_ADVERTISER_AD_COUNT = "ads_count";
+    const COLUMN_ADVERTISER_AD_FIRST_SEEN = "first_seen";
+    const COLUMN_ADVERTISER_AD_LAST_SEEN = "last_seen";
+    const COLUMN_ADVERTISER_AD_TIMES_SEEN = "times_seen";
+    const COLUMN_ADVERTISER_AD_TITLE = "title";
+    const COLUMN_ADVERTISER_AD_TEXT = "text";
+    const COLUMN_ADVERTISER_AD_URL = "visible_url";
+    const COLUMN_ADVERTISER_ADS_OVERALL = "ads_overall";
+    const COLUMN_ADVERTISER_MEDIA_ADS_OVERALL = "media_ads_overall";
+    const COLUMN_ADVERTISER_TEXT_ADS_OVERALL = "text_ads_overall";
+    const COLUMN_ADVERTISER_DOMAIN_OVERALL = "domain_overall";
 
     /**
      * Get all the possible columns

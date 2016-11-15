@@ -110,6 +110,11 @@ class ResponseParser
     {
         $rows = explode("\n", $data);
         unset($rows[0]);
+        foreach ($rows as $index => $row) {
+            if ($row == "") {
+                unset($rows[$index]);
+            }
+        }
         return $rows;
     }
 

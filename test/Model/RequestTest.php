@@ -63,6 +63,11 @@ class RequestTest extends PHPUnit_Framework_TestCase {
             'domain' => $this->domain
         ]);
         $this->assertEquals("http://api.semrush.com/", $request->getEndpoint());
+        $request = new Request(Type::TYPE_ADVERTISER_RANK, [
+            'key' => $this->key,
+            'domain' => $this->domain
+        ]);
+        $this->assertEquals("http://api.semrush.com/analytics/da/v2/", $request->getEndpoint());
     }
 
 

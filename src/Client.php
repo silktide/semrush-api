@@ -184,6 +184,36 @@ class Client
     }
 
     /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getAdvertiserPublishers($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_ADVERTISER_PUBLISHERS, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getAdvertiserDisplayAds($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_ADVERTISER_DISPLAY_ADS, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getAdvertiserRank($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_ADVERTISER_RANK, ['domain' => $domain] + $options);
+    }
+
+    /**
      * Make the request
      *
      * @param string $type
