@@ -3,11 +3,13 @@
 namespace Silktide\SemRushApi\Model;
 
 use Silktide\SemRushApi\Data\Database;
+use Silktide\SemRushApi\Data\TypeAPIVersionMap;
 use Silktide\SemRushApi\Model\Exception\InvalidOptionException;
 
 class Request
 {
     const ENDPOINT = "http://api.semrush.com/";
+    const ENDPOINTv2 = "http://api.semrush.com/analytics/da/v2/";
 
     /**
      * @var string
@@ -25,19 +27,33 @@ class Request
     protected $definition;
 
     /**
+     * @var int
+     */
+    protected $APIVersion;
+
+    /**
      * @param string $type
      * @param array $options
      */
     public function __construct($type, $options = [])
     {
         $this->type = $type;
-        $this->options = ['type' => $type] + $options;
+        $this->APIVersion = TypeAPIVersionMap::getAPIVersion($type);
+        $this->options = $this->buildOptionsArray($options);
         $this->loadRequestDefinition();
         $this->mergePresets();
         $this->options['export_columns'] = $this->getExpectedResultColumns();
         $this->validate();
     }
 
+
+    public function buildOptionsArray($options = [])
+    {
+        if ($this->APIVersion == 2) {
+            return ['action' => 'report'] + $options + ['type' => $this->type];
+        }
+        return ['type' => $this->type] + $options;
+    }
     /**
      * Merge in presets from the definition
      */
@@ -273,6 +289,9 @@ class Request
      */
     public function getEndpoint()
     {
+        if ($this->APIVersion == 2) {
+            return self::ENDPOINTv2;
+        }
         return self::ENDPOINT;
     }
 
