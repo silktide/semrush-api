@@ -47,6 +47,10 @@ class Request
     }
 
 
+    /**
+     * @param array $options
+     * @return array
+     */
     public function buildOptionsArray($options = [])
     {
         if ($this->APIVersion == 2) {
