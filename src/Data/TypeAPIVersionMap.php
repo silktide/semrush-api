@@ -8,7 +8,8 @@ abstract class TypeAPIVersionMap
 
     const AVAILABLE_v2_TYPES = [
         Type::TYPE_ADVERTISER_PUBLISHERS,
-        Type::TYPE_ADVERTISER_DISPLAY_ADS
+        Type::TYPE_ADVERTISER_DISPLAY_ADS,
+        Type::TYPE_ADVERTISER_RANK
     ];
 
     /**

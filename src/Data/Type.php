@@ -15,6 +15,7 @@ abstract class Type
     const TYPE_DOMAIN_ADWORDS_UNIQUE = "domain_adwords_unique";
     const TYPE_ADVERTISER_PUBLISHERS = "advertiser_publishers";
     const TYPE_ADVERTISER_DISPLAY_ADS = "advertiser_text_ads";
+    const TYPE_ADVERTISER_RANK = "advertiser_rank";
 
     /**
      * Get all the possible columns

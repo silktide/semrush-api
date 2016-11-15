@@ -41,6 +41,11 @@ abstract class Column
     const COLUMN_ADVERTISER_AD_TITLE = "title";
     const COLUMN_ADVERTISER_AD_TEXT = "text";
     const COLUMN_ADVERTISER_AD_URL = "visible_url";
+    const COLUMN_ADVERTISER_AD_MEDIA_TYPE = "media_type";
+    const COLUMN_ADVERTISER_ADS_OVERALL = "ads_overall";
+    const COLUMN_ADVERTISER_MEDIA_ADS_OVERALL = "media_ads_overall";
+    const COLUMN_ADVERTISER_TEXT_ADS_OVERALL = "text_ads_overall";
+    const COLUMN_ADVERTISER_DOMAIN_OVERALL = "domain_overall";
 
     /**
      * Get all the possible columns
