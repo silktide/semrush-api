@@ -2,7 +2,7 @@
     "name": "silktide/semrush-api",
     "description": "SEMrush API client",
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.6.0",
         "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
