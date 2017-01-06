@@ -2,6 +2,7 @@
 
 namespace Silktide\SemRushApi;
 
+use Guzzle\Http\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Silktide\SemRushApi\Cache\CacheInterface;
 use Silktide\SemRushApi\Data\Type;
@@ -12,9 +13,12 @@ use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Result as ApiResult;
 use GuzzleHttp\Client as GuzzleClient;
+use Psr\Log\LoggerAwareTrait;
+use Exception;
 
 class Client
 {
+    use LoggerAwareTrait;
 
     /**
      * @var string
@@ -222,23 +226,29 @@ class Client
      */
     protected function makeRequest($type, $options)
     {
-        $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
+        try {
+            $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
 
-        // Attempt load from cache
-        if (isset($this->cache)) {
-            $result = $this->cache->fetch($request);
-        }
+            // Attempt load from cache
+            if (isset($this->cache)) {
+                $result = $this->cache->fetch($request);
+            }
 
-        // Make request if not in cache
-        if (!isset($result)) {
-            $rawResponse = $this->makeHttpRequest($request);
-            $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
-            $result = $this->resultFactory->create($formattedResponse);
-        }
+            // Make request if not in cache
+            if (!isset($result)) {
+                $rawResponse = $this->makeHttpRequest($request);
+                $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
+                $result = $this->resultFactory->create($formattedResponse);
+            }
 
-        // Save to cache
-        if (isset($this->cache)) {
-            $this->cache->cache($request, $result);
+            // Save to cache
+            if (isset($this->cache)) {
+                $this->cache->cache($request, $result);
+            }
+        } catch (BadResponseException $e) {
+            $this->logBadResponse($e);
+        } catch (Exception $e) {
+            $this->logException($e);
         }
 
         return $result;
@@ -266,6 +276,47 @@ class Client
     public function getApiKey()
     {
         return $this->apiKey;
+    }
+
+    /**
+     * Log an exception being thrown
+     *
+     * @param \Exception $e
+     */
+    protected function logException(\Exception $e)
+    {
+        if (!is_null($this->logger)) {
+            $this->logger->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param BadResponseException $e
+     */
+    protected function logBadResponse(BadResponseException $e)
+    {
+        if (!is_null($this->logger)) {
+            /*
+             * A typical bad response looks something like this:
+             * Server response error
+             * [status code] 500
+             * [message] An error occured
+             * [url] https://spyfu.com/blah/blah/blah
+             *
+             * This regex allows us to parse out anything in square brackets and just after them, allowing us to put
+             * them in an array like ["message" => "An error occured"]
+             *
+             * This means we can then add them as context rather than as the error message
+             */
+            $regex = "/\[(.*)\][ *]?(.*)/";
+            preg_match_all($regex, $e->getMessage(), $matches);
+            $message = trim(preg_replace($regex, "", $e->getMessage()));
+            $context = [];
+            for ($x=0; $x<count($matches[1]); $x++) {
+                $context[$matches[1][$x]] = $matches[2][$x];
+            }
+            $this->logger->error("[SEMrush API] ".$message, $context);
+        }
     }
 
 } 
