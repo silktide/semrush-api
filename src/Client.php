@@ -245,13 +245,16 @@ class Client
             if (isset($this->cache)) {
                 $this->cache->cache($request, $result);
             }
+
+            return $result;
+
         } catch (BadResponseException $e) {
             $this->logBadResponse($e);
         } catch (Exception $e) {
             $this->logException($e);
         }
 
-        return $result;
+        return $this->resultFactory->create([]);
     }
 
     /**
