@@ -33,6 +33,7 @@ abstract class Column
     const COLUMN_DOMAIN_KEYWORD_NUMBER = "Pc";
     const COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE = "Pd";
     const COLUMN_DOMAIN_ADWORD_POSITION = "Ab";
+    const COLUMN_KEYWORD_DIFFICULTY_INDEX = "Kd";
     const COLUMN_ADVERTISER_AD_DOMAIN = "domain";
     const COLUMN_ADVERTISER_AD_COUNT = "ads_count";
     const COLUMN_ADVERTISER_AD_FIRST_SEEN = "first_seen";
@@ -66,4 +67,4 @@ abstract class Column
     {
         return in_array($code, self::getColumns());
     }
-} 
+}

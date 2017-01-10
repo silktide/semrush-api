@@ -16,6 +16,8 @@ abstract class Type
     const TYPE_ADVERTISER_PUBLISHERS = "advertiser_publishers";
     const TYPE_ADVERTISER_DISPLAY_ADS = "advertiser_text_ads";
     const TYPE_ADVERTISER_RANK = "advertiser_rank";
+    const TYPE_DOMAIN_PLA_SEARCH_KEYWORDS = "domain_shopping";
+    const TYPE_KEYWORD_DIFFICULTY = "phrase_kdi";
 
     /**
      * Get all the possible columns
@@ -26,4 +28,4 @@ abstract class Type
     {
         return self::getConstants();
     }
-} 
+}
