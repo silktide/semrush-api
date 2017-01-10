@@ -11,7 +11,7 @@ class ColumnTest extends PHPUnit_Framework_TestCase {
     public function testGetColumns()
     {
         $columns = Column::getColumns();
-        $this->assertEquals(39, count($columns));
+        $this->assertEquals(40, count($columns));
     }
 
     public function testIsValidColumn()
@@ -20,4 +20,4 @@ class ColumnTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse(Column::isValidColumn("Invalid"));
     }
 
-} 
+}
