@@ -152,6 +152,16 @@ class Client
      * @param array $options
      * @return ApiResult
      */
+    public function getDomainPlaSearchKeywords($domain, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
     public function getDomainOrganic($domain, $options = [])
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ORGANIC, ['domain' => $domain] + $options);
@@ -175,6 +185,16 @@ class Client
     public function getDomainAdwordsUnique($domain, $options = [])
     {
         return $this->makeRequest(Type::TYPE_DOMAIN_ADWORDS_UNIQUE, ['domain' => $domain] + $options);
+    }
+
+    /**
+     * @param string $phrase
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getKeywordDifficulty($phrase, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_KEYWORD_DIFFICULTY, ['phrase' => $phrase] + $options);
     }
 
     /**
@@ -322,4 +342,4 @@ class Client
         }
     }
 
-} 
+}
