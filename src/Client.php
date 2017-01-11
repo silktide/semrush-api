@@ -188,7 +188,7 @@ class Client
     }
 
     /**
-     * @param string $domain
+     * @param string $phrase
      * @param array $options
      * @return ApiResult
      */
