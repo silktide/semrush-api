@@ -1,0 +1,43 @@
+version: 2
+workflows:
+  version: 2
+  testing:
+    jobs:
+      - test
+
+jobs:
+  test:
+    docker:
+      - image: circleci/php:7.1.9-browsers
+
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: "Install composer"
+          command: |
+            LAST_PWD=${PWD}
+            cd /tmp/
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+            sudo mv ./composer.phar /usr/local/bin/composer
+            sudo chmod +x /usr/local/bin/composer
+            cd ${LAST_PWD}
+
+      - checkout
+
+      - restore_cache:
+          keys:
+          - composer-dev-v1-{{ checksum "composer.json" }}
+
+      - run: composer install --classmap-authoritative
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: composer-dev-v1-{{ checksum "composer.json" }}
+
+      - run: if [ -f vendor/bin/phpunit ]; then vendor/bin/phpunit; fi
+      - run: if [ -f vendor/bin/pharmacist ]; then vendor/bin/pharmacist; fi
+      - run: if [ -f vendor/bin/phpstan ]; then php -d memory_limit=4G vendor/bin/phpstan analyse -l 0 src; fi

@@ -1,4 +1,6 @@
 ---
+app: semrush-api
 type: library
 source: open
+language: php
 ...
