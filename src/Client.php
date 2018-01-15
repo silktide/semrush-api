@@ -51,11 +51,6 @@ class Client
     protected $guzzle;
 
     /**
-     * @var CacheInterface
-     */
-    protected $cache;
-
-    /**
      * @var int
      */
     protected $connectTimeout = 15;
@@ -65,6 +60,20 @@ class Client
      */
     protected $timeout = 15;
 
+    /**
+     * @var CacheInterface|null
+     */
+    protected $cache;
+
+    /**
+     * @var \DateInterval|null
+     */
+    protected $cacheLifetime;
+
+    /**
+     * @var string
+     */
+    protected $cachePrefix = "";
 
     /**
      * Construct a client with API key
@@ -84,6 +93,21 @@ class Client
         $this->responseParser = $responseParser;
         $this->urlBuilder = $urlBuilder;
         $this->guzzle = $guzzle;
+    }
+
+    /**
+     * @param CacheInterface $cache
+     * @param \DateInterval $cacheLifetime
+     * @param string $cachePrefix
+     */
+    public function setCache(CacheInterface $cache, \DateInterval $cacheLifetime = null, string $cachePrefix = "")
+    {
+        $this->cache = $cache;
+        if ($cacheLifetime === null) {
+            $cacheLifetime = new \DateInterval("P30D");
+        }
+        $this->cacheLifetime = $cacheLifetime;
+        $this->cachePrefix = $cachePrefix;
     }
 
     /**
@@ -116,15 +140,6 @@ class Client
     public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
-    }
-
-
-    /**
-     * @param CacheInterface $cache
-     */
-    public function setCache(CacheInterface $cache)
-    {
-        $this->cache = $cache;
     }
 
     /**
@@ -248,25 +263,9 @@ class Client
     {
         try {
             $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
-
-            // Attempt load from cache
-            if (isset($this->cache)) {
-                $result = $this->cache->fetch($request);
-            }
-
-            // Make request if not in cache
-            if (!isset($result)) {
-                $rawResponse = $this->makeHttpRequest($request);
-                $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
-                $result = $this->resultFactory->create($formattedResponse);
-            }
-
-            // Save to cache
-            if (isset($this->cache)) {
-                $this->cache->cache($request, $result);
-            }
-
-            return $result;
+            $rawResponse = $this->makeHttpRequest($request);
+            $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
+            return $this->resultFactory->create($formattedResponse);
 
         } catch (BadResponseException $e) {
             $this->logBadResponse($e);
@@ -286,11 +285,26 @@ class Client
     protected function makeHttpRequest($request)
     {
         $url = $this->urlBuilder->build($request);
+
+        $cacheKey = $this->cachePrefix . md5($url);
+        if ($this->cache) {
+            if (!is_null($value = $this->cache->get($cacheKey))) {
+                return $value;
+            }
+        }
+
         $guzzleResponse = $this->guzzle->request('GET', $url, [
             RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
             RequestOptions::TIMEOUT => $this->timeout
         ]);
-        return $guzzleResponse->getBody();
+
+        $value = $guzzleResponse->getBody();
+
+        if ($this->cache) {
+            $this->cache->set($cacheKey, $value, $this->cacheLifetime);
+        }
+
+        return $value;
     }
 
     /**

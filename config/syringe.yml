@@ -1,5 +1,6 @@
 parameters:
   api_key: ""
+  cache.prefix: "semrush_"
 
 services:
   client:
@@ -12,9 +13,11 @@ services:
       - "@url.builder"
       - "@guzzle.client"
     calls:
-      - method: setCache
+      - method: "setCache"
         arguments:
-          - "@cache.client"
+          - "@cache"
+          - "@cache.lifetime"
+          - "%cache.prefix%"
 
   request.factory:
     class: Silktide\SemRushApi\Model\Factory\RequestFactory
@@ -33,8 +36,13 @@ services:
   row.factory:
     class: Silktide\SemRushApi\Model\Factory\RowFactory
 
-  cache.client:
-    class: Silktide\SemRushApi\Cache\MemoryCache
-
   guzzle.client:
     class: GuzzleHttp\Client
+
+  cache:
+    class: Cache\Adapter\PHPArray\ArrayCachePool
+
+  cache.lifetime:
+    class: \DateInterval
+    arguments:
+      - "P30D" # 30 days
