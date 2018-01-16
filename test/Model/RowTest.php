@@ -2,10 +2,12 @@
 
 namespace Silktide\SemRushApi\Test\Model;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Silktide\SemRushApi\Model\Exception\InvalidDataException;
+use Silktide\SemRushApi\Model\Exception\InvalidFieldException;
 use Silktide\SemRushApi\Model\Row;
 
-class RowTest extends PHPUnit_Framework_TestCase {
+class RowTest extends TestCase {
 
     /**
      * @var Row
@@ -43,7 +45,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
      */
     public function testSetInvalidData()
     {
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidDataException');
+        $this->expectException(InvalidDataException::class);
         $this->instance->setData("boot");
     }
 
@@ -59,7 +61,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
             'Ac' => '560',
             'something' => 'biscuits, cookies, hobnobs'
         ];
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidFieldException');
+        $this->expectException(InvalidFieldException::class);
         $this->instance->setData($values);
     }
 
@@ -89,7 +91,7 @@ class RowTest extends PHPUnit_Framework_TestCase {
      */
     public function testGetUnsetValue()
     {
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidFieldException');
+        $this->expectException(InvalidFieldException::class);
         $values = [
             'At' => 'top',
             'Ac' => '560',

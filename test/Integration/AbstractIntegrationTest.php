@@ -14,10 +14,10 @@ use Silktide\SemRushApi\Model\Factory\RowFactory;
 use Silktide\SemRushApi\Model\Result;
 use Silktide\SemRushApi\Model\Row;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client as GuzzleClient;
 
-abstract class AbstractIntegrationTest extends PHPUnit_Framework_TestCase {
+abstract class AbstractIntegrationTest extends TestCase {
 
 
     /**

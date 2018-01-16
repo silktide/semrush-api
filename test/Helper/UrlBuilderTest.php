@@ -3,9 +3,9 @@
 namespace Silktide\SemRushApi\Test\Helper;
 
 use Silktide\SemRushApi\Helper\UrlBuilder;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class UrlBuilderTest extends PHPUnit_Framework_TestCase  {
+class UrlBuilderTest extends TestCase  {
 
     /**
      * @var UrlBuilder

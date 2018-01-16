@@ -5,9 +5,10 @@ namespace Silktide\SemRushApi\Test;
 
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Model\Definition;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Silktide\SemRushApi\Model\Exception\InvalidTypeException;
 
-class DefinitionTest extends PHPUnit_Framework_TestCase {
+class DefinitionTest extends TestCase {
 
     /**
      * @var Definition
@@ -27,7 +28,7 @@ class DefinitionTest extends PHPUnit_Framework_TestCase {
      */
     public function testInvalidType()
     {
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidTypeException');
+        $this->expectException(InvalidTypeException::class);
         new Definition("invalid");
     }
 

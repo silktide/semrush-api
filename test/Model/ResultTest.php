@@ -2,10 +2,12 @@
 
 namespace Silktide\SemRushApi\Test\Model;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Silktide\SemRushApi\Model\Exception\InvalidRowException;
 use Silktide\SemRushApi\Model\Result;
+use Silktide\SemRushApi\Model\Row;
 
-class ResultTest extends PHPUnit_Framework_TestCase {
+class ResultTest extends TestCase {
 
     /**
      * @var Result
@@ -26,9 +28,9 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     public function testSetAndGetRows()
     {
         $rows = [
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row')
+            $this->createMock(Row::class),
+            $this->createMock(Row::class),
+            $this->createMock(Row::class)
         ];
         $this->instance->setRows($rows);
         $this->assertEquals($rows, $this->instance->getRows());
@@ -40,7 +42,7 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     public function testSetInvalidRowData()
     {
         $rows = "rubbish";
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidRowException');
+        $this->expectException(InvalidRowException::class);
         $this->instance->setRows($rows);
     }
 
@@ -50,7 +52,7 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     public function testSetInvalidRowObjects()
     {
         $rows = ["rubbish"];
-        $this->setExpectedException('Silktide\SemRushApi\Model\Exception\InvalidRowException');
+        $this->expectException(InvalidRowException::class);
         $this->instance->setRows($rows);
     }
 
@@ -60,9 +62,9 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     public function testIterator()
     {
         $rows = [
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row')
+            $this->createMock(Row::class),
+            $this->createMock(Row::class),
+            $this->createMock(Row::class)
         ];
 
         $this->instance->setRows($rows);
@@ -77,9 +79,9 @@ class ResultTest extends PHPUnit_Framework_TestCase {
     public function testArrayAccess()
     {
         $rows = [
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row'),
-            $this->getMock('Silktide\SemRushApi\Model\Row')
+            $this->createMock(Row::class),
+            $this->createMock(Row::class),
+            $this->createMock(Row::class)
         ];
 
         foreach ($rows as $index => $row) {

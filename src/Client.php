@@ -4,7 +4,7 @@ namespace Silktide\SemRushApi;
 
 use Guzzle\Http\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
-use Silktide\SemRushApi\Cache\CacheInterface;
+use Psr\SimpleCache\CacheInterface;
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
@@ -266,7 +266,6 @@ class Client
             $rawResponse = $this->makeHttpRequest($request);
             $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
             return $this->resultFactory->create($formattedResponse);
-
         } catch (BadResponseException $e) {
             $this->logBadResponse($e);
         } catch (Exception $e) {

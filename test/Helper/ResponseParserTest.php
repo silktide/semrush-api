@@ -2,12 +2,13 @@
 
 namespace Silktide\SemRushApi\Test\Helper;
 
+use Silktide\SemRushApi\Helper\Exception\ErroneousResponseException;
 use Silktide\SemRushApi\Helper\ResponseParser;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
 use Silktide\SemRushApi\Model\Request;
 
-class ResponseParserTest extends PHPUnit_Framework_TestCase  {
+class ResponseParserTest extends TestCase  {
 
     /**
      * @var ResponseParser
@@ -49,13 +50,13 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase  {
 
     public function testResponseParserIncorrectColumns()
     {
-        $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
+        $this->expectException(ErroneousResponseException::class);
         $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('domain_rank_amazon'));
     }
 
     public function testResponseParserError()
     {
-        $this->setExpectedException('Silktide\SemRushApi\Helper\Exception\ErroneousResponseException');
+        $this->expectException(ErroneousResponseException::class);
         $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_auth'));
     }
 

@@ -4,10 +4,10 @@ namespace Silktide\SemRushApi\Test\Model\Factory;
 
 use Silktide\SemRushApi\Model\Row;
 use Silktide\SemRushApi\Test\ResponseExample\ResponseExampleHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Silktide\SemRushApi\Model\Factory\RowFactory;
 
-class RowFactoryTest extends PHPUnit_Framework_TestCase {
+class RowFactoryTest extends TestCase {
 
     /**
      * @var RowFactory
