@@ -73,7 +73,7 @@ class ClientTest extends TestCase {
         $this->responseParser = $this->createMock(ResponseParser::class);
         $urlBuilder = $this->createMock(UrlBuilder::class);
 
-        $this->instance = new Client($this->key, $this->requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
+        $this->instance = new Client($this->key, $this->requestFactory,  $this->responseParser, $this->resultFactory, $urlBuilder, $guzzle);
     }
 
     public function testGetApiKey()

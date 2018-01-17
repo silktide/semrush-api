@@ -8,8 +8,8 @@ services:
     arguments:
       - "%api_key%"
       - "@request.factory"
-      - "@result.factory"
       - "@response.parser"
+      - "@result.factory"
       - "@url.builder"
       - "@guzzle.client"
     calls:

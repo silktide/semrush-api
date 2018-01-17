@@ -2,7 +2,7 @@
 
 namespace Silktide\SemRushApi;
 
-use Guzzle\Http\Exception\BadResponseException;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Psr\SimpleCache\CacheInterface;
 use Silktide\SemRushApi\Data\Type;
@@ -31,14 +31,14 @@ class Client
     protected $requestFactory;
 
     /**
-     * @var ResultFactory
-     */
-    protected $resultFactory;
-
-    /**
      * @var ResponseParser
      */
     protected $responseParser;
+
+    /**
+     * @var ResultFactory
+     */
+    protected $resultFactory;
 
     /**
      * @var UrlBuilder
@@ -85,12 +85,12 @@ class Client
      * @param UrlBuilder $urlBuilder
      * @param GuzzleClient $guzzle
      */
-    public function __construct($apiKey, RequestFactory $requestFactory, ResultFactory $resultFactory, ResponseParser $responseParser, UrlBuilder $urlBuilder, GuzzleClient $guzzle)
+    public function __construct($apiKey, RequestFactory $requestFactory, ResponseParser $responseParser, ResultFactory $resultFactory, UrlBuilder $urlBuilder, GuzzleClient $guzzle)
     {
         $this->apiKey = $apiKey;
         $this->requestFactory = $requestFactory;
-        $this->resultFactory = $resultFactory;
         $this->responseParser = $responseParser;
+        $this->resultFactory = $resultFactory;
         $this->urlBuilder = $urlBuilder;
         $this->guzzle = $guzzle;
     }
@@ -253,11 +253,10 @@ class Client
     }
 
     /**
-     * Make the request
-     *
-     * @param string $type
-     * @param array $options
+     * @param $type
+     * @param $options
      * @return ApiResult
+     * @throws Exception
      */
     protected function makeRequest($type, $options)
     {
@@ -267,12 +266,8 @@ class Client
             $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
             return $this->resultFactory->create($formattedResponse);
         } catch (BadResponseException $e) {
-            $this->logBadResponse($e);
-        } catch (Exception $e) {
-            $this->logException($e);
+            throw $this->parseBadResponse($e);
         }
-
-        return $this->resultFactory->create([]);
     }
 
     /**
@@ -304,6 +299,25 @@ class Client
         }
 
         return $value;
+    }
+
+    /**
+     * @param BadResponseException $e
+     * @return \Exception
+     */
+    protected function parseBadResponse(BadResponseException $e)
+    {
+        $response = $e->getResponse();
+        $message = (string)$response->getBody();
+
+        if (!is_null($this->logger)) {
+            $this->logger->error("[SemRush API] " . $message, [
+                "StatusCode" => $response->getStatusCode(),
+                "URL" => (string)$e->getRequest()->getUri()
+            ]);
+        }
+
+        return new \Exception("[SemRush API] " . $message);
     }
 
     /**

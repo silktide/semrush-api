@@ -42,7 +42,7 @@ abstract class AbstractIntegrationTest extends TestCase {
 
         $this->guzzleHandler = new MockHandler([]);
         $guzzle = new GuzzleClient(["handler" => $this->guzzleHandler]);
-        $this->client = new Client("demokey", $requestFactory, $resultFactory, $responseParser, $urlBuilder, $guzzle);
+        $this->client = new Client("demokey", $requestFactory, $responseParser, $resultFactory, $urlBuilder, $guzzle);
     }
 
     /**
