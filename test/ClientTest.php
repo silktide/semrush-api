@@ -3,6 +3,7 @@
 
 namespace Silktide\SemRushApi\Test;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Psr\SimpleCache\CacheInterface;
@@ -51,24 +52,23 @@ class ClientTest extends TestCase {
     protected $request;
 
     /**
-     * Instantiate a client
+     * @param $requestNumber
+     * @param array $httpQueue
      */
-    public function doSetup($requestNumber)
+    public function doSetup($requestNumber, array $httpQueue = [])
     {
-        $handler = new MockHandler([]);
         for ($i = 0; $i < $requestNumber; $i++) {
-            $handler->append(new Response(200));
+            $httpQueue[] = new Response(200, [], '{ "domain": "somedomain.com" }');
         }
-
-        $guzzle = new GuzzleClient(["handler" => $handler]);
+        $guzzle = new GuzzleClient(["handler" => MockHandler::createWithMiddleware($httpQueue)]);
 
         $this->requestFactory = $this->createMock(RequestFactory::class);
         $this->request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
-        $this->requestFactory->expects($this->exactly($requestNumber))->method('create')->willReturn($this->request);
+        $this->requestFactory->method('create')->willReturn($this->request);
 
         $this->resultFactory = $this->getMockBuilder(ResultFactory::class)->disableOriginalConstructor()->getMock();
         $result = $this->getMockBuilder(Result::class)->disableOriginalConstructor()->getMock();
-        $this->resultFactory->expects($this->exactly(1))->method('create')->willReturn($result);
+        $this->resultFactory->method('create')->willReturn($result);
 
         $this->responseParser = $this->createMock(ResponseParser::class);
         $urlBuilder = $this->createMock(UrlBuilder::class);
@@ -125,4 +125,17 @@ class ClientTest extends TestCase {
         $this->assertTrue($result instanceof Result);
     }
 
+    public function testCache()
+    {
+        $exampleResponse = '{"Website":"facebook.com"}';
+        $this->doSetup(0, [
+            new Response(200, [], $exampleResponse),
+            new Response(500, [], "The server failed")
+        ]);
+
+        $this->instance->setCache(new ArrayCachePool());
+        $this->instance->getDomainRank("facebook.com");
+        $this->instance->getDomainRank("facebook.com");
+        $this->assertTrue(true);
+    }
 }
