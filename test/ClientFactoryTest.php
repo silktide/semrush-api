@@ -3,11 +3,12 @@
 
 namespace Silktide\SemRushApi\Test;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Psr\SimpleCache\CacheInterface;
 use Silktide\SemRushApi\ClientFactory;
 use Silktide\SemRushApi\Client;
 
-class ClientFactoryTest extends PHPUnit_Framework_TestCase {
+class ClientFactoryTest extends TestCase {
 
     /**
      * Test that the factory creates a client
@@ -29,7 +30,7 @@ class ClientFactoryTest extends PHPUnit_Framework_TestCase {
     public function testFactoryWithCache()
     {
         $key = "testkey";
-        $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
+        $cache = $this->createMock(CacheInterface::class);
 
         $client = ClientFactory::create($key, $cache);
         $this->assertTrue($client instanceof Client);

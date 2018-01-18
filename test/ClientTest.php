@@ -3,18 +3,23 @@
 
 namespace Silktide\SemRushApi\Test;
 
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
+use Psr\SimpleCache\CacheInterface;
 use Silktide\SemRushApi\Client;
 use Silktide\SemRushApi\Helper\Exception\EmptyResponseException;
+use Silktide\SemRushApi\Helper\UrlBuilder;
+use Silktide\SemRushApi\Model\Factory\RequestFactory;
+use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Result;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client as GuzzleClient;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Helper\ResponseParser;
 
 
-class ClientTest extends PHPUnit_Framework_TestCase {
+class ClientTest extends TestCase {
 
     /**
      * @var Client
@@ -47,29 +52,28 @@ class ClientTest extends PHPUnit_Framework_TestCase {
     protected $request;
 
     /**
-     * Instantiate a client
+     * @param $requestNumber
+     * @param array $httpQueue
      */
-    public function doSetup($requestNumber)
+    public function doSetup($requestNumber, array $httpQueue = [])
     {
-        $handler = new MockHandler([]);
         for ($i = 0; $i < $requestNumber; $i++) {
-            $handler->append(new Response(200));
+            $httpQueue[] = new Response(200, [], '{ "domain": "somedomain.com" }');
         }
+        $guzzle = new GuzzleClient(["handler" => MockHandler::createWithMiddleware($httpQueue)]);
 
-        $guzzle = new GuzzleClient(["handler" => $handler]);
+        $this->requestFactory = $this->createMock(RequestFactory::class);
+        $this->request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $this->requestFactory->method('create')->willReturn($this->request);
 
-        $this->requestFactory = $this->getMock('Silktide\SemRushApi\Model\Factory\RequestFactory');
-        $this->request = $this->getMockBuilder('Silktide\SemRushApi\Model\Request')->disableOriginalConstructor()->getMock();
-        $this->requestFactory->expects($this->exactly($requestNumber))->method('create')->willReturn($this->request);
+        $this->resultFactory = $this->getMockBuilder(ResultFactory::class)->disableOriginalConstructor()->getMock();
+        $result = $this->getMockBuilder(Result::class)->disableOriginalConstructor()->getMock();
+        $this->resultFactory->method('create')->willReturn($result);
 
-        $this->resultFactory = $this->getMockBuilder('Silktide\SemRushApi\Model\Factory\ResultFactory')->disableOriginalConstructor()->getMock();
-        $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
-        $this->resultFactory->expects($this->exactly(1))->method('create')->willReturn($result);
+        $this->responseParser = $this->createMock(ResponseParser::class);
+        $urlBuilder = $this->createMock(UrlBuilder::class);
 
-        $this->responseParser = $this->getMock('Silktide\SemRushApi\Helper\ResponseParser');
-        $urlBuilder = $this->getMock('Silktide\SemRushApi\Helper\UrlBuilder');
-
-        $this->instance = new Client($this->key, $this->requestFactory, $this->resultFactory, $this->responseParser, $urlBuilder, $guzzle);
+        $this->instance = new Client($this->key, $this->requestFactory,  $this->responseParser, $this->resultFactory, $urlBuilder, $guzzle);
     }
 
     public function testGetApiKey()
@@ -123,21 +127,15 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
     public function testCache()
     {
-        $this->doSetup(2);
+        $exampleResponse = '{"Website":"facebook.com"}';
+        $this->doSetup(0, [
+            new Response(200, [], $exampleResponse),
+            new Response(500, [], "The server failed")
+        ]);
 
-        $result = $this->getMockBuilder('Silktide\SemRushApi\Model\Result')->disableOriginalConstructor()->getMock();
-
-        $cache = $this->getMock('Silktide\SemRushApi\Cache\CacheInterface');
-        $cache->expects($this->exactly(2))->method('cache');
-        $cache->expects($this->exactly(2))->method('fetch')->willReturnOnConsecutiveCalls(null, $result);
-        $this->resultFactory->expects($this->exactly(1))->method('create')->willReturn($result);
-
-        $this->instance->setCache($cache);
-        $resultOne = $this->instance->getDomainAdwordsUnique('domain.com', []);
-        $resultTwo = $this->instance->getDomainAdwordsUnique('domain.com', []);
-
-        $this->assertEquals($resultOne, $resultTwo);
+        $this->instance->setCache(new ArrayCachePool());
+        $this->instance->getDomainRank("facebook.com");
+        $this->instance->getDomainRank("facebook.com");
+        $this->assertTrue(true);
     }
-
-
-} 
+}

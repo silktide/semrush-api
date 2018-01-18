@@ -4,9 +4,9 @@
 namespace Silktide\SemRushApi\Test\Data;
 
 use Silktide\SemRushApi\Data\Database;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class DatabaseTest extends PHPUnit_Framework_TestCase {
+class DatabaseTest extends TestCase {
 
     public function testGetDatabases()
     {

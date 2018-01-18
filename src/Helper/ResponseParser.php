@@ -34,6 +34,7 @@ class ResponseParser
         foreach ($rows as &$row) {
             $row = $this->parseRow($columns, $row);
         }
+        unset($row);
 
         return $rows;
     }

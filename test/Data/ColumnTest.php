@@ -4,9 +4,9 @@
 namespace Silktide\SemRushApi\Test\Data;
 
 use Silktide\SemRushApi\Data\Column;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ColumnTest extends PHPUnit_Framework_TestCase {
+class ColumnTest extends TestCase {
 
     public function testGetColumns()
     {

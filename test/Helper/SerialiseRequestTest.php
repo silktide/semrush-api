@@ -3,10 +3,10 @@
 namespace Silktide\SemRushApi\Test\Cache;
 
 use Silktide\SemRushApi\Helper\SerialiseRequest;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Silktide\SemRushApi\Model\Result;
 
-class SerialiseRequestTest extends PHPUnit_Framework_TestCase {
+class SerialiseRequestTest extends TestCase {
 
     protected function getRequest($requestParams)
     {

@@ -4,9 +4,9 @@
 namespace Silktide\SemRushApi\Test\Data;
 
 use Silktide\SemRushApi\Data\TypeAPIVersionMap;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TypeAPIVersionMapTest extends PHPUnit_Framework_TestCase {
+class TypeAPIVersionMapTest extends TestCase {
 
     /**
      * Test getting API version
