@@ -18,6 +18,9 @@ services:
           - "@cache"
           - "@cache.lifetime"
           - "%cache.prefix%"
+      - method: setLogger
+        arguments:
+          - "@logger"
 
   request.factory:
     class: Silktide\SemRushApi\Model\Factory\RequestFactory
@@ -46,3 +49,6 @@ services:
     class: \DateInterval
     arguments:
       - "P30D" # 30 days
+
+  logger:
+    class: Psr\Log\NullLogger
