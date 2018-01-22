@@ -292,7 +292,7 @@ class Client
             RequestOptions::TIMEOUT => $this->timeout
         ]);
 
-        $value = $guzzleResponse->getBody();
+        $value = $guzzleResponse->getBody()->getContents();
 
         if ($this->cache) {
             $this->cache->set($cacheKey, $value, $this->cacheLifetime);
