@@ -14,6 +14,7 @@ A PHP API client for the SEMrush API.
 * domain_organic
 * domain_adwords
 * domain_adwords_unique
+* domain_shopping
 * advertiser_publishers
 * advertiser_text_ads
 * advertiser_rank
@@ -44,7 +45,7 @@ The API library can use a PSR-16 style cache to reduce calls to the API.
 ```
 
 ## API calls
-        
+
 ### Domain ranks
 
 Getting the SEMrush "domain_ranks" for a website:
@@ -52,7 +53,7 @@ Getting the SEMrush "domain_ranks" for a website:
 ```php
     $result = $client->getDomainRanks('silktide.com');
 ```
-        
+
 ### Domain rank
 
 Getting the SEMrush "domain_rank" for a website:
@@ -78,7 +79,7 @@ Getting the SEMrush "domain_rank_history" for a website:
         ]
     );
 ```
-        
+
 ### Domain organic
 
 Getting the SEMrush "domain_organic" for a website:
@@ -104,7 +105,7 @@ Getting the SEMrush "domain_adwords" for a website:
         ]
     );
 ```
-        
+
 ### Domain adwords unique
 
 Getting the SEMrush "domain_adwords_unique" for a website:
@@ -135,7 +136,7 @@ Here's an example of passing options to the domain ranks action in order to retu
 ## Using results
 
 All API actions will return a `Result` object.  Result objects contain a number of `Row` objects and are iterable and
-countable.  Here's a (non exhaustive) example of how they can be used. 
+countable.  Here's a (non exhaustive) example of how they can be used.
 
 ```php
     foreach ($result as $row) {
