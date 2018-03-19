@@ -82,9 +82,7 @@ class DefinitionTest extends TestCase {
             "Oc",
             "Ad",
             "At",
-            "Ac",
-            "Sv",
-            "Sh"
+            "Ac"
         ], $this->instance->getDefaultColumns());
     }
 
