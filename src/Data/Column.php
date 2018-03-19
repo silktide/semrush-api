@@ -34,6 +34,9 @@ abstract class Column
     const COLUMN_DOMAIN_KEYWORD_POSITION_DIFFERENCE = "Pd";
     const COLUMN_DOMAIN_ADWORD_POSITION = "Ab";
     const COLUMN_KEYWORD_DIFFICULTY_INDEX = "Kd";
+    const COLUMN_DOMAIN_KEYWORD_SHOP_NAME = "Sn";
+    const COLUMN_DOMAIN_KEYWORD_PRODUCT_PRICE = "Pr";
+    const COLUMN_TIMESTAMP = "Ts";
     const COLUMN_ADVERTISER_AD_DOMAIN = "domain";
     const COLUMN_ADVERTISER_AD_COUNT = "ads_count";
     const COLUMN_ADVERTISER_AD_FIRST_SEEN = "first_seen";
