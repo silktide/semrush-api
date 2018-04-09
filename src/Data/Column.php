@@ -51,6 +51,19 @@ abstract class Column
     const COLUMN_ADVERTISER_MEDIA_ADS_OVERALL = "media_ads_overall";
     const COLUMN_ADVERTISER_TEXT_ADS_OVERALL = "text_ads_overall";
     const COLUMN_ADVERTISER_DOMAIN_OVERALL = "domain_overall";
+    const COLUMN_TOTAL = "total";
+    const COLUMN_DOMAINS_NUM = "domains_num";
+    const COLUMN_URLS_NUM = "urls_num";
+    const COLUMN_IPS_NUM = "ips_num";
+    const COLUMN_IPCLASSC_NUM = "ipclassc_num";
+    const COLUMN_TEXTS_NUM = "texts_num";
+    const COLUMN_FOLLOWS_NUM = "follows_num";
+    const COLUMN_FORMS_NUM = "forms_num";
+    const COLUMN_NOFOLLOWS_NUM = "nofollows_num";
+    const COLUMN_FRAMES_NUM = "frames_num";
+    const COLUMN_IMAGES_NUM = "images_num";
+    const COLUMN_SCORE = "score";
+    const COLUMN_TRUST_SCORE = "trust_score";
 
     /**
      * Get all the possible columns

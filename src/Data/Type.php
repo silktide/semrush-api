@@ -18,6 +18,11 @@ abstract class Type
     const TYPE_ADVERTISER_RANK = "advertiser_rank";
     const TYPE_DOMAIN_PLA_SEARCH_KEYWORDS = "domain_shopping";
     const TYPE_KEYWORD_DIFFICULTY = "phrase_kdi";
+    const TYPE_BACKLINKS_OVERVIEW = "backlinks_overview";
+    const TYPE_BACKLINKS = "backlinks";
+    const TYPE_BACKLINKS_REFERRING_DOMAINS = "backlinks_refdomains";
+    const TYPE_BACKLINKS_REFERRING_IPS = "backlinks_refips";
+    const TYPE_BACKLINKS_INDEXED_PAGES = "backlinks_pages";
 
     /**
      * Get all the possible columns

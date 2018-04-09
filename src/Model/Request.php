@@ -9,6 +9,7 @@ use Silktide\SemRushApi\Model\Exception\InvalidOptionException;
 class Request
 {
     const ENDPOINT = "http://api.semrush.com/";
+    const ENDPOINT_ANALYTICS = "http://api.semrush.com/analytics/v1";
     const ENDPOINTv2 = "http://api.semrush.com/analytics/da/v2/";
 
     /**
@@ -291,13 +292,15 @@ class Request
      *
      * @return string
      */
-    public function getEndpoint()
+    public function getEndpoint($endpoint=NULL)
     {
-        if ($this->APIVersion == 2) {
-            return self::ENDPOINTv2;
+        switch ($endpoint) {
+            case "analytics":
+                return self::ENDPOINT_ANALYTICS;
+            break;
+            default:
+                return self::ENDPOINT;
+            break;
         }
-        return self::ENDPOINT;
     }
-
-
-} 
+}

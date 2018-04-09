@@ -253,16 +253,26 @@ class Client
     }
 
     /**
+     * @param $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinksOverview($target, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, ['target' => $target] + $options, 'analytics');
+    }
+
+    /**
      * @param $type
      * @param $options
      * @return ApiResult
      * @throws Exception
      */
-    protected function makeRequest($type, $options)
+    protected function makeRequest($type, $options, $endpoint=NULL)
     {
         try {
             $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
-            $rawResponse = $this->makeHttpRequest($request);
+            $rawResponse = $this->makeHttpRequest($request, $endpoint);
             $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
             return $this->resultFactory->create($formattedResponse);
         } catch (BadResponseException $e) {
@@ -276,9 +286,9 @@ class Client
      * @param Request $request
      * @return string
      */
-    protected function makeHttpRequest($request)
+    protected function makeHttpRequest($request, $endpoint=NULL)
     {
-        $url = $this->urlBuilder->build($request);
+        $url = $this->urlBuilder->build($request, $endpoint);
 
         $cacheKey = $this->cachePrefix . md5($url);
         if ($this->cache) {

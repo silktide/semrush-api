@@ -422,5 +422,41 @@
       "COLUMN_DOMAIN_KEYWORD",
       "COLUMN_KEYWORD_DIFFICULTY_INDEX"
     ]
+  },
+  "backlinks_overview": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "string",
+      "target_type": "string"
+    },
+    "optional_fields": {
+      "export_columns": "columns"
+    },
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_TOTAL",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_IPS_NUM",
+      "COLUMN_FOLLOWS_NUM",
+      "COLUMN_NOFOLLOWS_NUM",
+      "COLUMN_SCORE",
+      "COLUMN_TRUST_SCORE"
+    ],
+    "valid_columns": [
+      "COLUMN_TOTAL",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_URLS_NUM",
+      "COLUMN_IPS_NUM",
+      "COLUMN_IPCLASSC_NUM",
+      "COLUMN_TEXTS_NUM",
+      "COLUMN_FOLLOWS_NUM",
+      "COLUMN_FORMS_NUM",
+      "COLUMN_NOFOLLOWS_NUM",
+      "COLUMN_FRAMES_NUM",
+      "COLUMN_IMAGES_NUM",
+      "COLUMN_SCORE",
+      "COLUMN_TRUST_SCORE"
+    ]
   }
 }
