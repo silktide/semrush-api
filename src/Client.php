@@ -259,7 +259,7 @@ class Client
      */
     public function getBacklinksOverview($target, $options = [])
     {
-        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, ['target' => $target, $target_type] + $options);
+        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, ['target' => $target] + $options);
     }
 
     /**
@@ -279,7 +279,7 @@ class Client
      */
     public function getBacklinksReferringDomains($target, $options = [])
     {
-        return $this->makeRequest(Type::TYPE_BACKLINKS_REFERRING_DOMAINS, ['target' => $target] + $options);
+        return $this->makeRequest(Type::TYPE_REFERRING_DOMAINS, ['target' => $target] + $options);
     }
 
     /**
@@ -289,7 +289,7 @@ class Client
      */
     public function getBacklinksReferringIPs($target, $options = [])
     {
-        return $this->makeRequest(Type::TYPE_BACKLINKS_REFERRING_IPS, ['target' => $target] + $options);
+        return $this->makeRequest(Type::TYPE_REFERRING_IPS, ['target' => $target] + $options);
     }
 
     /**
@@ -299,7 +299,7 @@ class Client
      */
     public function getBacklinksIndexedPages($target, $options = [])
     {
-        return $this->makeRequest(Type::TYPE_BACKLINKS_INDEXED_PAGES, ['target' => $target] + $options);
+        return $this->makeRequest(Type::TYPE_BINDEXED_PAGES, ['target' => $target] + $options);
     }
 
     /**
