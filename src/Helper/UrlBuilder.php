@@ -11,10 +11,10 @@ class UrlBuilder {
      */
     protected $request;
 
-    public function build(Request $request, $endpoint=NULL)
+    public function build(Request $request)
     {
         $this->request = $request;
-        return $this->getUrl($endpoint);
+        return $this->getUrl();
     }
 
     /**
@@ -37,10 +37,10 @@ class UrlBuilder {
      *
      * @return string
      */
-    protected function getUrl($endpoint=NULL)
+    protected function getUrl()
     {
         $params = $this->getOptionsAsStrings();
-        return $this->request->getEndpoint($endpoint) . "?" . http_build_query($params);
+        return $this->request->getEndpoint() . "?" . http_build_query($params);
     }
 
 }

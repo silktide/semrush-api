@@ -21,6 +21,7 @@ abstract class TypeAPIVersionMap
         if (in_array($type, self::AVAILABLE_v2_TYPES)) {
             return 2;
         }
+
         return 1;
     }
 }

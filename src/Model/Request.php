@@ -4,12 +4,13 @@ namespace Silktide\SemRushApi\Model;
 
 use Silktide\SemRushApi\Data\Database;
 use Silktide\SemRushApi\Data\TypeAPIVersionMap;
+use Silktide\SemRushApi\Data\TypeAPITypeMap;
 use Silktide\SemRushApi\Model\Exception\InvalidOptionException;
 
 class Request
 {
     const ENDPOINT = "http://api.semrush.com/";
-    const ENDPOINT_ANALYTICS = "http://api.semrush.com/analytics/v1";
+    const ENDPOINT_ANALYTICSv1 = "http://api.semrush.com/analytics/v1";
     const ENDPOINTv2 = "http://api.semrush.com/analytics/da/v2/";
 
     /**
@@ -40,6 +41,7 @@ class Request
     {
         $this->type = $type;
         $this->APIVersion = TypeAPIVersionMap::getAPIVersion($type);
+        $this->APIType = TypeAPITypeMap::getAPIType($type);
         $this->options = $this->buildOptionsArray($options);
         $this->loadRequestDefinition();
         $this->mergePresets();
@@ -292,14 +294,18 @@ class Request
      *
      * @return string
      */
-    public function getEndpoint($endpoint=NULL)
+    public function getEndpoint()
     {
-        switch ($endpoint) {
-            case "analytics":
-                return self::ENDPOINT_ANALYTICS;
-            break;
-            default:
+        switch ($this->APIVersion) {
+            case 1:
+                if ($this->APIType === 'analytics') {
+                    return self::ENDPOINT_ANALYTICSv1;
+                }
+
                 return self::ENDPOINT;
+            break;
+            case 2:
+                return self::ENDPOINTv2;
             break;
         }
     }
