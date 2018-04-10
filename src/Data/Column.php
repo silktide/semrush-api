@@ -54,6 +54,7 @@ abstract class Column
     const COLUMN_TOTAL = "total";
     const COLUMN_DOMAINS_NUM = "domains_num";
     const COLUMN_URLS_NUM = "urls_num";
+    const COLUMN_IP = "ip";
     const COLUMN_IPS_NUM = "ips_num";
     const COLUMN_IPCLASSC_NUM = "ipclassc_num";
     const COLUMN_TEXTS_NUM = "texts_num";
@@ -64,6 +65,31 @@ abstract class Column
     const COLUMN_IMAGES_NUM = "images_num";
     const COLUMN_SCORE = "score";
     const COLUMN_TRUST_SCORE = "trust_score";
+    const COLUMN_PAGE_SCORE = "page_score";
+    const COLUMN_PAGE_TRUST_SCORE = "page_trust_score";
+    const COLUMN_RESPONSE_CODE = "response_code";
+    const COLUMN_SOURCE_SIZE = "source_size";
+    const COLUMN_EXTERNAL_NUM = "external_num";
+    const COLUMN_INTERNAL_NUM = "internal_num";
+    const COLUMN_REDIRECT_URL = "redirect_url";
+    const COLUMN_SOURCE_URL = "source_url";
+    const COLUMN_SOURCE_TITLE = "source_title";
+    const COLUMN_IMAGE_URL = "image_url";
+    const COLUMN_TARGET_URL = "target_url";
+    const COLUMN_TARGET_TITLE = "target_title";
+    const COLUMN_ANCHOR = "anchor";
+    const COLUMN_IMAGE_ALT = "image_alt";
+    const COLUMN_NOFOLLOW = "nofollow";
+    const COLUMN_FORM = "form";
+    const COLUMN_FRAME = "frame";
+    const COLUMN_IMAGE = "image";
+    const COLUMN_SITEWIDE = "sitewide";
+    const COLUMN_NEWLINK = "newlink";
+    const COLUMN_LOSTLINK = "lostlink";
+    const COLUMN_DOMAIN_SCORE = "domain_score";
+    const COLUMN_DOMAIN_TRUST_SCORE = "domain_trust_score";
+    const COLUMN_BACKLINKS_NUM = "backlinks_num";
+    const COLUMN_COUNTRY = "country";
 
     /**
      * Get all the possible columns

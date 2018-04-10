@@ -458,5 +458,156 @@
       "COLUMN_SCORE",
       "COLUMN_TRUST_SCORE"
     ]
+  },
+  "backlinks": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "string",
+      "target_type": "string"
+    },
+    "optional_fields": {
+      "display_limit": "integer",
+      "display_offset": "integer",
+      "export_columns": "columns",
+      "display_sort": "string",
+      "display_filter": "string"
+    },
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_PAGE_SCORE",
+      "COLUMN_SOURCE_TITLE",
+      "COLUMN_SOURCE_URL",
+      "COLUMN_TARGET_URL",
+      "COLUMN_ANCHOR",
+      "COLUMN_EXTERNAL_NUM",
+      "COLUMN_INTERNAL_NUM",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN"
+    ],
+    "valid_columns": [
+      "COLUMN_PAGE_SCORE",
+      "COLUMN_PAGE_TRUST_SCORE",
+      "COLUMN_RESPONSE_CODE",
+      "COLUMN_SOURCE_SIZE",
+      "COLUMN_EXTERNAL_NUM",
+      "COLUMN_INTERNAL_NUM",
+      "COLUMN_REDIRECT_URL",
+      "COLUMN_SOURCE_URL",
+      "COLUMN_SOURCE_TITLE",
+      "COLUMN_IMAGE_URL",
+      "COLUMN_TARGET_URL",
+      "COLUMN_TARGET_TITLE",
+      "COLUMN_ANCHOR",
+      "COLUMN_IMAGE_ALT",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_NOFOLLOW",
+      "COLUMN_FORM",
+      "COLUMN_FRAME",
+      "COLUMN_IMAGE",
+      "COLUMN_SITEWIDE",
+      "COLUMN_NEWLINK",
+      "COLUMN_LOSTLINK"
+    ]
+  },
+  "backlinks_refdomains": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "string",
+      "target_type": "string"
+    },
+    "optional_fields": {
+      "display_limit": "integer",
+      "display_offset": "integer",
+      "export_columns": "columns",
+      "display_sort": "string",
+      "display_filter": "string"
+    },
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_IP",
+      "COLUMN_COUNTRY"
+    ],
+    "valid_columns": [
+      "COLUMN_DOMAIN_SCORE",
+      "COLUMN_DOMAIN_TRUST_SCORE",
+      "COLUMN_ADVERTISER_AD_DOMAIN",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_IP",
+      "COLUMN_COUNTRY",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN"
+    ]
+  },
+  "backlinks_refips": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "string",
+      "target_type": "string"
+    },
+    "optional_fields": {
+      "display_limit": "integer",
+      "display_offset": "integer",
+      "export_columns": "columns",
+      "display_sort": "string"
+    },
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_IP",
+      "COLUMN_COUNTRY",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN"
+    ],
+    "valid_columns": [
+      "COLUMN_IP",
+      "COLUMN_COUNTRY",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_ADVERTISER_AD_FIRST_SEEN",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN"
+    ]
+  },
+  "backlinks_pages": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "target": "string",
+      "target_type": "string"
+    },
+    "optional_fields": {
+      "display_limit": "integer",
+      "export_columns": "columns",
+      "display_sort": "string"
+    },
+    "preset_fields": {},
+    "default_columns": [
+      "COLUMN_SOURCE_URL",
+      "COLUMN_SOURCE_TITLE",
+      "COLUMN_RESPONSE_CODE",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_EXTERNAL_NUM",
+      "COLUMN_INTERNAL_NUM",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN"
+    ],
+    "valid_columns": [
+      "COLUMN_RESPONSE_CODE",
+      "COLUMN_BACKLINKS_NUM",
+      "COLUMN_DOMAINS_NUM",
+      "COLUMN_ADVERTISER_AD_LAST_SEEN",
+      "COLUMN_EXTERNAL_NUM",
+      "COLUMN_INTERNAL_NUM",
+      "COLUMN_SOURCE_URL",
+      "COLUMN_SOURCE_TITLE"
+    ]
   }
 }

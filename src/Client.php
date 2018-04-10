@@ -253,13 +253,53 @@ class Client
     }
 
     /**
-     * @param $domain
+     * @param $target
      * @param array $options
      * @return ApiResult
      */
     public function getBacklinksOverview($target, $options = [])
     {
-        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, ['target' => $target] + $options);
+        return $this->makeRequest(Type::TYPE_BACKLINKS_OVERVIEW, ['target' => $target, $target_type] + $options);
+    }
+
+    /**
+     * @param $target
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinks($target, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS, ['target' => $target] + $options);
+    }
+
+    /**
+     * @param $target
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinksReferringDomains($target, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS_REFERRING_DOMAINS, ['target' => $target] + $options);
+    }
+
+    /**
+     * @param $target
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinksReferringIPs($target, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS_REFERRING_IPS, ['target' => $target] + $options);
+    }
+
+    /**
+     * @param $target
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getBacklinksIndexedPages($target, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_BACKLINKS_INDEXED_PAGES, ['target' => $target] + $options);
     }
 
     /**
