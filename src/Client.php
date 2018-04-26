@@ -5,6 +5,8 @@ namespace Silktide\SemRushApi;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Psr\SimpleCache\CacheInterface;
+use Silktide\Capiture\ApiNames;
+use Silktide\Capiture\ApiUsageTracker;
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
@@ -15,10 +17,12 @@ use Silktide\SemRushApi\Model\Result as ApiResult;
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Log\LoggerAwareTrait;
 use Exception;
+use Silktide\SemRushApi\Model\Result;
 
 class Client
 {
     use LoggerAwareTrait;
+    use ApiUsageTracker;
 
     /**
      * @var string
@@ -260,14 +264,69 @@ class Client
      */
     protected function makeRequest($type, $options)
     {
+        $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
         try {
-            $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
+
             $rawResponse = $this->makeHttpRequest($request);
             $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
-            return $this->resultFactory->create($formattedResponse);
+            $response = $this->resultFactory->create($formattedResponse);
+            $this->trackApiUsage(ApiNames::SEMRUSH, $request->getEndpoint(), true, [
+                'usage' => $this->getApiUsage($request, $response)
+            ]);
+            return $response;
         } catch (BadResponseException $e) {
+            $this->trackApiUsage(ApiNames::SEMRUSH, $request->getEndpoint(), false);
             throw $this->parseBadResponse($e);
         }
+    }
+
+
+    /**
+     * Calculates how many API credits are used.
+     *
+     * @param Request $request
+     * @param Result $response
+     * @return int
+     */
+    public function getApiUsage($request, $response): int
+    {
+        $usage = 1;
+        $options = $request->buildOptionsArray($request->getUrlParameters());
+
+        $type = $options['type'];
+
+        $historicRequest = array_key_exists('display_date', $options);
+
+        switch ($type) {
+            case Type::TYPE_DOMAIN_RANK:
+            case Type::TYPE_DOMAIN_RANKS:
+            case Type::TYPE_DOMAIN_ORGANIC:
+                $usage = ($historicRequest ? 50 : 10);
+                break;
+            case Type::TYPE_DOMAIN_RANK_HISTORY:
+            case Type::TYPE_ADVERTISER_RANK:
+                $usage = 10;
+                break;
+            case Type::TYPE_DOMAIN_ADWORDS:
+                $usage = ($historicRequest ? 100 : 20);
+                break;
+            case Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS:
+                $usage = ($historicRequest ? 150 : 30);
+                break;
+            case Type::TYPE_DOMAIN_ADWORDS_UNIQUE:
+                $usage = 40;
+                break;
+            case Type::TYPE_KEYWORD_DIFFICULTY:
+                $usage = 50;
+                break;
+            case Type::TYPE_ADVERTISER_PUBLISHERS:
+            case Type::TYPE_ADVERTISER_DISPLAY_ADS:
+                $usage = 100;
+                break;
+        }
+
+        // Semrush charge per row returned.
+        return $usage * $response->count();
     }
 
     /**

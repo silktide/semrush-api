@@ -6,9 +6,8 @@ namespace Silktide\SemRushApi\Test;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Psr\SimpleCache\CacheInterface;
 use Silktide\SemRushApi\Client;
-use Silktide\SemRushApi\Helper\Exception\EmptyResponseException;
+use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\UrlBuilder;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Request;
@@ -64,6 +63,9 @@ class ClientTest extends TestCase {
 
         $this->requestFactory = $this->createMock(RequestFactory::class);
         $this->request = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $this->request->method('buildOptionsArray')->willReturn(['type' => '', 'options' => []]);
+        $this->request->method('getEndpoint')->willReturn('test-endpoint');
+
         $this->requestFactory->method('create')->willReturn($this->request);
 
         $this->resultFactory = $this->getMockBuilder(ResultFactory::class)->disableOriginalConstructor()->getMock();
@@ -137,5 +139,71 @@ class ClientTest extends TestCase {
         $this->instance->getDomainRank("facebook.com");
         $this->instance->getDomainRank("facebook.com");
         $this->assertTrue(true);
+    }
+
+    public function testCalculateApiUsage()
+    {
+        $this->assertUsageCosts(50, Type::TYPE_DOMAIN_RANK, 1, true);
+        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK, 1, false);
+
+        $this->assertUsageCosts(250, Type::TYPE_DOMAIN_RANKS, 5, true);
+        $this->assertUsageCosts(50, Type::TYPE_DOMAIN_RANKS, 5, false);
+
+        $this->assertUsageCosts(500, Type::TYPE_DOMAIN_ORGANIC, 10, true);
+        $this->assertUsageCosts(100, Type::TYPE_DOMAIN_ORGANIC, 10, false);
+
+        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, true);
+        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, false);
+
+        $this->assertUsageCosts(50, Type::TYPE_ADVERTISER_RANK, 5, true);
+        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_RANK, 10, false);
+
+        $this->assertUsageCosts(200, Type::TYPE_DOMAIN_ADWORDS, 2, true);
+        $this->assertUsageCosts(80, Type::TYPE_DOMAIN_ADWORDS, 4, false);
+
+        $this->assertUsageCosts(1500, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 10, true);
+        $this->assertUsageCosts(600, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 20, false);
+
+        $this->assertUsageCosts(40, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 1, true);
+        $this->assertUsageCosts(400, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 10, false);
+
+        $this->assertUsageCosts(50, Type::TYPE_KEYWORD_DIFFICULTY, 1, true);
+        $this->assertUsageCosts(250, Type::TYPE_KEYWORD_DIFFICULTY, 5, false);
+
+        $this->assertUsageCosts(400, Type::TYPE_ADVERTISER_PUBLISHERS, 4, true);
+        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_PUBLISHERS, 1, false);
+
+        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_DISPLAY_ADS, 1, true);
+        $this->assertUsageCosts(300, Type::TYPE_ADVERTISER_DISPLAY_ADS, 3, false);
+    }
+
+    protected function assertUsageCosts($expected, $requestType, $rowsReturned, $historical = true)
+    {
+        $options = [];
+        if ($historical) {
+            $options = ['display_date' => \DateTime::createFromFormat('j-M-Y', '15-Feb-2009')];
+        }
+
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $request->method('buildOptionsArray')->willReturn(['type' => $requestType ] + $options);
+        $request->method('getUrlParameters')->willReturn($options);
+
+        $result = $this->createMock(Result::class);
+        $result->method('count')->willReturn($rowsReturned);
+
+        $client = new Client(
+            'test-key',
+             $this->createMock(RequestFactory::class),
+             $this->createMock(ResponseParser::class),
+             $this->createMock(ResultFactory::class),
+             $this->createMock(UrlBuilder::class),
+             $this->createMock(GuzzleClient::class)
+        );
+
+        $historicalMessage = ($historical) ? 'true' : false;
+        $this->assertEquals($expected, $client->getApiUsage($request, $result), "Request type '$requestType' with $rowsReturned rows returned. Historical = $historicalMessage");
     }
 }
