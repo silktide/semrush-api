@@ -40,4 +40,4 @@ jobs:
 
       - run: if [ -f vendor/bin/phpunit ]; then vendor/bin/phpunit; fi
       - run: if [ -f vendor/bin/pharmacist ]; then vendor/bin/pharmacist; fi
-      - run: if [ -f vendor/bin/phpstan ]; then php -d memory_limit=4G vendor/bin/phpstan analyse -l 0 src; fi
+      - run: if [ -f vendor/bin/phpstan ]; then php -d memory_limit=4G vendor/bin/phpstan analyse -l 0 src $(if [ -f phpstan.neon ]; then echo "-c phpstan.neon"; fi); fi
