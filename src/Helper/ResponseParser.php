@@ -87,7 +87,7 @@ class ResponseParser
      */
     protected function isEmpty($data)
     {
-        return $data == "ERROR 50 :: NOTHING FOUND";
+        return preg_match("/^ERROR 50 :: NOTHING FOUND\s*$/", $data) ? true : false;
     }
 
     /**

@@ -66,4 +66,10 @@ class ResponseParserTest extends TestCase  {
         $this->assertEquals([], $result);
     }
 
+    public function testResponseParserNoDataAltFormat()
+    {
+        $result = $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_nodata_alt_format'));
+        $this->assertEquals([], $result);
+    }
+
 } 
