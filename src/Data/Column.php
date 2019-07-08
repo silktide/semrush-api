@@ -46,6 +46,7 @@ abstract class Column
     const COLUMN_ADVERTISER_MEDIA_ADS_OVERALL = "media_ads_overall";
     const COLUMN_ADVERTISER_TEXT_ADS_OVERALL = "text_ads_overall";
     const COLUMN_ADVERTISER_DOMAIN_OVERALL = "domain_overall";
+    const COLUMN_TIMESTAMP = 'Ts';
 
     /**
      * Get all the possible columns
