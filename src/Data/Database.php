@@ -126,6 +126,24 @@ abstract class Database
     const DATABASE_GOOGLE_ZM = "zm";
     const DATABASE_GOOGLE_ZW = "zw";
     const DATABASE_GOOGLE_LY = "ly";
+    const DATABASE_GOOGLE_PK = "pk";
+
+    const DATABASE_MOBILE_UK = "mobile-uk";
+    const DATABASE_MOBILE_CA = "mobile-ca";
+    const DATABASE_MOBILE_DE = "mobile-de";
+    const DATABASE_MOBILE_FR = "mobile-fr";
+    const DATABASE_MOBILE_ES = "mobile-es";
+    const DATABASE_MOBILE_IT = "mobile-it";
+    const DATABASE_MOBILE_BR = "mobile-br";
+    const DATABASE_MOBILE_AU = "mobile-au";
+    const DATABASE_MOBILE_DK = "mobile-dk";
+    const DATABASE_MOBILE_MX = "mobile-mx";
+    const DATABASE_MOBILE_NL = "mobile-nl";
+    const DATABASE_MOBILE_SE = "mobile-se";
+    const DATABASE_MOBILE_TR = "mobile-tr";
+    const DATABASE_MOBILE_IN = "mobile-in";
+    const DATABASE_MOBILE_ID = "mobile-id";
+    const DATABASE_MOBILE_IL = "mobile-il";
 
     /**
      * Get all the possible databases
