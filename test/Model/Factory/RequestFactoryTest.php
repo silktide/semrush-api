@@ -16,7 +16,7 @@ class RequestFactoryTest extends TestCase {
     /**
      * Instantiate a client
      */
-    public function setup()
+    public function setup() : void
     {
         $this->instance = new RequestFactory();
     }
@@ -24,7 +24,7 @@ class RequestFactoryTest extends TestCase {
     public function testCreate()
     {
         $this->instance->create(Type::TYPE_DOMAIN_RANKS, ['key' => 'a key', 'domain' => 'domain.com']);
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
 

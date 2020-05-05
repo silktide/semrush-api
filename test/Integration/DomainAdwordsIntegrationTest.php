@@ -19,6 +19,6 @@ class DomainAdwordsIntegrationTest extends AbstractIntegrationTest {
          * @var Row $row
          */
         $row = $result[9];
-        $this->assertEquals("argos tv", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
+        self::assertEquals("argos tv", $row->getValue(Column::COLUMN_DOMAIN_KEYWORD));
     }
 } 

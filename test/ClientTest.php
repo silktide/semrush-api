@@ -82,49 +82,49 @@ class ClientTest extends TestCase {
     {
         $this->doSetup(1);
         $this->instance->getDomainRank('domain.com', []);
-        $this->assertEquals($this->key, $this->instance->getApiKey());
+        self::assertEquals($this->key, $this->instance->getApiKey());
     }
 
     public function testGetDomainRank()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainRank('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testGetDomainRanks()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainRanks('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testGetDomainRankHistory()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainRankHistory('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testGetDomainOrganic()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainOrganic('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testGetDomainAdwords()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainAdwords('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testGetDomainAdwordsUnique()
     {
         $this->doSetup(1);
         $result = $this->instance->getDomainAdwordsUnique('domain.com', []);
-        $this->assertTrue($result instanceof Result);
+        self::assertTrue($result instanceof Result);
     }
 
     public function testCache()
@@ -138,43 +138,43 @@ class ClientTest extends TestCase {
         $this->instance->setCache(new ArrayCachePool());
         $this->instance->getDomainRank("facebook.com");
         $this->instance->getDomainRank("facebook.com");
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testCalculateApiUsage()
     {
-        $this->assertUsageCosts(50, Type::TYPE_DOMAIN_RANK, 1, true);
-        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK, 1, false);
+        self::assertUsageCosts(50, Type::TYPE_DOMAIN_RANK, 1, true);
+        self::assertUsageCosts(10, Type::TYPE_DOMAIN_RANK, 1, false);
 
-        $this->assertUsageCosts(250, Type::TYPE_DOMAIN_RANKS, 5, true);
-        $this->assertUsageCosts(50, Type::TYPE_DOMAIN_RANKS, 5, false);
+        self::assertUsageCosts(250, Type::TYPE_DOMAIN_RANKS, 5, true);
+        self::assertUsageCosts(50, Type::TYPE_DOMAIN_RANKS, 5, false);
 
-        $this->assertUsageCosts(500, Type::TYPE_DOMAIN_ORGANIC, 10, true);
-        $this->assertUsageCosts(100, Type::TYPE_DOMAIN_ORGANIC, 10, false);
+        self::assertUsageCosts(500, Type::TYPE_DOMAIN_ORGANIC, 10, true);
+        self::assertUsageCosts(100, Type::TYPE_DOMAIN_ORGANIC, 10, false);
 
-        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, true);
-        $this->assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, false);
+        self::assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, true);
+        self::assertUsageCosts(10, Type::TYPE_DOMAIN_RANK_HISTORY, 1, false);
 
-        $this->assertUsageCosts(50, Type::TYPE_ADVERTISER_RANK, 5, true);
-        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_RANK, 10, false);
+        self::assertUsageCosts(50, Type::TYPE_ADVERTISER_RANK, 5, true);
+        self::assertUsageCosts(100, Type::TYPE_ADVERTISER_RANK, 10, false);
 
-        $this->assertUsageCosts(200, Type::TYPE_DOMAIN_ADWORDS, 2, true);
-        $this->assertUsageCosts(80, Type::TYPE_DOMAIN_ADWORDS, 4, false);
+        self::assertUsageCosts(200, Type::TYPE_DOMAIN_ADWORDS, 2, true);
+        self::assertUsageCosts(80, Type::TYPE_DOMAIN_ADWORDS, 4, false);
 
-        $this->assertUsageCosts(1500, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 10, true);
-        $this->assertUsageCosts(600, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 20, false);
+        self::assertUsageCosts(1500, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 10, true);
+        self::assertUsageCosts(600, Type::TYPE_DOMAIN_PLA_SEARCH_KEYWORDS, 20, false);
 
-        $this->assertUsageCosts(40, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 1, true);
-        $this->assertUsageCosts(400, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 10, false);
+        self::assertUsageCosts(40, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 1, true);
+        self::assertUsageCosts(400, Type::TYPE_DOMAIN_ADWORDS_UNIQUE, 10, false);
 
-        $this->assertUsageCosts(50, Type::TYPE_KEYWORD_DIFFICULTY, 1, true);
-        $this->assertUsageCosts(250, Type::TYPE_KEYWORD_DIFFICULTY, 5, false);
+        self::assertUsageCosts(50, Type::TYPE_KEYWORD_DIFFICULTY, 1, true);
+        self::assertUsageCosts(250, Type::TYPE_KEYWORD_DIFFICULTY, 5, false);
 
-        $this->assertUsageCosts(400, Type::TYPE_ADVERTISER_PUBLISHERS, 4, true);
-        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_PUBLISHERS, 1, false);
+        self::assertUsageCosts(400, Type::TYPE_ADVERTISER_PUBLISHERS, 4, true);
+        self::assertUsageCosts(100, Type::TYPE_ADVERTISER_PUBLISHERS, 1, false);
 
-        $this->assertUsageCosts(100, Type::TYPE_ADVERTISER_DISPLAY_ADS, 1, true);
-        $this->assertUsageCosts(300, Type::TYPE_ADVERTISER_DISPLAY_ADS, 3, false);
+        self::assertUsageCosts(100, Type::TYPE_ADVERTISER_DISPLAY_ADS, 1, true);
+        self::assertUsageCosts(300, Type::TYPE_ADVERTISER_DISPLAY_ADS, 3, false);
     }
 
     protected function assertUsageCosts($expected, $requestType, $rowsReturned, $historical = true)
@@ -204,6 +204,6 @@ class ClientTest extends TestCase {
         );
 
         $historicalMessage = ($historical) ? 'true' : false;
-        $this->assertEquals($expected, $client->getApiUsage($request, $result), "Request type '$requestType' with $rowsReturned rows returned. Historical = $historicalMessage");
+        self::assertEquals($expected, $client->getApiUsage($request, $result), "Request type '$requestType' with $rowsReturned rows returned. Historical = $historicalMessage");
     }
 }

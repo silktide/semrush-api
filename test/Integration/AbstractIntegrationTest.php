@@ -32,7 +32,7 @@ abstract class AbstractIntegrationTest extends TestCase {
     /**
      * Setup integration test
      */
-    public function setup()
+    public function setup() : void
     {
         $requestFactory = new RequestFactory();
         $rowFactory = new RowFactory();
@@ -63,10 +63,10 @@ abstract class AbstractIntegrationTest extends TestCase {
      */
     protected function verifyResult($result, $expectedSize)
     {
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals($expectedSize, count($result));
+        self::assertTrue($result instanceof Result);
+        self::assertEquals($expectedSize, count($result));
         foreach ($result as $row) {
-            $this->assertTrue($row instanceof Row);
+            self::assertTrue($row instanceof Row);
         }
     }
 

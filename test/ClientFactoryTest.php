@@ -18,8 +18,8 @@ class ClientFactoryTest extends TestCase {
     {
         $key = "testkey";
         $client = ClientFactory::create($key);
-        $this->assertTrue($client instanceof Client);
-        $this->assertEquals($key, $client->getApiKey());
+        self::assertTrue($client instanceof Client);
+        self::assertEquals($key, $client->getApiKey());
     }
 
     /**
@@ -33,8 +33,8 @@ class ClientFactoryTest extends TestCase {
         $cache = $this->createMock(CacheInterface::class);
 
         $client = ClientFactory::create($key, $cache);
-        $this->assertTrue($client instanceof Client);
-        $this->assertEquals($key, $client->getApiKey());
+        self::assertTrue($client instanceof Client);
+        self::assertEquals($key, $client->getApiKey());
     }
 
 } 

@@ -11,13 +11,13 @@ class ColumnTest extends TestCase {
     public function testGetColumns()
     {
         $columns = Column::getColumns();
-        $this->assertEquals(40, count($columns));
+        self::assertEquals(41, count($columns));
     }
 
     public function testIsValidColumn()
     {
-        $this->assertTrue(Column::isValidColumn("At"));
-        $this->assertFalse(Column::isValidColumn("Invalid"));
+        self::assertTrue(Column::isValidColumn("At"));
+        self::assertFalse(Column::isValidColumn("Invalid"));
     }
 
 }

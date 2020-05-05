@@ -17,7 +17,7 @@ class ResultTest extends TestCase {
     /**
      * Instantiate a result for testing against
      */
-    public function setup()
+    public function setup() : void
     {
         $this->instance = new Result();
     }
@@ -33,7 +33,7 @@ class ResultTest extends TestCase {
             $this->createMock(Row::class)
         ];
         $this->instance->setRows($rows);
-        $this->assertEquals($rows, $this->instance->getRows());
+        self::assertEquals($rows, $this->instance->getRows());
     }
 
     /**
@@ -69,7 +69,7 @@ class ResultTest extends TestCase {
 
         $this->instance->setRows($rows);
         foreach ($this->instance as $id => $row) {
-            $this->assertEquals($rows[$id], $row);
+            self::assertEquals($rows[$id], $row);
         }
     }
 
@@ -88,14 +88,14 @@ class ResultTest extends TestCase {
             $this->instance[$index] = $row;
         }
 
-        $this->assertTrue(isset($this->instance[0]));
-        $this->assertFalse(isset($this->instance[9]));
-        $this->assertEquals($rows[1], $this->instance[1]);
+        self::assertTrue(isset($this->instance[0]));
+        self::assertFalse(isset($this->instance[9]));
+        self::assertEquals($rows[1], $this->instance[1]);
         unset($this->instance[1]);
-        $this->assertEquals(2, count($this->instance));
+        self::assertEquals(2, count($this->instance));
 
         $result = $this->instance->toArray();
-        $this->assertEquals(2, count($result));
+        self::assertEquals(2, count($result));
 
     }
 

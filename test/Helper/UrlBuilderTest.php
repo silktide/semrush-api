@@ -15,7 +15,7 @@ class UrlBuilderTest extends TestCase  {
     /**
      * Instantiate a URL builder
      */
-    public function setup()
+    public function setup() : void
     {
         $this->urlBuilder = new UrlBuilder();
     }
@@ -29,7 +29,7 @@ class UrlBuilderTest extends TestCase  {
         $request->method('getUrlParameters')->willReturn(["a" => "b", "c" => "d", 'export_columns' => ['a', 'b']]);
         $request->method('getEndpoint')->willReturn("http://endpoint.com");
         $url = $this->urlBuilder->build($request);
-        $this->assertEquals("http://endpoint.com?a=b&c=d&export_columns=".urlencode("a,b"), $url);
+        self::assertEquals("http://endpoint.com?a=b&c=d&export_columns=".urlencode("a,b"), $url);
     }
 
 

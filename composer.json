@@ -2,17 +2,17 @@
     "name": "silktide/semrush-api",
     "description": "SEMrush API client",
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "guzzlehttp/guzzle": "^6.1",
         "psr/log": "^1.0",
         "psr/simple-cache": "^1.0",
-        "cache/array-adapter": "^1.0",
         "silktide/capiture": "^1.2"
     },
     "require-dev": {
         "silktide/pharmacist": "^1.0",
-        "phpunit/phpunit": "^6.5",
-        "monolog/monolog": "^1.23"
+        "phpunit/phpunit": "~8",
+        "monolog/monolog": "^1.23",
+        "cache/array-adapter": "^1.0"
     },
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -23,9 +23,13 @@
     ],
     "autoload": {
       "psr-4": {
-        "Silktide\\SemRushApi\\": "src",
-        "Silktide\\SemRushApi\\Test\\": "test"
+        "Silktide\\SemRushApi\\": "src"
       }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Silktide\\SemRushApi\\Test\\": "test"
+        }
     },
     "extra": {
         "downsider-puzzle-di": {
