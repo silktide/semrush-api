@@ -19,7 +19,7 @@ class RowFactoryTest extends TestCase {
      *
      * This is done in setup as we need a new one for each test
      */
-    public function setup()
+    public function setup() : void
     {
         $this->instance = new RowFactory();
     }
@@ -33,8 +33,8 @@ class RowFactoryTest extends TestCase {
         $values = "us;seobook.com;29062;3214;33696;193957;0;0;0";
         $data = array_combine($columns, explode(";",$values));
         $row = $this->instance->create($data);
-        $this->assertTrue($row instanceof Row);
-        $this->assertEquals($data['Db'], $row->getValue('Db'));
+        self::assertTrue($row instanceof Row);
+        self::assertEquals($data['Db'], $row->getValue('Db'));
     }
 
 } 

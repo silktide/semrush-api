@@ -21,7 +21,7 @@ class ResultFactoryTest extends TestCase {
      *
      * This is done in setup as we need a new one for each test
      */
-    public function setup()
+    public function setup() : void
     {
         $rowFactory = $this->createMock('Silktide\SemRushApi\Model\Factory\RowFactory');
         $row = $this->getMockBuilder('Silktide\SemRushApi\Model\Row')->disableOriginalConstructor()->getMock();
@@ -38,11 +38,11 @@ class ResultFactoryTest extends TestCase {
         $values = "us;seobook.com;29062;3214;33696;193957;0;0;0";
         $data = array_combine($columns, explode(";",$values));
         $result = $this->instance->create([$data,$data]);
-        $this->assertTrue($result instanceof Result);
-        $this->assertEquals(2, count($result));
+        self::assertTrue($result instanceof Result);
+        self::assertEquals(2, count($result));
         foreach ($result as $row)
         {
-            $this->assertTrue($row instanceof Row);
+            self::assertTrue($row instanceof Row);
         }
     }
 

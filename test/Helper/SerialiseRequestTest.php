@@ -1,6 +1,6 @@
 <?php
 
-namespace Silktide\SemRushApi\Test\Cache;
+namespace Silktide\SemRushApi\Test\Helper;
 
 use Silktide\SemRushApi\Helper\SerialiseRequest;
 use PHPUnit\Framework\TestCase;
@@ -21,15 +21,15 @@ class SerialiseRequestTest extends TestCase {
 
         $firstResult = $serialiser->serialise($this->getRequest(["a" => "b", "c" => "d", 'export_columns' => ['a', 'b']]));
 
-        $this->assertTrue(is_string($firstResult));
-        $this->assertGreaterThanOrEqual(15, strlen($firstResult));
+        self::assertTrue(is_string($firstResult));
+        self::assertGreaterThanOrEqual(15, strlen($firstResult));
 
         $secondResult = $serialiser->serialise($this->getRequest(["a" => "b", 'export_columns' => ['a', 'b'],  "c" => "d"]));
         $thirdResult = $serialiser->serialise($this->getRequest(["q" => "r", "c" => "d", 'export_columns' => ['a', 'b']]));
         $fourthResult = $serialiser->serialise($this->getRequest(["q" => "r", "c" => "d", 'export_columns' => ['b', 'a']]));
 
-        $this->assertEquals($firstResult, $secondResult);
-        $this->assertNotEquals($secondResult, $thirdResult);
-        $this->assertNotEquals($thirdResult, $fourthResult);
+        self::assertEquals($firstResult, $secondResult);
+        self::assertNotEquals($secondResult, $thirdResult);
+        self::assertNotEquals($thirdResult, $fourthResult);
     }
 } 

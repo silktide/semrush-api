@@ -11,9 +11,9 @@ class DatabaseTest extends TestCase {
     public function testGetDatabases()
     {
         $databases = Database::getDatabases();
-        $this->assertEquals(119, count($databases));
-        $this->assertTrue(isset($databases['DATABASE_GOOGLE_US']));
-        $this->assertTrue(isset($databases['DATABASE_GOOGLE_UK']));
+        self::assertEquals(136, count($databases));
+        self::assertTrue(isset($databases['DATABASE_GOOGLE_US']));
+        self::assertTrue(isset($databases['DATABASE_GOOGLE_UK']));
     }
 
 } 

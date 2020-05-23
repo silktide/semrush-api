@@ -15,7 +15,7 @@ class ResponseParserTest extends TestCase  {
      */
     protected $responseParser;
 
-    public function setup()
+    public function setup() : void
     {
         $this->responseParser = new ResponseParser();
     }
@@ -27,14 +27,14 @@ class ResponseParserTest extends TestCase  {
         $request->expects($this->any())->method('getExpectedResultColumns')->willReturn($columns);
 
         $result = $this->responseParser->parseResult($request, ResponseExampleHelper::getResponseExample('domain_adwords_argos'));
-        $this->assertTrue(is_array($result));
-        $this->assertEquals(1000, count($result));
+        self::assertTrue(is_array($result));
+        self::assertEquals(1000, count($result));
         foreach ($result as $row) {
-            $this->assertTrue(is_array($row));
-            $this->assertEquals(9, count($row));
+            self::assertTrue(is_array($row));
+            self::assertEquals(9, count($row));
         }
 
-        $this->assertStringStartsWith("http://www.argos.co.uk/static/Browse", $result[892]['Vu']);
+        self::assertStringStartsWith("http://www.argos.co.uk/static/Browse", $result[892]['Vu']);
     }
 
     /**
@@ -63,13 +63,13 @@ class ResponseParserTest extends TestCase  {
     public function testResponseParserNoData()
     {
         $result = $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_nodata'));
-        $this->assertEquals([], $result);
+        self::assertEquals([], $result);
     }
 
     public function testResponseParserNoDataAltFormat()
     {
         $result = $this->responseParser->parseResult($this->getDefaultRequest(), ResponseExampleHelper::getResponseExample('error_nodata_alt_format'));
-        $this->assertEquals([], $result);
+        self::assertEquals([], $result);
     }
 
 } 

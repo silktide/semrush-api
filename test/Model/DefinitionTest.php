@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Silktide\SemRushApi\Test;
+namespace Silktide\SemRushApi\Test\Model;
 
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Model\Definition;
@@ -18,7 +18,7 @@ class DefinitionTest extends TestCase {
     /**
      * Setup an instance of definition
      */
-    public function setup()
+    public function setup() : void
     {
         $this->instance = new Definition(Type::TYPE_DOMAIN_RANKS);
     }
@@ -34,7 +34,7 @@ class DefinitionTest extends TestCase {
 
     public function testGetRequiredFields()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "type" => "type",
             "key" => "string",
             "domain" => "domain"
@@ -43,7 +43,7 @@ class DefinitionTest extends TestCase {
 
     public function testGetOptionalFields()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "database" => "database",
             "display_date" => "date",
             "export_columns" => "columns",
@@ -53,7 +53,7 @@ class DefinitionTest extends TestCase {
 
     public function testGetAvailableFields()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "type" => "type",
             "key" => "string",
             "domain" => "domain",
@@ -66,14 +66,14 @@ class DefinitionTest extends TestCase {
 
     public function testGetPresetFields()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "export_escape" => "1"
         ], $this->instance->getPresetFields());
     }
 
     public function testGetDefaultColumns()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "Db",
             "Dn",
             "Rk",
@@ -88,7 +88,7 @@ class DefinitionTest extends TestCase {
 
     public function testGetValidColumns()
     {
-        $this->assertEquals([
+        self::assertEquals([
             "Db",
             "Dn",
             "Rk",

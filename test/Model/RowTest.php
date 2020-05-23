@@ -17,7 +17,7 @@ class RowTest extends TestCase {
     /**
      * Set up an instance of row
      */
-    public function setup()
+    public function setup() : void
     {
         $this->instance = new Row();
     }
@@ -35,7 +35,7 @@ class RowTest extends TestCase {
             'Ad' => 'biscuits, cookies, hobnobs'
         ];
         $this->instance->setData($values);
-        $this->assertEquals($values, $this->instance->getData());
+        self::assertEquals($values, $this->instance->getData());
     }
 
     /**
@@ -80,7 +80,7 @@ class RowTest extends TestCase {
         $this->instance->setData($values);
 
         foreach ($values as $key => $value) {
-            $this->assertEquals($value, $this->instance->getValue($key));
+            self::assertEquals($value, $this->instance->getValue($key));
         }
     }
 

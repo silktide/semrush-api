@@ -22,6 +22,6 @@ class DomainRankIntegrationTest extends AbstractIntegrationTest {
          * @var Row $row
          */
         $row = $result[0];
-        $this->assertEquals(22177894, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC));
+        self::assertEquals(22177894, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC));
     }
 } 

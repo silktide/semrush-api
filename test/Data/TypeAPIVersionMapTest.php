@@ -13,7 +13,7 @@ class TypeAPIVersionMapTest extends TestCase {
      */
     public function testgetAPIVersion()
     {
-        $this->assertEquals(1, TypeAPIVersionMap::getAPIVersion("domain_ranks"));
-        $this->assertEquals(2, TypeAPIVersionMap::getAPIVersion("advertiser_publishers"));
+        self::assertEquals(1, TypeAPIVersionMap::getAPIVersion("domain_ranks"));
+        self::assertEquals(2, TypeAPIVersionMap::getAPIVersion("advertiser_publishers"));
     }
 }

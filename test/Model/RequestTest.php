@@ -29,7 +29,7 @@ class RequestTest extends TestCase {
             'export_columns' => $columns
         ]);
 
-        $this->assertEquals($columns, $request->getExpectedResultColumns());
+        self::assertEquals($columns, $request->getExpectedResultColumns());
     }
 
     public function testRequest()
@@ -54,7 +54,7 @@ class RequestTest extends TestCase {
         $options['type'] = Type::TYPE_DOMAIN_RANK_HISTORY;
         $options['export_escape'] = "1";
 
-        $this->assertEquals($options, $request->getUrlParameters());
+        self::assertEquals($options, $request->getUrlParameters());
     }
 
     public function testGetEndpoint()
@@ -63,12 +63,12 @@ class RequestTest extends TestCase {
             'key' => $this->key,
             'domain' => $this->domain
         ]);
-        $this->assertEquals("http://api.semrush.com/", $request->getEndpoint());
+        self::assertEquals("http://api.semrush.com/", $request->getEndpoint());
         $request = new Request(Type::TYPE_ADVERTISER_RANK, [
             'key' => $this->key,
             'domain' => $this->domain
         ]);
-        $this->assertEquals("http://api.semrush.com/analytics/da/v2/", $request->getEndpoint());
+        self::assertEquals("http://api.semrush.com/analytics/da/v2/", $request->getEndpoint());
     }
 
 

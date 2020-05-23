@@ -22,8 +22,8 @@ class DomainRankHistoryIntegrationTest extends AbstractIntegrationTest {
          * @var Row $row
          */
         $row = $result[1];
-        $this->assertEquals(1013730, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC));
-        $this->assertEquals(854060, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS));
-        $this->assertEquals(20100115, $row->getValue(Column::COLUMN_OVERVIEW_DATE));
+        self::assertEquals(1013730, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_TRAFFIC));
+        self::assertEquals(854060, $row->getValue(Column::COLUMN_OVERVIEW_ADWORDS_KEYWORDS));
+        self::assertEquals(20100115, $row->getValue(Column::COLUMN_OVERVIEW_DATE));
     }
 } 
