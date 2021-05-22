@@ -257,6 +257,16 @@ class Client
     }
 
     /**
+     * @param string $domain
+     * @param array $options
+     * @return ApiResult
+     */
+    public function getPhraseThis($phrase, $options = [])
+    {
+        return $this->makeRequest(Type::TYPE_PHRASE_THIS, ['phrase' => $phrase] + $options);
+    }
+
+    /**
      * @param $type
      * @param $options
      * @return ApiResult

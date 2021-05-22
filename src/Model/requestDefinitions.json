@@ -606,5 +606,38 @@
       "COLUMN_DOMAIN_KEYWORD",
       "COLUMN_KEYWORD_DIFFICULTY_INDEX"
     ]
-  }
+  },
+    "phrase_this": {
+        "required_fields": {
+            "type": "type",
+            "key": "string",
+            "phrase": "string",
+            "database": "database"
+        },
+        "optional_fields": {
+            "export_columns": "columns",
+            "export_escape": "boolean",
+            "display_date": "date_format:Ymd",
+            "export_decode": "boolean"
+        },
+        "preset_fields": {
+            "export_escape": "1"
+        },
+        "default_columns": [
+            "COLUMN_DOMAIN_KEYWORD",
+            "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+            "COLUMN_KEYWORD_COMPETITIVE_AD_DENSITY",
+            "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+            "COLUMN_KEYWORD_INTEREST",
+            "COLUMN_KEYWORD_AVERAGE_QUERIES"
+        ],
+        "valid_columns": [
+            "COLUMN_DOMAIN_KEYWORD",
+            "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+            "COLUMN_KEYWORD_COMPETITIVE_AD_DENSITY",
+            "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+            "COLUMN_KEYWORD_INTEREST",
+            "COLUMN_KEYWORD_AVERAGE_QUERIES"
+        ]
+    }
 }
