@@ -12,6 +12,7 @@ use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
 use Silktide\SemRushApi\Model\Factory\RequestFactory;
 use Silktide\SemRushApi\Model\Factory\ResultFactory;
+use Silktide\SemRushApi\Model\Factory\RowFactory;
 use Silktide\SemRushApi\Model\Request;
 use Silktide\SemRushApi\Model\Result as ApiResult;
 use GuzzleHttp\Client as GuzzleClient;
@@ -428,4 +429,17 @@ class Client
         }
     }
 
+    public static function create(string $apiKey): Client
+    {
+        return new Client(
+            $apiKey,
+            new RequestFactory(),
+            new ResponseParser(),
+            new ResultFactory(
+                new RowFactory()
+            ),
+            new UrlBuilder(),
+            new GuzzleClient()
+        );
+    }
 }
