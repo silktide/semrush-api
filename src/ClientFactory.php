@@ -11,7 +11,6 @@ use Silktide\SemRushApi\Model\Factory\RowFactory;
 
 abstract class ClientFactory
 {
-
     /**
      * Create an instance of Client with default dependencies
      * automatically created (for use by people without DI)
@@ -19,14 +18,8 @@ abstract class ClientFactory
      * @param string $apiKey
      * @return Client
      */
-    static public function create(string $apiKey)
+    public static function create(string $apiKey)
     {
-        $requestFactory = new RequestFactory();
-        $rowFactory = new RowFactory();
-        $resultFactory = new ResultFactory($rowFactory);
-        $responseParser = new ResponseParser();
-        $urlBuilder = new UrlBuilder();
-        $guzzle = new GuzzleClient();
-        return new Client($apiKey, $requestFactory, $responseParser, $resultFactory, $urlBuilder, $guzzle);
+        return Client::create($apiKey);
     }
 }
