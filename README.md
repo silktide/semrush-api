@@ -17,6 +17,7 @@ A PHP API client for the SEMrush API.
 * advertiser_publishers
 * advertiser_text_ads
 * advertiser_rank
+* phrase_this (https://www.semrush.com/api-analytics/#phrase_this)
 
 ## Usage
 
