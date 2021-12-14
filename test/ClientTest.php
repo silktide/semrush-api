@@ -18,37 +18,15 @@ use Silktide\SemRushApi\Model\Factory\ResultFactory;
 use Silktide\SemRushApi\Helper\ResponseParser;
 
 
-class ClientTest extends TestCase {
+class ClientTest extends TestCase
+{
+    protected Client $instance;
+    protected string $key = 'sampleKey';
 
-    /**
-     * @var Client
-     */
-    protected $instance;
-
-    /**
-     * @var string
-     */
-    protected $key = 'sampleKey';
-
-    /**
-     * @var ResultFactory
-     */
-    protected $resultFactory;
-
-    /**
-     * @var RequestFactory
-     */
-    protected $requestFactory;
-
-    /**
-     * @var ResponseParser
-     */
-    protected $responseParser;
-
-    /**
-     * @var Request
-     */
-    protected $request;
+    protected ResultFactory $resultFactory;
+    protected RequestFactory $requestFactory;
+    protected ResponseParser $responseParser;
+    protected Request $request;
 
     /**
      * @param $requestNumber
