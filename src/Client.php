@@ -2,11 +2,14 @@
 
 namespace Silktide\SemRushApi;
 
+use DateInterval;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
+use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Silktide\Capiture\ApiNames;
 use Silktide\Capiture\ApiUsageTracker;
+use Silktide\Capiture\ApiUsageTrackerInterface;
 use Silktide\SemRushApi\Data\Type;
 use Silktide\SemRushApi\Helper\ResponseParser;
 use Silktide\SemRushApi\Helper\UrlBuilder;
@@ -25,72 +28,28 @@ class Client
     use LoggerAwareTrait;
     use ApiUsageTracker;
 
-    /**
-     * @var string
-     */
-    protected $apiKey;
+    protected string $apiKey;
+    protected RequestFactory $requestFactory;
+    protected ResponseParser $responseParser;
+    protected ResultFactory $resultFactory;
+    protected UrlBuilder $urlBuilder;
+    protected GuzzleClient $guzzle;
+    protected int $connectTimeout = 15;
+    protected int $timeout = 15;
 
-    /**
-     * @var RequestFactory
-     */
-    protected $requestFactory;
+    protected ?CacheInterface $cache = null;
+    protected ?DateInterval $cacheLifetime = null;
+    protected string $cachePrefix = "semrush_";
 
-    /**
-     * @var ResponseParser
-     */
-    protected $responseParser;
 
-    /**
-     * @var ResultFactory
-     */
-    protected $resultFactory;
-
-    /**
-     * @var UrlBuilder
-     */
-    protected $urlBuilder;
-
-    /**
-     * @var GuzzleClient
-     */
-    protected $guzzle;
-
-    /**
-     * @var int
-     */
-    protected $connectTimeout = 15;
-
-    /**
-     * @var
-     */
-    protected $timeout = 15;
-
-    /**
-     * @var CacheInterface|null
-     */
-    protected $cache;
-
-    /**
-     * @var \DateInterval|null
-     */
-    protected $cacheLifetime;
-
-    /**
-     * @var string
-     */
-    protected $cachePrefix = "";
-
-    /**
-     * Construct a client with API key
-     *
-     * @param string $apiKey
-     * @param RequestFactory $requestFactory
-     * @param ResultFactory $resultFactory
-     * @param ResponseParser $responseParser
-     * @param UrlBuilder $urlBuilder
-     * @param GuzzleClient $guzzle
-     */
-    public function __construct($apiKey, RequestFactory $requestFactory, ResponseParser $responseParser, ResultFactory $resultFactory, UrlBuilder $urlBuilder, GuzzleClient $guzzle)
+    public function __construct(
+        string $apiKey,
+        RequestFactory $requestFactory,
+        ResponseParser $responseParser,
+        ResultFactory $resultFactory,
+        UrlBuilder $urlBuilder,
+        GuzzleClient $guzzle
+    )
     {
         $this->apiKey = $apiKey;
         $this->requestFactory = $requestFactory;
@@ -100,19 +59,11 @@ class Client
         $this->guzzle = $guzzle;
     }
 
-    /**
-     * @param CacheInterface $cache
-     * @param \DateInterval $cacheLifetime
-     * @param string $cachePrefix
-     */
-    public function setCache(CacheInterface $cache, \DateInterval $cacheLifetime = null, string $cachePrefix = "")
+    public function setCache(?CacheInterface $cache, DateInterval $cacheLifetime = null, ?string $cachePrefix = null)
     {
         $this->cache = $cache;
-        if ($cacheLifetime === null) {
-            $cacheLifetime = new \DateInterval("P30D");
-        }
-        $this->cacheLifetime = $cacheLifetime;
-        $this->cachePrefix = $cachePrefix;
+        $this->cacheLifetime = $cacheLifetime ?? $this->cacheLifetime;
+        $this->cachePrefix = $cachePrefix ?? $this->cachePrefix;
     }
 
     /**
@@ -284,12 +235,8 @@ class Client
 
     /**
      * Calculates how many API credits are used.
-     *
-     * @param Request $request
-     * @param Result $response
-     * @return int
      */
-    public function getApiUsage($request, $response): int
+    public function getApiUsage(Request $request, Result $response): int
     {
         $usage = 1;
         $options = $request->buildOptionsArray($request->getUrlParameters());
@@ -330,35 +277,18 @@ class Client
         return $usage * $response->count();
     }
 
-    /**
-     * Use guzzle to make request to API
-     *
-     * @param Request $request
-     * @return string
-     */
-    protected function makeHttpRequest($request)
+    protected function makeHttpRequest(Request $request): string
     {
         $url = $this->urlBuilder->build($request);
 
-        $cacheKey = $this->cachePrefix . md5($url);
-        if ($this->cache) {
-            if (!is_null($value = $this->cache->get($cacheKey))) {
-                return $value;
-            }
-        }
+        return $this->cache(md5($url), function() use ($url) {
+            $guzzleResponse = $this->guzzle->request('GET', $url, [
+                RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
+                RequestOptions::TIMEOUT => $this->timeout
+            ]);
 
-        $guzzleResponse = $this->guzzle->request('GET', $url, [
-            RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
-            RequestOptions::TIMEOUT => $this->timeout
-        ]);
-
-        $value = $guzzleResponse->getBody()->getContents();
-
-        if ($this->cache) {
-            $this->cache->set($cacheKey, $value, $this->cacheLifetime);
-        }
-
-        return $value;
+            return $guzzleResponse->getBody()->getContents();
+        });
     }
 
     /**
@@ -425,13 +355,18 @@ class Client
             for ($x=0; $x<count($matches[1]); $x++) {
                 $context[$matches[1][$x]] = $matches[2][$x];
             }
-            $this->logger->error("[SEMrush API] ".$message, $context);
+            $this->logger->error("[SEMrush API] " . $message, $context);
         }
     }
 
-    public static function create(string $apiKey): Client
+    public static function create(
+        string $apiKey,
+        CacheInterface $cache = null,
+        LoggerInterface $logger = null,
+        ApiUsageTrackerInterface $apiUsageTracker = null
+    ): Client
     {
-        return new Client(
+        $client = new Client(
             $apiKey,
             new RequestFactory(),
             new ResponseParser(),
@@ -441,5 +376,33 @@ class Client
             new UrlBuilder(),
             new GuzzleClient()
         );
+
+        if ($cache) {
+            $client->setCache($cache);
+        }
+
+        if ($logger) {
+            $client->setLogger($logger);
+        }
+
+        if ($apiUsageTracker) {
+            $client->setApiUsageTracker($apiUsageTracker);
+        }
+
+        return $client;
+    }
+
+    private function cache(string $key, callable $callable)
+    {
+        if ($this->cache === null) {
+            return $callable();
+        }
+
+        $key = $this->cachePrefix . $key;
+        if (($value = $this->cache->get($key)) === null) {
+            $value = $callable();
+            $this->cache->set($key, $value, $this->cacheLifetime ?? new DateInterval("P30D"));
+        }
+        return $value;
     }
 }
