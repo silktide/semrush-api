@@ -179,6 +179,27 @@ class Client
     }
 
     /**
+     * @param array $domains
+     * @param $options
+     * @return ApiResult
+     * @throws Exception
+     */
+    public function getDomainVsDomains(array $includedDomains, array $excludedDomains = [], array $options = [])
+    {
+        $domains = [];
+
+        foreach ($includedDomains as $domain) {
+            $domains[] = '*|or|'.$domain;
+        }
+
+        foreach ($excludedDomains as $domain) {
+            $domains[] = '-|or|'.$domain;
+        }
+
+        return $this->makeRequest(Type::TYPE_DOMAIN_VS_DOMAIN, ['domains' => implode('|', $domains)] + $options);
+    }
+
+    /**
      * @param $domain
      * @param array $options
      * @return ApiResult

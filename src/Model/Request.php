@@ -125,6 +125,10 @@ class Request
                 $this->validateDomain($option, $value);
                 break;
 
+            case "domains":
+                $this->validateDomains($option, $value);
+                break;
+
             case "database":
                 $this->validateDatabase($option, $value);
                 break;
@@ -215,6 +219,44 @@ class Request
     {
         if (!preg_match('/^[a-z0-9-.]+$/i', $domain)) {
             throw new InvalidOptionException("[{$key}] was not a valid domain [{$domain}]");
+        }
+    }
+
+    /**
+     * Validate domain
+     *
+     * @param string $key
+     * @param string $domain
+     * @throws InvalidOptionException
+     *
+     * Validates the format <sign>|<type>|<domain>|<sign>|<type>|<domain>|...
+     */
+    protected function validateDomains($key, $domains)
+    {
+        $parts = explode('|', $domains);
+
+        if (count($parts) > 5 * 3) { // 5 domains max, each with 3 parts
+            throw new InvalidOptionException("[{$key}] contains too many domains");
+        }
+
+        for ($i = 0; $i < count($parts); $i++) {
+           switch ($i % 3) {
+               case 0:
+                   if (!in_array($parts[$i], ['+', '-', '/', '*'], true)) {
+                       throw new InvalidOptionException("[{$key}] contains an invalid sign [{ $parts[$i]}]");
+                   }
+                   break;
+               case 1:
+                   if (!in_array($parts[$i], ['or', 'ad'], true)) {
+                       throw new InvalidOptionException("[{$key}] contains an invalid type - must be or or ad [{ $parts[$i]}]");
+                   }
+                    break;
+               case 2:
+                   if (!preg_match('/^[a-z0-9-.]+$/i', $parts[$i])) {
+                       throw new InvalidOptionException("[{$key}] contains an invalid domain [{ $parts[$i]}]");
+                   }
+                   break;
+           }
         }
     }
 
