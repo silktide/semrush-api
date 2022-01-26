@@ -97,6 +97,11 @@ abstract class Column
     const COLUMN_SERP_FEATURE_KEYWORD_ALSO_ASK = 'FK21';
     const COLUMN_SERP_FEATURE_KEYWORD_FAQ = 'FK22';
     const COLUMN_SERP_FEATURE_KEYWORD_FLIGHTS = 'FK23';
+    const COLUMN_FIRST_DOMAIN = 'P0';
+    const COLUMN_SECOND_DOMAIN = 'P1';
+    const COLUMN_THIRD_DOMAIN = 'P2';
+    const COLUMN_FOURTH_DOMAIN = 'P3';
+    const COLUMN_FIFTH_DOMAIN = 'P4';
 
     /**
      * Get all the possible columns

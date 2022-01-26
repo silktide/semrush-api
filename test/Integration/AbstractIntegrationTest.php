@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Silktide\SemRushApi\Integration;
+namespace Silktide\SemRushApi\Test\Integration;
 
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;

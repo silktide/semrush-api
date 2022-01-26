@@ -133,6 +133,52 @@
       "COLUMN_SERP_FEATURE_KEYWORD_FLIGHTS"
     ]
   },
+  "domain_domains": {
+    "required_fields": {
+      "type": "type",
+      "key": "string",
+      "domains": "domains",
+      "database": "database"
+    },
+    "optional_fields": {
+      "display_date": "date",
+      "export_columns": "columns",
+      "display_sort": "string",
+      "display_limit": "integer",
+      "export_escape": "boolean"
+    },
+    "preset_fields": {
+      "export_escape": "1"
+    },
+    "default_columns": [
+      "COLUMN_DOMAIN_KEYWORD",
+      "COLUMN_FIRST_DOMAIN",
+      "COLUMN_SECOND_DOMAIN",
+      "COLUMN_THIRD_DOMAIN",
+      "COLUMN_FOURTH_DOMAIN",
+      "COLUMN_FIFTH_DOMAIN",
+      "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+      "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+      "COLUMN_KEYWORD_AVERAGE_QUERIES",
+      "COLUMN_KEYWORD_DIFFICULTY_INDEX",
+      "COLUMN_KEYWORD_COMPETITIVE_AD_DENSITY",
+      "COLUMN_KEYWORD_INTEREST"
+    ],
+    "valid_columns": [
+      "COLUMN_DOMAIN_KEYWORD",
+      "COLUMN_FIRST_DOMAIN",
+      "COLUMN_SECOND_DOMAIN",
+      "COLUMN_THIRD_DOMAIN",
+      "COLUMN_FOURTH_DOMAIN",
+      "COLUMN_FIFTH_DOMAIN",
+      "COLUMN_KEYWORD_ORGANIC_NUMBER_OF_RESULTS",
+      "COLUMN_KEYWORD_AVERAGE_CLICK_PRICE",
+      "COLUMN_KEYWORD_AVERAGE_QUERIES",
+      "COLUMN_KEYWORD_DIFFICULTY_INDEX",
+      "COLUMN_KEYWORD_COMPETITIVE_AD_DENSITY",
+      "COLUMN_KEYWORD_INTEREST"
+    ]
+  },
   "domain_rank": {
     "required_fields": {
       "type": "type",
@@ -336,7 +382,8 @@
       "COLUMN_DOMAIN_KEYWORD_NUMBER",
       "COLUMN_TIMESTAMP",
       "COLUMN_SERP_FEATURES_DOMAIN",
-      "COLUMN_SERP_FEATURES_KEYWORD"
+      "COLUMN_SERP_FEATURES_KEYWORD",
+      "COLUMN_KEYWORD_DIFFICULTY_INDEX"
     ]
   },
   "domain_shopping": {

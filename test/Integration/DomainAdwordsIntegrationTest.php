@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Silktide\SemRushApi\Integration;
+namespace Silktide\SemRushApi\Test\Integration;
 
 use Silktide\SemRushApi\Data\Column;
 use Silktide\SemRushApi\Data\Database;
