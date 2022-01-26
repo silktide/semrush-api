@@ -9,7 +9,7 @@ A PHP API client for the SEMrush API.
 ## Supported actions:
 
 * domain_ranks
-* domain_domain
+* domain_domains
 * domain_rank
 * domain_rank_history
 * domain_organic
