@@ -184,7 +184,7 @@ class Client
      * @return ApiResult
      * @throws Exception
      */
-    public function getDomainVsDomains(array $includedDomains, array $excludedDomains, $options = [])
+    public function getDomainVsDomains(array $includedDomains, array $excludedDomains = [], array $options = [])
     {
         $domains = [];
 
