@@ -250,13 +250,18 @@ class Client
         $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
         try {
 
-            $rawResponse = $this->makeHttpRequest($request);
-            $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
-            $response = $this->resultFactory->create($formattedResponse);
-            $this->trackApiUsage(ApiNames::SEMRUSH, $request->getEndpoint(), true, [
-                'usage' => $this->getApiUsage($request, $response)
-            ]);
-            return $response;
+            $cacheKey = $this->urlBuilder->build($request);
+
+            return $this->cache(md5($cacheKey), function() use ($request) {
+                $rawResponse = $this->makeHttpRequest($request);
+                $formattedResponse = $this->responseParser->parseResult($request, $rawResponse);
+                $response = $this->resultFactory->create($formattedResponse);
+                $this->trackApiUsage(ApiNames::SEMRUSH, $request->getEndpoint(), true, [
+                    'usage' => $this->getApiUsage($request, $response)
+                ]);
+
+                return $response;
+            });
         } catch (BadResponseException $e) {
             $this->trackApiUsage(ApiNames::SEMRUSH, $request->getEndpoint(), false);
             throw $this->parseBadResponse($e);
@@ -312,14 +317,12 @@ class Client
     {
         $url = $this->urlBuilder->build($request);
 
-        return $this->cache(md5($url), function() use ($url) {
-            $guzzleResponse = $this->guzzle->request('GET', $url, [
-                RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
-                RequestOptions::TIMEOUT => $this->timeout
-            ]);
+        $guzzleResponse = $this->guzzle->request('GET', $url, [
+            RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout,
+            RequestOptions::TIMEOUT => $this->timeout
+        ]);
 
-            return $guzzleResponse->getBody()->getContents();
-        });
+        return $guzzleResponse->getBody()->getContents();
     }
 
     /**
