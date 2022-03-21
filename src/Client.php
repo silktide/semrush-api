@@ -250,7 +250,7 @@ class Client
         $request = $this->requestFactory->create($type, ['key' => $this->apiKey] + $options);
         try {
 
-            $cacheKey = $this->urlBuilder->build($request);
+            $cacheKey = $this->urlBuilder->build($request) . 'v1';
 
             return $this->cache(md5($cacheKey), function() use ($request) {
                 $rawResponse = $this->makeHttpRequest($request);
