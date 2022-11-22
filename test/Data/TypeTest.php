@@ -14,7 +14,7 @@ class TypeTest extends TestCase {
     public function testGetTypes()
     {
         $types = Type::getTypes();
-        self::assertEquals(11, count($types));
+        self::assertEquals(13, count($types));
         self::assertTrue(in_array("domain_ranks", $types));
         self::assertTrue(in_array("domain_rank", $types));
         self::assertTrue(in_array("domain_rank_history", $types));

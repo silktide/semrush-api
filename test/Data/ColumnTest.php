@@ -11,7 +11,7 @@ class ColumnTest extends TestCase {
     public function testGetColumns()
     {
         $columns = Column::getColumns();
-        self::assertEquals(41, count($columns));
+        self::assertEquals(96, count($columns));
     }
 
     public function testIsValidColumn()

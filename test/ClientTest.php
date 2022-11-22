@@ -53,6 +53,8 @@ class ClientTest extends TestCase
         $this->responseParser = $this->createMock(ResponseParser::class);
         $urlBuilder = $this->createMock(UrlBuilder::class);
 
+        $urlBuilder->expects($this->any())->method('build')->with($this->request)->willReturn('https://sausages.com');
+
         $this->instance = new Client($this->key, $this->requestFactory,  $this->responseParser, $this->resultFactory, $urlBuilder, $guzzle);
     }
 
